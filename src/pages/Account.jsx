@@ -1,11 +1,12 @@
 import '../assets/styles/account.css';
+import Title from '../components/Title';
 
 function Account() {
   return (
     <>
       <section>
         <div className="container">
-          <h1>Boutique</h1>
+          <Title text='Mon compte' />
 
         </div>
       </section>

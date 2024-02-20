@@ -1,4 +1,5 @@
 import '../assets/styles/cart.css';
+import Title from '../components/Title';
 
 
 function Cart() {
@@ -7,7 +8,7 @@ function Cart() {
       <section>
         <div className="container">
 
-          <h1>Panier</h1>
+          <Title text='Panier' />
         </div>
       </section>
 

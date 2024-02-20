@@ -13,14 +13,14 @@ function Concerts() {
     setConcerts([
       {
         id: 1,
-        event: "Concert 1",
+        event: "Le Ferrailleur",
         datetime: new Date("2024-02-21T20:45:00"),
         location: "Salle de concert A",
         image: "basaalt.png"
       },
       {
         id: 2,
-        event: "Concert 2",
+        event: "La nuit du métal",
         datetime: new Date("2024-02-21T20:45:00"),
         location: "Salle de concert B",
         image: "basaalt.png"
