@@ -1,0 +1,24 @@
+.youtube-card {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.grid .youtube-card {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .text * {
+    font-size: 1rem;
+    font-weight: normal;
+  }
+}

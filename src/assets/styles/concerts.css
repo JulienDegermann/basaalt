@@ -1,0 +1,39 @@
+.concert-card {
+  margin: 2rem 0;
+  height: 144px;
+  width: 100%;
+  display: flex;
+  box-shadow: 0 4px 4px var(--dark);
+
+  img {
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+
+  .info {
+    height: 100%;
+    padding: 1rem;
+    flex: 1;
+    flex-wrap: nowrap;
+
+    * {
+      flex: 2;
+    }
+
+    .CTA {
+      flex: 1;
+      text-align: center;
+
+    }
+  }
+
+  .date {
+    width: 200px;
+    height: 100%;
+    background: var(--primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+}

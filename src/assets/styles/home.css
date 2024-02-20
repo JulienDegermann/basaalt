@@ -1,0 +1,45 @@
+#heroBanner {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0;
+
+  h1 {
+    color: var(--light);
+    position: relative;
+    font-weight: normal;
+  }
+
+  .CTA {
+    position: relative;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+/* HOME PAGE ONLY */
+.home-card,
+.social {
+  flex: 1;
+  padding: 0 1rem;
+  margin: 2.5rem 0;
+
+  img {
+    width: 100%;
+  }
+}
+
