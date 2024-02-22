@@ -15,8 +15,8 @@ export default function Concert({ concert }) {
           <h2>{concert.event}</h2>
           <p>{concert.location}</p>
         </div>
-        <a href="" className="CTA">
-          plus d'info
+        <a href="https://google.com" target="_blank" className="CTA">
+          plus d&apos;infos
         </a>
       </div>
 

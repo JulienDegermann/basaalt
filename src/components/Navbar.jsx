@@ -1,30 +1,53 @@
 import { NavLink } from "react-router-dom";
+import Button from "./Button";
+import { CartContext } from "../hooks/CartContext";
+import { useContext } from "react";
+import ShopCart from "./svgs/ShopCart";
+import Account from "./svgs/Account";
 
 export default function Navbar() {
+
+  const { cart } = useContext(CartContext);
+
+  let totalCount = 0;
+  cart.map((article) => {
+    totalCount += article.quantity;
+  });
+  function showCart() {
+    document.querySelector('.cart-content').classList.remove('hide');
+  }
 
   return (
     <div className="navigation">
       <ul>
-        <NavLink to="/" className={ nav => nav.isActive ? "active" : ""}>
+        <NavLink to="/" className={nav => nav.isActive ? "active" : ""}>
           <li>Accueil</li>
         </NavLink>
-        <NavLink to="/nos-concerts" className={ nav => nav.isActive ? "active" : ""}>
+        <NavLink to="/nos-concerts" className={nav => nav.isActive ? "active" : ""}>
           <li>Concerts</li>
         </NavLink>
-        <NavLink to="/la-boutique" className={ nav => nav.isActive ? "active" : ""}>
+        <NavLink to="/la-boutique" className={nav => nav.isActive ? "active" : ""}>
           <li>Boutique</li>
         </NavLink>
-        <NavLink to="/contact" className={ nav => nav.isActive ? "active" : ""}>
+        <NavLink to="/contact" className={nav => nav.isActive ? "active" : ""}>
           <li>Contact</li>
         </NavLink>
       </ul>
-      <ul>
-        <NavLink to="/mon-compte" className={ nav => nav.isActive ? "active" : ""}>
-          <li>Compte</li>
+      <ul className="cart-container">
+        <NavLink to="/mon-compte" className={nav => nav.isActive ? "active" : ""}>
+          <li>{<Account />}</li>
         </NavLink>
-        <NavLink to="/mon-panier" className={ nav => nav.isActive ? "active" : ""}>
-          <li>Panier</li>
-        </NavLink>
+        <Button
+          text={<ShopCart />}
+          className="cart-button flex justify-center align-center"
+          onClick={showCart}
+        />
+        {
+          cart.length > 0 && (<p className="article-count flex justify-center align-center">{totalCount}</p>)
+        }
+
+
+
       </ul>
     </div>
   )

@@ -3,23 +3,37 @@ import { useState } from 'react'
 import Button from './Button.jsx';
 import ShoppingCart from '../components/svgs/ShoppingCart.jsx';
 
-export default function Article({ article }) {
+export default function Article({ article, cart, setCart }) {
   const [articleCount, setArticleCount] = useState(1);
 
   function removeArticle() {
-    console.log('coucou')
-
     articleCount > 1 ? setArticleCount(parseInt(articleCount) - 1) : setArticleCount(articleCount);
   }
   function addArticle() {
-    console.log('coucou')
     setArticleCount(parseInt(articleCount) + 1);
+  }
+
+  function addToCart() {
+
+    let newCart = [...cart];
+
+    for (let i = 0; i < articleCount; i++) {
+      if (newCart.some(e => e.id === article.id)) {
+        newCart.find(e => e.id === article.id).quantity++;
+      } else {
+        newCart.push(article);
+      }
+    }
+
+
+    setArticleCount(1);
+    setCart(newCart);
   }
 
   return (
     <div className="shop-card">
       {/* change image */}
-      <img src="./images/basaalt.png" alt="" />
+      <img src="./images/basaalt.png" alt="image de l'article" />
       <div className="text">
         <div className="flex justify-between">
           <p>{article.name}</p>
@@ -38,7 +52,6 @@ export default function Article({ article }) {
               className="input-count"
               type="text"
               inputMode='numeric'
-              readOnly
               min="1"
               value={articleCount}
               onChange={(e) => setArticleCount(e.target.value)} />
@@ -50,7 +63,7 @@ export default function Article({ article }) {
             />
           </div>
 
-          <Button onClick={addArticle} text={<ShoppingCart />} className="CTA"/>
+          <Button onClick={addToCart} text={<ShoppingCart />} className="CTA" />
         </div>
 
       </div>
@@ -59,5 +72,7 @@ export default function Article({ article }) {
 }
 
 Article.propTypes = {
-  article: PropTypes.object.isRequired
+  article: PropTypes.object.isRequired,
+  setCart: PropTypes.func.isRequired,
+  cart: PropTypes.array.isRequired,
 }

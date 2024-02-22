@@ -1,9 +1,7 @@
 import '../assets/styles/concerts.css';
 import { useEffect, useState } from 'react';
-import Header from '../components/Header.jsx';
 import Concert from '../components/Concert.jsx';
 import Title from '../components/Title.jsx';
-import Footer from '../components/Footer.jsx';
 
 function Concerts() {
 
@@ -85,16 +83,16 @@ function Concerts() {
 
   return (
     <>
-      <Header />
       <section>
         <div className="container">
-          <Title text="Concerts" />
+          
+          <Title level="2" text="Toutes nos dates"/>
+
           {concerts.map((concert) => (
             <Concert key={concert.id} concert={concert} />
           ))}
         </div>
       </section>
-      <Footer />
     </>
   )
 }

@@ -4,6 +4,7 @@ import Title from '../components/Title';
 import Facebook from '../components/svgs/Facebook.jsx';
 import Instagram from '../components/svgs/Instagram.jsx';
 import Youtube from '../components/svgs/Youtube.jsx';
+import { NavLink } from 'react-router-dom';
 
 import '../assets/styles/home.css';
 
@@ -55,13 +56,21 @@ function Home() {
       {/* <Header /> */}
 
       <section id="heroBanner">
-        <img src="images/basaalt.png" alt="logo du groupe Basaalt" title="logo du groupe Basaalt" />
-        <h1>Basaalt, le groupe de groove métal atlernatif</h1>
-        <Button
-          className='CTA'
-          url='/nos-concerts'
-          text='tous nos clips'
+        <img
+          src="images/basaalt.png"
+          alt="logo du groupe Basaalt"
+          title="logo du groupe Basaalt"
         />
+        
+        <Title leve="2" text="Basaalt, le groupe de groove métal atlernatif" />
+
+        <NavLink to="/nos-clips" className={nav => nav.isActive ? "active" : ""}>
+          <Button
+            className='CTA'
+            text='tous nos clips'
+          />
+        </NavLink>
+
       </section>
 
       <section>
@@ -86,7 +95,7 @@ function Home() {
 
           <Title text="Nous suivre" />
 
-          <p >
+          <p>
             Réseaux sociaux, plateformes d’écoutes ou encore YouTube, n’hésitez pas à nous suivre sur les réseaux pour ne rien manquer ! 🤘
           </p>
           <div className="flex justify-around align-center">

@@ -1,0 +1,48 @@
+form {
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  padding: 1rem;
+
+
+  input,
+  textarea {
+    margin-bottom: 1rem;
+    margin-top: .5rem;
+  
+    padding: .5rem;
+    border-radius: 5px;
+    border: 1px solid var(--dark);
+  
+    &:focus {
+      box-shadow: 0 0px 4px var(--primary);
+      border-color: var(--primary);
+      outline: none;
+    }
+  }
+  
+  textarea {
+    resize: vertical;
+    height: 300px;
+  }
+  
+  label {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  input[type="submit"] {
+    background: var(--primary);
+    box-shadow: 0 4px 4px var(--dark);
+    margin: 1rem;
+    padding: 1rem 3rem;
+    border-radius: 30px;
+    color: var(--dark);
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+

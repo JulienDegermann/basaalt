@@ -19,6 +19,6 @@ export default function Button({ url, className, text, onClick}) {
 Button.propTypes = {
   url: PropTypes.string,
   className: PropTypes.string,
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onClick: PropTypes.func
 }
