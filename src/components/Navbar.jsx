@@ -4,8 +4,15 @@ import { CartContext } from "../hooks/CartContext";
 import { useContext } from "react";
 import ShopCart from "./svgs/ShopCart";
 import Account from "./svgs/Account";
+import Close from "./svgs/Close";
+import BurgerMenu from "../components/svgs/BurgerMenu.jsx";
+
 
 export default function Navbar() {
+
+  function menuOpening() {
+    document.querySelector('.menu').classList.add('open');
+  }
 
   const { cart } = useContext(CartContext);
 
@@ -17,9 +24,18 @@ export default function Navbar() {
     document.querySelector('.cart-content').classList.remove('hide');
   }
 
+  function menuClosing() {
+    document.querySelector('.menu').classList.remove('open');
+  }
+
   return (
     <div className="navigation">
-      <ul>
+                <Button text={<BurgerMenu />} className="mobile" onClick={menuOpening} />
+
+      <ul className="menu">
+        <Button className="mobile" text={<Close />} onClick={menuClosing} />
+        
+        
         <NavLink to="/" className={nav => nav.isActive ? "active" : ""}>
           <li>Accueil</li>
         </NavLink>

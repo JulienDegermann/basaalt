@@ -44,26 +44,27 @@ p {
   line-height: 2;
 }
 
-
-
 .container {
   margin: auto;
   height: 100%;
+  padding: 0 1rem;
+
 
   @media screen and (min-width: 1400px) {
     width: 1200px;
   }
 
   @media screen and (min-width: 1100px) and (max-width: 1399px) {
-    width: 1000px;
+    width: 1100px;
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1099px) {
-    width: 90%;
-  }
-
-  @media screen and (max-width: 767px) {
+  @media screen and (min-width: 1024px) and (max-width: 1099px) {
     width: 95%;
+  }
+
+  @media screen and (max-width: 1023px) {
+    padding: 0;
+    width: 90%;
   }
 }
 
@@ -76,8 +77,79 @@ header {
   background: var(--dark);
   line-height: 1;
 
+  .container>.flex {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .flex>svg {
+
+    @media screen and (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  svg {
+    background-color: transparent !important;
+    width: 40px;
+    height: 40px;
+
+    @media screen and (max-width: 1023px) {
+      height: 30px;
+      width: 30px;
+    }
+
+    path {
+      fill: var(--primary);
+    }
+  }
+
+  .navigation .menu {
+
+    svg {
+      display: none;
+      position: absolute;
+      top: 1.25rem;
+      left: 2.1rem;
+    }
+
+    @media screen and (max-width: 1023px) {
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: var(--dark);
+      padding: 3rem 2rem;
+      width: 50%;
+      border: 1px solid var(--primary);
+      z-index: 10;
+      height: 100vh;
+      justify-content: flex-start;
+      transform: translateX(-100%);
+      transition: transform .25s ease-in-out;
+
+
+      li {
+        padding: 1rem 1rem;
+      }
+
+      &.open {
+        transform: translateX(0);
+      }
+
+      svg {
+        display: block;
+      }
+    }
+  }
+
   .navigation .cart-container {
     position: relative;
+    justify-content: flex-end;
+
+    svg {
+      display: initial;
+    }
 
     .article-count {
       position: absolute;
@@ -93,16 +165,6 @@ header {
       box-shadow: 0 0 5px var(--dark) inset;
     }
 
-    svg {
-      width: 40px;
-      height: 40px;
-      background: var(--dark);
-
-      path {
-        fill: var(--primary);
-      }
-    }
-
     li,
     button {
       cursor: pointer;
@@ -112,8 +174,6 @@ header {
 
 footer {
   background: var(--dark);
-
-
 
   .flex {
     flex-wrap: nowrap;
@@ -125,7 +185,12 @@ footer {
       .navigation {
         flex-direction: column;
         align-items: flex-start;
-        
+
+        @media screen and (max-width: 1023px) {
+          display: inline-block;
+          width: auto;
+        }
+
         .cart-container {
           display: none;
         }
@@ -141,7 +206,7 @@ footer {
       }
 
       .section-title {
-        font-size: 1rem;
+        font-size: 2rem;
         margin-bottom: .5rem;
       }
     }
@@ -150,7 +215,7 @@ footer {
 
 
 section {
-  padding: 4rem 0;
+  padding: 4rem 1rem;
 
   &:first-of-type {
     margin-top: 84px;
@@ -165,20 +230,20 @@ h4,
 h5,
 h6 {
   font-family: 'Rock Salt';
+  font-family: 'Metal Mania';
 }
 
 
 .navigation {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  flex: 1;
+  padding: 1rem 1rem;
+  width: 100%;
+  justify-content: space-between;
 
   ul {
     display: flex;
     justify-content: space-around;
-
 
     .active li {
       color: var(--primary);
@@ -193,57 +258,65 @@ h6 {
       color: var(--light);
       font-weight: bold;
       font-size: 1rem;
+      text-transform: uppercase;
+
+      @media screen and (max-width: 1023px) {
+        padding: .25rem;
+
+      }
     }
   }
 }
 
-.flex {
-  display: flex;
-  width: 100%;
+@media screen and (min-width: 1024px) {
+  .flex {
+    display: flex;
+    width: 100%;
 
-  &.col {
-    flex-direction: column;
+    &.col {
+      flex-direction: column;
+    }
+
+    &.justify-around {
+      justify-content: space-around;
+    }
+
+    &.justify-between {
+      justify-content: space-between;
+    }
+
+    &.justify-center {
+      justify-content: center;
+    }
+
+    &.justify-start {
+      justify-content: flex-start;
+    }
+
+    &.justify-end {
+      justify-content: flex-end;
+    }
+
+    &.align-center {
+      align-items: center;
+    }
+
+    &.align-start {
+      align-items: flex-start;
+    }
+
+    &.align-end {
+      align-items: flex-end;
+    }
   }
 
-  &.justify-around {
-    justify-content: space-around;
-  }
-
-  &.justify-between {
-    justify-content: space-between;
-  }
-
-  &.justify-center {
-    justify-content: center;
-  }
-
-  &.justify-start {
-    justify-content: flex-start;
-  }
-
-  &.justify-end {
-    justify-content: flex-end;
-  }
-
-  &.align-center {
+  .inline-flex {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    width: auto;
+    flex-direction: column-reverse;
   }
-
-  &.align-start {
-    align-items: flex-start;
-  }
-
-  &.align-end {
-    align-items: flex-end;
-  }
-}
-
-.inline-flex {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  flex-direction: column-reverse;
 }
 
 .CTA {
@@ -273,10 +346,47 @@ h6 {
   font-weight: bold;
   color: var(--primary);
   text-shadow: 0px 2px 0px var(--dark);
-  font-size: 2rem;
+  font-size: 3rem;
   border-bottom: 1px solid var(--primary);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   padding-bottom: .5rem;
+}
+
+
+#main-title {
+  display: inline-block;
+  width: auto;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+
+  @media screen and (min-width: 1024px) and (max-width: 1400px) {
+    position: initial;
+    width: 100%;
+    transform: translate(0, 0);
+    top: 0;
+    left: 0;
+    text-align: center;
+    padding: 1rem;
+    padding-bottom: 0;
+  }
+
+  h1.section-title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+
+    @media screen and (min-width: 520px) and (max-width: 1024px) {
+      font-size: 2rem;
+    }
+
+    @media screen and (min-width: 1024px)  {
+      font-size: 2.5rem;
+    }
+  }
 }
 
 h1.section-title {
@@ -284,8 +394,11 @@ h1.section-title {
   margin-bottom: 0;
   padding-bottom: 0;
   color: var(--light);
-  font-size: 1rem;
+  font-size: 2.5rem;
+  width: auto;
+
 }
+
 
 .grid {
   width: 100%;
@@ -308,15 +421,15 @@ svg {
   border-radius: 50%;
   background: var(--primary);
   transition: all .25s linear;
-  
+
   &:hover {
     background: var(--dark);
-    
+
     path {
       fill: var(--primary);
     }
   }
-  
+
   path {
     fill: var(--dark);
     margin: 1rem;
@@ -328,39 +441,58 @@ svg {
   position: fixed;
   right: 0;
   top: 0;
-  width: 500px;
   padding: 3rem;
   background: var(--light);
   height: 100%;
   z-index: 100;
   transition: transform .25s ease-in-out;
+  width: 100%;
+
+  @media screen and (min-width: 1024px) {
+    width: 350px;
+  }
 
   &.container {
     position: initial;
     width: 100%;
 
     .cart-total>p {
-      width: auto;
+
       font-size: 2rem;
     }
   }
 
   .close {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.5rem;
     background: none;
     border: none;
 
+    @media screen and (min-width: 1024px) {
+
+      left: 2rem;
+    }
+
+    @media screen and (max-width: 1023px) {
+
+      right: 2rem;
+    }
+
+
     svg {
-      width: 40px;
-      height: 40px;
       padding: 0;
       box-shadow: none;
       background: var(--primary);
       background: var(--dark);
       padding: .5rem;
       border-radius: 50%;
+      width: 40px;
+      height: 40px;
+
+      @media screen and (max-width: 1023px) {
+        height: 30px;
+        width: 30px;
+      }
 
       path {
         fill: var(--primary);
@@ -442,5 +574,17 @@ svg {
       background: var(--primary) !important;
       font-weight: bold;
     }
+  }
+}
+
+
+.mobile {
+  background: transparent !important;
+  border: none;
+  padding: 1rem;
+  display: inline-block;
+
+  @media screen and (min-width: 1024px) {
+    display: none;
   }
 }

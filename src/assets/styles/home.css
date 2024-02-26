@@ -8,7 +8,7 @@
   justify-content: flex-end;
   align-items: center;
   margin: 0;
-  padding: 1rem;
+  /* padding: 1rem; */
 
   .section-title {
     color: var(--light);
@@ -17,7 +17,7 @@
     border: none;
     padding: 0;
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   .CTA {
@@ -26,6 +26,7 @@
     padding: 1rem 3rem;
     border-radius: 50px;
     letter-spacing: 10px;
+    /* margin-top: .5rem; */
   }
 
   img {
@@ -43,9 +44,36 @@
 .social {
   flex: 1;
   padding: 0 1rem;
-  margin: 2.5rem 0;
+  margin: 2.5rem 0 0;
 
   img {
     width: 100%;
+    height: 140px;
+    object-fit: cover;
+  }
+}
+
+#youtube-player {
+  text-align: center;
+  padding: 2rem;
+
+  iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    margin: auto 1em;
+    /* border-radius: 20px; */
+    box-shadow: 0 0 10px 5px var(--dark);
+    border: none;
+  }
+}
+
+.social-container {
+  p {
+    text-align: center;
+    margin: 2rem auto;
+  }
+  .flex{
+    margin: 2rem 0;
   }
 }

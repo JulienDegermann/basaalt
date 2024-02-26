@@ -1,14 +1,14 @@
 import Button from '../components/Button';
 import HomeCard from '../components/HomeCard';
 import Title from '../components/Title';
-import Facebook from '../components/svgs/Facebook.jsx';
-import Instagram from '../components/svgs/Instagram.jsx';
-import Youtube from '../components/svgs/Youtube.jsx';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import '../assets/styles/home.css';
 
-function Home() {
+function Home({ networks }) {
 
   const datas = [
     {
@@ -33,36 +33,31 @@ function Home() {
     },
   ];
 
-  const networks = [
-    {
-      name: "Facebook",
-      url: "https://www.facebook.com",
-      image: Facebook
-    },
-    {
-      name: "Instagram",
-      url: "https://www.instagram.com",
-      image: Instagram
-    },
-    {
-      name: "Youtube",
-      url: "https://www.youtube.com",
-      image: Youtube
-    }
-  ];
+  const [videos, setVideos] = useState([]);
+  const url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=UUIglxpOHFAdn3BvORlLZiZw&key=AIzaSyBN_XjaRjYYR5DqxN9JirdiYSVWuMnrqoI';
+
+
+  const loading = videos.length === 0 ? 'Chargement...' : '';
+
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((res) => setVideos(res.data.items))
+      .catch(
+        (err) => console.log(err)
+      )
+  }, [])
 
   return (
     <>
-      {/* <Header /> */}
-
       <section id="heroBanner">
         <img
           src="images/basaalt.png"
           alt="logo du groupe Basaalt"
           title="logo du groupe Basaalt"
         />
-        
-        <Title leve="2" text="Basaalt, le groupe de groove métal atlernatif" />
+
+        <Title leve="2" text="Groove métal atlernatif" />
 
         <NavLink to="/nos-clips" className={nav => nav.isActive ? "active" : ""}>
           <Button
@@ -91,14 +86,14 @@ function Home() {
       </section>
 
       <section>
-        <div className="container">
+        <div className="container social-container">
 
           <Title text="Nous suivre" />
 
           <p>
             Réseaux sociaux, plateformes d’écoutes ou encore YouTube, n’hésitez pas à nous suivre sur les réseaux pour ne rien manquer ! 🤘
           </p>
-          <div className="flex justify-around align-center">
+          <div className="flex justify-around align-center ">
             {
               networks.map((network, index) => {
                 return (
@@ -107,8 +102,18 @@ function Home() {
                   </a>
                 )
               })}
-
           </div>
+          <div id="youtube-player">
+            {/* errors in logs */}
+            {/* {
+              videos.map((video, index) => (
+                <iframe key={index} src={`https://www.youtube.com/embed/${video.snippet.resourceId.videoId}`} allowFullScreen title="Youtube Video"></iframe>
+              ))
+            } */}
+          </div>
+
+
+
         </div>
       </section>
     </>
@@ -116,3 +121,8 @@ function Home() {
 }
 
 export default Home;
+
+
+Home.propTypes = {
+  networks: PropTypes.array
+}

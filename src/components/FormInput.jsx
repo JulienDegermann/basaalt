@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types';
 
-export default function FormInput({ type, name, label, value, onChange, placeholder, error }) {
+export default function FormInput({ 
+  type, 
+  name, 
+  label, 
+  defaultValue, 
+  onChange, 
+  placeholder, 
+  error, 
+  children }) {
 
   if (type == 'textarea') {
     console.log('textarea');
@@ -17,7 +25,25 @@ export default function FormInput({ type, name, label, value, onChange, placehol
 
 
     )
-  } else {
+  } else if (type == 'select') {
+    return (
+      <>
+        <label htmlFor={name}>{label}</label>
+        <select
+          name={name}
+          id={name}
+          required
+          placeholder={placeholder}
+          onChange={onChange}
+          defaultValue={defaultValue}
+        >
+          {children}
+        </select>
+      </>
+    )
+  }
+  
+  else {
 
     return (
 
@@ -31,7 +57,7 @@ export default function FormInput({ type, name, label, value, onChange, placehol
           type={type}
           name={name}
           id={name}
-          value={value}
+          defaultValue={defaultValue}
           onChange={onChange}
           required
           placeholder={placeholder}
@@ -46,9 +72,10 @@ FormInput.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   placeholder: PropTypes.string,
-  error: PropTypes.string
+  error: PropTypes.string,
+  children: PropTypes.node
 }

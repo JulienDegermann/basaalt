@@ -6,3 +6,7 @@
   font-family: 'Plus Jakarta Sans';
   src: url("../fonts/Plus_Jakarta_Sans/static/PlusJakartaSans-Regular.ttf");
 }
+@font-face {
+  font-family: 'Metal Mania';
+  src: url("../fonts/Metal_Mania/MetalMania-Regular.ttf");
+}

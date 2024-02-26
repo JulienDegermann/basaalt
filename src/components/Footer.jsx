@@ -1,12 +1,13 @@
 import Navbar from "./Navbar";
 import Facebook from "../components/svgs/Facebook.jsx";
-import Instagram from "../components/svgs/Instagram.jsx";
 import YouTube from "../components/svgs/Youtube.jsx";
 import Title from "./Title";
+import Spotify from "./svgs/Spotify.jsx";
+import PropTypes from 'prop-types';
 
 
 
-export default function Footer() {
+export default function Footer({ networks }) {
   return (
     <footer>
       <div className="container">
@@ -22,10 +23,15 @@ export default function Footer() {
           </div>
           <div>
             <Title text="Nous suivre" />
-            <div className="flex">
-              <Facebook />
-              <Instagram />
-              <YouTube />
+            <div className="flex justify-around">
+            {
+              networks.map((network, index) => {
+                return (
+                  <a className="social-links" key={index} href={network.url}>
+                    <network.image />
+                  </a>
+                )
+              })}
             </div>
 
           </div>
@@ -33,4 +39,8 @@ export default function Footer() {
       </div>
     </footer>
   )
+}
+
+Footer.propTypes = {
+  networks: PropTypes.array
 }

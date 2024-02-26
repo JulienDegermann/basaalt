@@ -2,6 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  input {
+    margin: 0;
+    border-radius: 0;
+  }
 }
 
 .shop-card {
@@ -68,4 +73,3 @@
   text-align: center;
   padding: 0;
 }
-

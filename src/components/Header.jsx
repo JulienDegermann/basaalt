@@ -7,12 +7,13 @@ export default function Header() {
   return (
     <header>
       <div className="container">
-        <div className="flex  align-center">
 
-          <NavLink to="/" className={nav => nav.isActive ? "active" : ""}>
-            <Title level="1" text="Basaalt.com" />
-          </NavLink>
 
+        <NavLink to="/" id="main-title" className={nav => nav.isActive ? "active" : ""}>
+          <Title level="1" text="Basaalt.com" />
+        </NavLink>
+
+        <div className="flex justify-between align-center">
           <Navbar />
         </div>
 
