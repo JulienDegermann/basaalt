@@ -219,6 +219,11 @@ section {
 
   &:first-of-type {
     margin-top: 84px;
+
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      margin-top: 162px;
+
+    }
   }
 }
 
@@ -383,7 +388,7 @@ h6 {
       font-size: 2rem;
     }
 
-    @media screen and (min-width: 1024px)  {
+    @media screen and (min-width: 1024px) {
       font-size: 2.5rem;
     }
   }
@@ -437,71 +442,124 @@ svg {
   }
 }
 
-.cart-content {
+.cart-background {
   position: fixed;
-  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  left: 0;
   top: 0;
   padding: 3rem;
-  background: var(--light);
+  background: rgba(0, 0, 0, .5);
   height: 100%;
   z-index: 100;
-  transition: transform .25s ease-in-out;
   width: 100%;
+  backdrop-filter: blur(5px);
+  padding: 0;
+  z-index: 100;
+  opacity: 1;
+  transition: all .5s;
 
-  @media screen and (min-width: 1024px) {
-    width: 350px;
-  }
 
-  &.container {
-    position: initial;
-    width: 100%;
+  /* display cart */
+  .cart-content {
+    background: var(--light);
+    padding: 2rem;
+    position: relative;
+    opacity: 1;
+    z-index: 100;
+    transform: translateX(0);
+    transition: transform .5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    .cart-total>p {
-
-      font-size: 2rem;
+    >.flex:first-of-type {
+      flex: 1;
     }
-  }
 
-  .close {
-    position: absolute;
-    top: 1.5rem;
-    background: none;
-    border: none;
+    .flex {
+      display: flex;
+
+      &.justify-between {
+        justify-content: space-between;
+      }
+
+      &.justify-center {
+        justify-content: center;
+      }
+
+      &.col {
+        flex-direction: column;
+      }
+    }
 
     @media screen and (min-width: 1024px) {
-
-      left: 2rem;
+      border-radius: 5px 0 0 5px;
+      max-width: 350px;
     }
 
-    @media screen and (max-width: 1023px) {
+    .close {
+      position: absolute;
+      top: 1.5rem;
+      background: none;
+      border: none;
 
-      right: 2rem;
-    }
+      svg {
+        background-color: transparent !important;
+
+        path {
+          fill: var(--dark) !important;
+        }
+      }
 
 
-    svg {
-      padding: 0;
-      box-shadow: none;
-      background: var(--primary);
-      background: var(--dark);
-      padding: .5rem;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
+
+      @media screen and (min-width: 1024px) {
+        right: 2rem;
+      }
 
       @media screen and (max-width: 1023px) {
-        height: 30px;
-        width: 30px;
+        right: 2rem;
       }
 
-      path {
-        fill: var(--primary);
-      }
 
-      border: none;
-      cursor: pointer;
+      svg {
+        padding: 0;
+        box-shadow: none;
+        background: var(--primary);
+        background: var(--dark);
+        padding: .5rem;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+
+        @media screen and (max-width: 1023px) {
+          height: 30px;
+          width: 30px;
+        }
+
+        path {
+          fill: var(--primary);
+        }
+
+        border: none;
+        cursor: pointer;
+      }
     }
   }
+
+  &.hide {
+    z-index: -10;
+    background: rgba(0, 0, 0, 0);
+    transition: background .5s, z-index 0s .5s;
+
+    /* hide cart */
+    .cart-content {
+      transform: translateX(100%);
+      transition: transform .5s ease-in-out;
+    }
+  }
+
 
   >div {
     flex: 1;
@@ -525,6 +583,11 @@ svg {
     box-shadow: 0 4px 4px var(--dark);
     margin: 1rem 0;
     padding: .5rem;
+
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   .cart-total {
@@ -544,9 +607,7 @@ svg {
     }
   }
 
-  &.hide {
-    transform: translateX(100%);
-  }
+
 
   table {
     border-collapse: collapse;
@@ -577,6 +638,9 @@ svg {
   }
 }
 
+footer .mobile {
+  display: none;
+}
 
 .mobile {
   background: transparent !important;

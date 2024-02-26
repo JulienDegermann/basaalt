@@ -16,12 +16,19 @@ export default function Navbar() {
 
   const { cart } = useContext(CartContext);
 
+
+  document.querySelectorAll('.navigation a').forEach((e) => {
+    e.addEventListener('click', () => {
+      document.querySelector('.menu').classList.remove('open');
+    })
+  })
+
   let totalCount = 0;
   cart.map((article) => {
     totalCount += article.quantity;
   });
   function showCart() {
-    document.querySelector('.cart-content').classList.remove('hide');
+    document.querySelector('.cart-background').classList.remove('hide');
   }
 
   function menuClosing() {

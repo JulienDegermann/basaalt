@@ -5,10 +5,20 @@
   display: flex;
   box-shadow: 0 4px 4px var(--dark);
 
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+    height: auto;
+    position: relative;
+  }
+
   img {
     height: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .info {
@@ -16,24 +26,49 @@
     padding: 1rem;
     flex: 1;
     flex-wrap: nowrap;
+    display: flex;
+    width: 100%;
+    align-items: center;
 
-    * {
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+    }
+
+    &>div {
       flex: 2;
     }
 
-    .CTA {
+    &>.CTA {
       flex: 1;
       text-align: center;
+
+      @media screen and (max-width: 768px) {
+        margin: 0;
+        align-self: flex-end;
+        padding: .5rem 1rem;
+        font-size: .9rem
+      }
 
     }
   }
 
   .date {
-    width: 200px;
+    max-width: 200px;
     height: 100%;
     background: var(--primary);
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
+    padding: 1rem;
+
+    @media screen and (max-width: 768px) {
+      padding: 0;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 100%;
+    }
   }
 }

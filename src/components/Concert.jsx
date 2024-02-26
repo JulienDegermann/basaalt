@@ -8,9 +8,9 @@ export default function Concert({ concert }) {
   }
 
   return (
-    <div className="concert-card flex justify-between align-center">
+    <div className="concert-card justify-between align-center">
       <img src={`./images/${concert.image}`} alt="" />
-      <div className="info flex justify-between align-center">
+      <div className="info justify-between align-center">
         <div className=" flex align-start justify-center col">
           <h2>{concert.event}</h2>
           <p>{concert.location}</p>

@@ -21,7 +21,7 @@ export default function Footer({ networks }) {
             <Navbar />
 
           </div>
-          <div>
+          <div className="social-container">
             <Title text="Nous suivre" />
             <div className="flex justify-around">
             {

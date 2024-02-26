@@ -37,8 +37,6 @@ function Home({ networks }) {
   const url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=UUIglxpOHFAdn3BvORlLZiZw&key=AIzaSyBN_XjaRjYYR5DqxN9JirdiYSVWuMnrqoI';
 
 
-  const loading = videos.length === 0 ? 'Chargement...' : '';
-
   useEffect(() => {
     axios
       .get(url)

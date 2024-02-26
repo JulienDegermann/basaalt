@@ -35,12 +35,12 @@ export default function Article({ article, cart, setCart }) {
       {/* change image */}
       <img src="./images/basaalt.png" alt="image de l'article" />
       <div className="text">
-        <div className="flex justify-between">
+        <div>
           <p>{article.name}</p>
-          <p>{article.price}</p>
+          <p>{article.price} €</p>
 
         </div>
-        <div className="flex justify-betweens">
+        <div>
           <div className="flex align-center">
             <Button
               text="-"

@@ -72,10 +72,11 @@ FormInput.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  defaultvalue: PropTypes.string,
+  onChange: PropTypes.func,
   required: PropTypes.bool,
   placeholder: PropTypes.string,
   error: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  defaultValue: PropTypes.string
 }

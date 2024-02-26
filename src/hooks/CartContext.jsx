@@ -11,7 +11,7 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   
   function close() {
-    document.querySelector('.cart-content').classList.add('hide');
+    document.querySelector('.cart-background').classList.add('hide');
   }
 
   let totalCost = 0
@@ -20,15 +20,9 @@ export function CartProvider({ children }) {
   })
   totalCost = (Math.round(totalCost * 100)) / 100;
 
-  // hide back bucket when click outside
-  // document.querySelectorAll("#root, #root *").forEach((e) => {
-  //   e.addEventListener('click', () => {
-  //     sideCart.classList.contains('hide') ? null : sideCart.classList.add('hide');
-  //   })
-  // })
-
   return (
     <CartContext.Provider value={{ cart, setCart }}>
+      <div className="cart-background hide">
       <div className="flex col cart-content justify-between hide">
 
         <Button text={<Close />} className="close" onClick={close} />
@@ -55,6 +49,8 @@ export function CartProvider({ children }) {
             <li>voir mon panier</li>
           </NavLink>
         </div>
+      </div>
+
       </div>
       {children}
     </CartContext.Provider>

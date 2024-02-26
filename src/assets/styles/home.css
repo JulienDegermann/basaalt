@@ -8,7 +8,6 @@
   justify-content: flex-end;
   align-items: center;
   margin: 0;
-  /* padding: 1rem; */
 
   .section-title {
     color: var(--light);
@@ -26,7 +25,12 @@
     padding: 1rem 3rem;
     border-radius: 50px;
     letter-spacing: 10px;
-    /* margin-top: .5rem; */
+
+    @media screen and (max-width: 768px) {
+      font-size: 1rem;
+      letter-spacing: 5px;
+
+    }
   }
 
   img {
@@ -45,6 +49,10 @@
   flex: 1;
   padding: 0 1rem;
   margin: 2.5rem 0 0;
+
+  p:first-of-type {
+    text-transform: uppercase;
+  }
 
   img {
     width: 100%;
@@ -69,11 +77,17 @@
 }
 
 .social-container {
+  .flex {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
   p {
     text-align: center;
     margin: 2rem auto;
   }
-  .flex{
+
+  .flex {
     margin: 2rem 0;
   }
 }

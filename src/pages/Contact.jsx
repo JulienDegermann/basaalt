@@ -14,7 +14,6 @@ function Contact() {
           <form 
             action="" 
             method="POST"
-            className="flex col"
           >
             <FormInput
               type="text"
@@ -47,6 +46,7 @@ function Contact() {
             <FormInput
               type="submit"
               name="Envoyer"
+              label=""
             />
           </form>
         </div>
