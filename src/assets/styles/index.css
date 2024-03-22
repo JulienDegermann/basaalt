@@ -163,11 +163,18 @@ header {
       border-radius: 50%;
       line-height: 1;
       box-shadow: 0 0 5px var(--dark) inset;
+
+      &.flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
 
     li,
     button {
       cursor: pointer;
+
     }
   }
 }
@@ -250,8 +257,8 @@ h6 {
     display: flex;
     justify-content: space-around;
 
-    .active li {
-      color: var(--primary);
+    li .active{
+      color: var(--primary)!important;
     }
 
     li,
@@ -264,6 +271,10 @@ h6 {
       font-weight: bold;
       font-size: 1rem;
       text-transform: uppercase;
+
+      * {
+        color: var(--light);
+      }
 
       @media screen and (max-width: 1023px) {
         padding: .25rem;
@@ -442,6 +453,40 @@ svg {
   }
 }
 
+.cart-total p {
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+section .cart-total p {
+  margin-top: 2rem;
+}
+
+.cart-item {
+  box-shadow: 0 4px 4px var(--dark);
+  margin: 1rem 0;
+  padding: .5rem;
+
+  h3.section-title {
+    font-size: 1.5rem;
+  }
+
+  h4.section-title {
+    margin: 0;
+    border: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-align: left;
+    font-size: 1.5rem;
+    text-shadow: none;
+    color: var(--dark);
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 .cart-background {
   position: fixed;
   display: flex;
@@ -560,35 +605,11 @@ svg {
     }
   }
 
-
   >div {
     flex: 1;
   }
 
-  h3.section-title {
-    font-size: 1.5rem;
-  }
 
-  h4.section-title {
-    margin: 0;
-    border: none;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    text-align: left;
-    font-size: 1.5rem;
-    text-shadow: none;
-    color: var(--dark);
-  }
-
-  .cart-item {
-    box-shadow: 0 4px 4px var(--dark);
-    margin: 1rem 0;
-    padding: .5rem;
-
-    .flex {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
 
   .cart-total {
     text-transform: uppercase;
@@ -606,36 +627,6 @@ svg {
       align-self: center;
     }
   }
-
-
-
-  table {
-    border-collapse: collapse;
-    width: 100%;
-
-    tr,
-    td,
-    th {
-      /* border: 1px solid var(--dark); */
-      padding: 1rem;
-      text-align: left;
-    }
-
-    tr:nth-child(2n + 1) {
-      background: var(--light);
-    }
-
-    tr:nth-child(2n) {
-      background: var(--primary);
-      /* filter: brightness(2.1); */
-    }
-
-    thead>tr,
-    tfooter>tr {
-      background: var(--primary) !important;
-      font-weight: bold;
-    }
-  }
 }
 
 footer .mobile {
@@ -651,4 +642,10 @@ footer .mobile {
   @media screen and (min-width: 1024px) {
     display: none;
   }
+}
+
+.cart-button .flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 export default function Social({ networks }) {
-  console.log(networks);
   const card = networks.map((data, index) => {
     return (
       <div key={index} className="social">

@@ -45,7 +45,7 @@ export function CartProvider({ children }) {
         <div className='cart-total flex justify-center'>
           <p>total</p>
           <p>{`${totalCost} €`}</p>
-          <NavLink to="/mon-panier" className={nav => nav.isActive ? "active CTA" : "CTA"}>
+          <NavLink to="/mon-panier" className={nav => nav.isActive ? "active CTA" : "CTA"} onClick={close}>
             <li>voir mon panier</li>
           </NavLink>
         </div>

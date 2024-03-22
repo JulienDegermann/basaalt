@@ -10,42 +10,44 @@ import '../assets/styles/home.css';
 
 function Home({ networks }) {
 
-  const datas = [
-    {
-      firstName: "Alex",
-      role: "Lead vocal / Rythm guitar",
-      image: "basaalt.png"
-    },
-    {
-      firstName: "Jérémie",
-      role: "Lead guitar",
-      image: "basaalt.png"
-    },
-    {
-      firstName: "Antoine",
-      role: "Bass guitar / Back vocal",
-      image: "basaalt.png"
-    },
-    {
-      firstName: "Thomas",
-      role: "Drums",
-      image: "basaalt.png"
-    },
-  ];
+  const [bandMembers, setBandMembers] = useState([]);
+  const [band, setBand] = useState([]);
+
+  const [albums,  setAlbums] = useState([]);
+
+
 
   const [videos, setVideos] = useState([]);
-  const url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=UUIglxpOHFAdn3BvORlLZiZw&key=AIzaSyBN_XjaRjYYR5DqxN9JirdiYSVWuMnrqoI';
-
-
+  
+  
   useEffect(() => {
+    const url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=UUIglxpOHFAdn3BvORlLZiZw&key=AIzaSyBN_XjaRjYYR5DqxN9JirdiYSVWuMnrqoI';
     axios
       .get(url)
-      .then((res) => setVideos(res.data.items))
+      .then(res => setVideos(res.data.items))
       .catch(
-        (err) => console.log(err)
-      )
+        err => console.log(err)
+      );
+
+    axios
+      .get("https://127.0.0.1:8000/api/songs")
+      .then(res => { 
+        console.log(res.data)
+        // setAlbums(res.data['hydra:member'][0]) 
+      })
+      .catch(e => console.log(e));
+
+    axios
+      .get("https://127.0.0.1:8000/api/bands")
+      .then(res => { 
+        setBand(res.data['hydra:member'][0]) 
+        setBandMembers(res.data['hydra:member'][0].bandMember)
+      })
+      .catch(e => console.log(e));
+
   }, [])
 
+  console.log(albums);
   return (
     <>
       <section id="heroBanner">
@@ -72,14 +74,27 @@ function Home({ networks }) {
           <Title text="Le groupe" />
 
           <p>
-            Né de la rencontre de quatre musiciens expérimentés, percuté par leurs diverses influences, Basaalt est un groupe de Groove Métal Alternatif. Il propose une musique puissante et organique agrémentée de touches électroniques. En résulte une musique épique qui prend tout son sens sur scène.
+            {band.description}
           </p>
 
+
+
           <div className="flex justify-between align-center">
-            <HomeCard
-              datas={datas}
-            />
+            {
+              bandMembers.map((bandMember, index) => {
+                return (
+                  <HomeCard
+                    firstName={bandMember.firstName}
+                    role={bandMember.bandRole}
+                    image="basaalt.png"
+                    key={index}
+                  />
+                )
+
+              })
+            }
           </div>
+
         </div>
       </section>
 
@@ -96,7 +111,7 @@ function Home({ networks }) {
               networks.map((network, index) => {
                 return (
                   <a className="social-links" key={index} href={network.url}>
-                    <network.image />
+                    {/* <network.image /> */}
                   </a>
                 )
               })}

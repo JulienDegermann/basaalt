@@ -55,7 +55,7 @@ function Videos() {
           </FormInput>
 
           {loading && (<div><h1>{loading}</h1> <br /> </div>)}
-          <div className="grid">
+          <div className="grid youtube">
             {
               videos.map((video, index) => (
               <YoutubeCard key={index} video={video} />

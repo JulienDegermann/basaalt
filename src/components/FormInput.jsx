@@ -11,7 +11,6 @@ export default function FormInput({
   children }) {
 
   if (type == 'textarea') {
-    console.log('textarea');
     return (
       <>
         <label htmlFor={name}>{label}</label>

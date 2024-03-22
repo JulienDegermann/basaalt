@@ -16,10 +16,7 @@ export default function Header() {
         <div className="flex justify-between align-center">
           <Navbar />
         </div>
-
       </div>
-
     </header>
-
   )
 }

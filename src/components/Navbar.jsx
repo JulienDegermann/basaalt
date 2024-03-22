@@ -16,12 +16,11 @@ export default function Navbar() {
 
   const { cart } = useContext(CartContext);
 
+  function closeMenu() {
+    document.querySelector('.menu').classList.remove('open');
+    console.log('closeMenu');
 
-  document.querySelectorAll('.navigation a').forEach((e) => {
-    e.addEventListener('click', () => {
-      document.querySelector('.menu').classList.remove('open');
-    })
-  })
+  }
 
   let totalCount = 0;
   cart.map((article) => {
@@ -37,27 +36,33 @@ export default function Navbar() {
 
   return (
     <div className="navigation">
-                <Button text={<BurgerMenu />} className="mobile" onClick={menuOpening} />
+      <Button text={<BurgerMenu />} className="mobile" onClick={menuOpening} />
 
       <ul className="menu">
         <Button className="mobile" text={<Close />} onClick={menuClosing} />
-        
-        
-        <NavLink to="/" className={nav => nav.isActive ? "active" : ""}>
-          <li>Accueil</li>
-        </NavLink>
-        <NavLink to="/nos-concerts" className={nav => nav.isActive ? "active" : ""}>
-          <li>Concerts</li>
-        </NavLink>
-        <NavLink to="/la-boutique" className={nav => nav.isActive ? "active" : ""}>
-          <li>Boutique</li>
-        </NavLink>
-        <NavLink to="/contact" className={nav => nav.isActive ? "active" : ""}>
-          <li>Contact</li>
-        </NavLink>
+        <li>
+          <NavLink to="/" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu}>
+            Accueil
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/nos-concerts" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu} >
+            Concerts
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/la-boutique" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu} >
+            Boutique
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/contact" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu} >
+            Contact
+          </NavLink>
+        </li>
       </ul>
       <ul className="cart-container">
-        <NavLink to="/mon-compte" className={nav => nav.isActive ? "active" : ""}>
+        <NavLink to="/mon-compte" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu} >
           <li>{<Account />}</li>
         </NavLink>
         <Button

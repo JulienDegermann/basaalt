@@ -10,34 +10,27 @@ import Account from './pages/Account.jsx';
 import Cart from './pages/Cart.jsx';
 import Countries from './pages/Countries.jsx';
 import Videos from './pages/Videos.jsx';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CartProvider, CartContext } from './hooks/CartContext.jsx';
 import Facebook from './components/svgs/Facebook.jsx';
 import Spotify from './components/svgs/Spotify.jsx';
 import Youtube from './components/svgs/Youtube.jsx';
+import axios from 'axios';
 
 
 function App() {
   const { cart } = useContext(CartContext);
+  const [networks, setNetworks] = useState([]);
 
-  const networks = [
-    {
-      name: "Facebook",
-      url: "https://www.facebook.com/basaaltband/",
-      image: Facebook
-    },
-    {
-      name: "Spotify",
-      url: "https://open.spotify.com/artist/5CP1jB3dlYFMZgA9iC8fUd?si=C2dPWrgRSuGFpgy9rqFBsg",
-      image: Spotify
-    },
-    {
-      name: "Youtube",
-      url: "https://www.youtube.com/@basaalt",
-      image: Youtube
-    }
-  ];
 
+  useEffect(() => {
+    axios
+      .get("https://127.0.0.1:8000/")
+      .then((res) => {
+        setNetworks(res.data.plateformLinks)
+      })
+      .catch(e => console.log(e))
+  }, [])
   return (
     <>
       <BrowserRouter>

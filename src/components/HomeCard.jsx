@@ -1,29 +1,23 @@
 import PropTypes from 'prop-types';
 
-export default function HomeCard({ datas }) {
+export default function HomeCard({ firstName, role, image }) {
   return (
     <>
-      {datas.map((data, index) => {
-          return (
-            <div key={index} className="home-card">
-              <img src={`./images/${data.image}`} alt={data.firstName} />
-              <p>{data.firstName}</p>
-              <p>{data.role}</p>
-            </div>
-          )
-        })
-      }
+
+      <div className="home-card">
+        <img src={`./images/${image}`} alt={firstName} />
+        <p>{firstName}</p>
+        <p>{role}</p>
+      </div>
+
     </>
   )
 }
 
 HomeCard.propTypes = {
-  index: PropTypes.number,
-  datas: PropTypes.arrayOf(
-    PropTypes.shape({
-      image: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      role: PropTypes.string.isRequired,
-    }).isRequired
-  )
+  firstName: PropTypes.string.isRequired,
+
+  image: PropTypes.string,
+  role: PropTypes.string.isRequired,
 }
+
