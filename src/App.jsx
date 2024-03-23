@@ -25,9 +25,10 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("https://127.0.0.1:8000/")
+      .get("https://127.0.0.1:8000/api/plateforms")
       .then((res) => {
-        setNetworks(res.data.plateformLinks)
+        console.log(res.data['hydra:member'])
+        setNetworks(res.data['hydra:member'])
       })
       .catch(e => console.log(e))
   }, [])

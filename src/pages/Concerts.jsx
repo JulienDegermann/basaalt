@@ -1,14 +1,23 @@
 import '../assets/styles/concerts.css';
 import { useEffect, useState } from 'react';
-import Concert from '../components/Concert.jsx';
-import Title from '../components/Title.jsx';
+import Concert from '../components/Concert';
+import Title from '../components/Title';
+import axios from 'axios';
 
 function Concerts() {
 
-  const [concerts, setConcerts] = useState([])
+  const [lives, setLives] = useState([])
 
   useEffect(() => {
-    setConcerts([
+
+    axios
+    .get("https://127.0.0.1:8000/api/lives")
+    .then((res) => {
+      console.log(res.data['hydra:member'])
+      setLives(res.data['hydra:member'])
+    })
+    .catch(e => console.log(e))
+    setLives([
       {
         id: 1,
         event: "Le Ferrailleur",
@@ -85,11 +94,11 @@ function Concerts() {
     <>
       <section>
         <div className="container">
-          
-          <Title level="2" text="Toutes nos dates"/>
 
-          {concerts.map((concert) => (
-            <Concert key={concert.id} concert={concert} />
+          <Title level="2" text="Toutes nos dates" />
+
+          {lives.map((live) => (
+            <Concert key={live.id} concert={live} />
           ))}
         </div>
       </section>

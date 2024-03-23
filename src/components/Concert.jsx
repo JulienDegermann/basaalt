@@ -2,18 +2,25 @@ import PropsTypes from 'prop-types';
 
 export default function Concert({ concert }) {
 
-  function formatDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return new Intl.DateTimeFormat('fr-FR', options).format(date);
-  }
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-EN',  options);
+    return formattedDate;
+  };
 
+  const cityName = concert.city ? concert.city.name : "";
+  const cityCode = concert.city ? concert.city.zipCode : "";
   return (
     <div className="concert-card justify-between align-center">
-      <img src={`./images/${concert.image}`} alt="" />
+      {/* <img src={`./images/${concert.image}`} alt="" /> */}
+      <img src="./images/basaalt.png" alt="" />
       <div className="info justify-between align-center">
         <div className=" flex align-start justify-center col">
-          <h2>{concert.event}</h2>
-          <p>{concert.location}</p>
+          <h2>{concert.eventName}</h2>
+          <p>{concert.address}</p>
+          <p>{cityCode} {cityName.toUpperCase()}
+          </p>
+
         </div>
         <a href="https://google.com" target="_blank" className="CTA">
           plus d&apos;infos
@@ -21,7 +28,7 @@ export default function Concert({ concert }) {
       </div>
 
       <div className="flex align-center justify-center date">
-        <p>{formatDate(concert.datetime)}</p>
+        <p>{formatDate(concert.eventDate)}</p>
       </div>
     </div>
   )
@@ -30,9 +37,13 @@ export default function Concert({ concert }) {
 Concert.propTypes = {
   concert: PropsTypes.shape({
     id: PropsTypes.number.isRequired,
-    event: PropsTypes.string.isRequired,
-    datetime: PropsTypes.instanceOf(Date).isRequired,
-    location: PropsTypes.string.isRequired,
-    image: PropsTypes.string.isRequired
+    eventName: PropsTypes.string,
+    eventDate: PropsTypes.string,
+    address: PropsTypes.string,
+    city: PropsTypes.shape({
+      name: PropsTypes.string.isRequired,
+      zipCode: PropsTypes.string.isRequired
+    }),
+    image: PropsTypes.string
   }).isRequired
 }

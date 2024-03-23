@@ -35,7 +35,7 @@ label {
   margin-right: 1rem;
 }
 
-input[type="submit"] {
+.button.CTA {
   background: var(--primary);
   box-shadow: 0 4px 4px var(--dark);
   margin: 1rem;
@@ -46,4 +46,6 @@ input[type="submit"] {
   text-transform: uppercase;
   border: none;
   cursor: pointer;
+  width: auto;
+  height: auto;
 }
