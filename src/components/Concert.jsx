@@ -3,13 +3,16 @@ import PropsTypes from 'prop-types';
 export default function Concert({ concert }) {
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = new Date(dateString).toLocaleDateString('en-EN',  options);
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+    const formattedDate = new Date(dateString).toLocaleDateString('fr-FR',  options);
     return formattedDate;
   };
 
   const cityName = concert.city ? concert.city.name : "";
   const cityCode = concert.city ? concert.city.zipCode : "";
+
+
+  console.log(concert.eventDate)
   return (
     <div className="concert-card justify-between align-center">
       {/* <img src={`./images/${concert.image}`} alt="" /> */}

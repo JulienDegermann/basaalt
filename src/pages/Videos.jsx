@@ -20,7 +20,7 @@ function Videos() {
       .get(url)
       .then((res) => setVideos(res.data.items))
       .catch(
-        (err) => console.log(err)
+        // (err) => console.log(err)
       )
   }, [])
 

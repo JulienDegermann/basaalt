@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-export default function FormInput({ 
-  type, 
-  name, 
-  label, 
-  defaultValue, 
-  onChange, 
-  placeholder, 
-  error, 
+export default function FormInput({
+  type,
+  name,
+  label,
+  defaultValue,
+  onChange,
+  placeholder,
+  error,
   children }) {
 
   if (type == 'textarea') {
@@ -19,6 +19,7 @@ export default function FormInput({
           id={name}
           required
           placeholder={placeholder}
+          className = {error ? 'error' : ''}
         />
       </>
 
@@ -35,15 +36,15 @@ export default function FormInput({
           placeholder={placeholder}
           onChange={onChange}
           defaultValue={defaultValue}
+          className = {error ? 'error' : ''}
         >
           {children}
         </select>
       </>
     )
   }
-  
-  else {
 
+  else {
     return (
 
       <>
@@ -60,6 +61,7 @@ export default function FormInput({
           onChange={onChange}
           required
           placeholder={placeholder}
+          className={error ? 'error' : ''}
         />
         {error && <p>{error}</p>}
       </>

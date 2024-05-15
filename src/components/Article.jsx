@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react'
-import Button from './Button.jsx';
-import ShoppingCart from '../components/svgs/ShoppingCart.jsx';
+import { NavLink } from 'react-router-dom';
 
 export default function Article({ article, cart, setCart }) {
   const [articleCount, setArticleCount] = useState(1);
+
 
   function removeArticle() {
     articleCount > 1 ? setArticleCount(parseInt(articleCount) - 1) : setArticleCount(articleCount);
@@ -25,49 +25,23 @@ export default function Article({ article, cart, setCart }) {
       }
     }
 
-
     setArticleCount(1);
     setCart(newCart);
   }
 
   return (
-    <div className="shop-card">
-      {/* change image */}
-      <img src="./images/basaalt.png" alt="image de l'article" />
-      <div className="text">
-        <div>
+
+    <NavLink to={`/la-boutique/${article.id}`} className="shop-card">
+      {/* <div className="shop-card"> */}
+        {/* change image */}
+        {/* <img src="./images/basaalt.png" alt="image de l'article" /> */}
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="image de l'article" />
+        <div className="text">
           <p>{article.name}</p>
           <p>{article.price} €</p>
-
         </div>
-        <div>
-          <div className="flex align-center">
-            <Button
-              text="-"
-              className="button flex justify-center align-center"
-              onClick={removeArticle}
-            />
-
-            <input
-              className="input-count"
-              type="text"
-              inputMode='numeric'
-              min="1"
-              value={articleCount}
-              onChange={(e) => setArticleCount(e.target.value)} />
-
-            <Button
-              text="+"
-              className="button flex justify-center align-center"
-              onClick={addArticle}
-            />
-          </div>
-
-          <Button onClick={addToCart} text={<ShoppingCart />} className="CTA" />
-        </div>
-
-      </div>
-    </div>
+      {/* </div> */}
+    </NavLink>
   )
 }
 

@@ -8,8 +8,17 @@ import axios from 'axios';
 function Contact() {
 
   const [messages, setMessages] = useState([]);
-  const [messageDatas, setMessageDatas] = useState({});
+  const [messageDatas, setMessageDatas] = useState();
+  const [errors, setErrors] = useState({
+    text: '',
+    author: {
+      firstName: '',
+      lastName: '',
+      email: ''
+    }
+  });
 
+  // send message
   function sendMessage(e) {
     e.preventDefault();
     const firstName = document.getElementById('firstName').value;
@@ -17,10 +26,12 @@ function Contact() {
     const email = document.getElementById('email').value;
     const text = document.getElementById('message').value;
 
+
     if (firstName === '' || lastName === '' || email === '' || text === '') {
       alert('Message non envoyé');
       return;
     } else {
+      // check if user is already in database
       axios
         .get("https://127.0.0.1:8000/api/users?email=" + email)
         .then(response => {
@@ -28,19 +39,20 @@ function Contact() {
             text: text,
             author: undefined
           };
-          if (response.data['hydra:member'].length === 1) {
+          if (response.data['hydra:member'].length === 1) { // if found, use existing user and inject it in new.map
             newMessage.author = response.data['hydra:member'][0];
-          } else {
+          } else { //create new user and inject it in newMessage
             newMessage.author = {
               firstName: firstName,
               lastName: lastName,
               email: email
             };
           }
-          console.log('message');
-          console.log(newMessage);
+          
+          if (newMessage.author !== undefined) { // check if user is defined and injected in newMessage
+            // send message build with author(firstName, lastName, email) + text
 
-          if (newMessage.author !== undefined) {
+            // make a try catch to handle errors
             axios
               .post(
                 "https://127.0.0.1:8000/api/messages",
@@ -49,20 +61,40 @@ function Contact() {
                   headers:
                     { "Content-Type": "application/ld+json" }
                 })
-              .then(() => {
+              .then((res) => {
+                // reset errors and messageDatas
+                setErrors({})
                 setMessageDatas(newMessage);
               })
               .catch(error => {
-                console.log(error);
+                if (error.response.status == 422) {
+                  const newErrors = { ...errors };
+                  error.response.data.violations.forEach((violation) => {
+                    switch (violation.propertyPath) {
+                      case 'author.firstName':
+                        newErrors.author.firstName = violation.message;
+                        break;
+                      case 'author.lastName':
+                        newErrors.author.lastName = violation.message;
+                        break;
+                      case 'author.email':
+                        newErrors.author.email = violation.message;
+                        break;
+                      case 'text':
+                        newErrors.text = violation.message;
+                        break;
+
+                    }
+                    setErrors(newErrors);
+                  })
+                }
               });
           }
-        })
-        .catch(error => {
-          console.log(error);
         });
     }
   }
-
+  
+  // display messages
   useEffect(() => {
     axios
       .get("https://127.0.0.1:8000/api/messages")
@@ -90,24 +122,28 @@ function Contact() {
               label="Prénom"
               placeholder='Entrez votre prénom'
             />
+            {errors.author.firstName && <p className="error">{errors.author.firstName}</p>}
             <FormInput
               type="text"
               name="lastName"
               label="Nom"
               placeholder='Entrez votre nom'
             />
+            {errors.author.lastName && <p className="error">{errors.author.lastName}</p>}
             <FormInput
               type="email"
               name="email"
               label="E-mail"
               placeholder='Entrez votre e-mail'
             />
+            {errors.author.email && <p className="error">{errors.author.email}</p>}
             <FormInput
               type="textarea"
               name="message"
               label="Message"
               placeholder='Écrivez votre message ici'
             />
+            {errors.text && <p className="error">{errors.text}</p>}
             <Button
               text="Envoyer"
               className="CTA button"

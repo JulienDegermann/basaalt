@@ -14,16 +14,15 @@ import PropTypes from 'prop-types';
 export default function Footer({ networks }) {
 
   // find a way to dynamically render svgs
-  // const newNetworks = [];
-  // networks.map((network) => {
-  //   console.log(network)
-  //   newNetworks[network.name] = {
-  //     id: network.id,
-  //     name: network.name,
-  //     url: network.url,
-  //     logo: <network.name />
-  //   }
-  // })
+  const newNetworks = [];
+  networks.map((network) => {
+    newNetworks[network.name] = {
+      id: network.id,
+      name: network.name,
+      url: network.url,
+      logo: <network.name />
+    }
+  })
 
 
   return (

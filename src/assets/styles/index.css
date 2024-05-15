@@ -1,8 +1,8 @@
 @import './fonts.css';
 
 :root {
-  --light: white;
-  --dark: black;
+  --light: #FFF;
+  --dark: #000;
   --primary: #DAD178;
 }
 
@@ -648,4 +648,15 @@ footer .mobile {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.error {
+  color: #FF0000; 
+  font-size: .9em;
+  font-style: italic;
+
+  &::before {
+    content: '⛔️ ';
+    font-style: normal;
+  }
 }

@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import Article from '../components/Article.jsx';
 import '../assets/styles/shop.css';
 import { CartContext } from '../hooks/CartContext.jsx';
+import axios from 'axios';
 
 function Boutique() {
 
@@ -13,48 +14,14 @@ function Boutique() {
   const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
-    setArtciles([
-      {
-        name: "Chemise",
-        category: "Vêtements",
-        price: 25.99,
-        description: "Chemise en coton à manches longues.",
-        id: 1,
-        quantity: 1
-      },
-      {
-        name: "Ordinateur portable",
-        category: "Électronique",
-        price: 899.99,
-        description: "Ordinateur portable avec processeur rapide et écran HD.",
-        id: 2,
-        quantity: 1
-      },
-      {
-        name: "Livre",
-        category: "Livres",
-        price: 12.49,
-        description: "Roman best-seller de science-fiction.",
-        id: 3,
-        quantity: 1
-      },
-      {
-        name: "Livre",
-        category: "Livres",
-        price: 12.49,
-        description: "Roman best-seller de science-fiction.",
-        id: 4,
-        quantity: 1
-      },
-      {
-        name: "Livre",
-        category: "Livres",
-        price: 12.49,
-        description: "Roman best-seller de science-fiction.",
-        id: 5,
-        quantity: 1
-      }
-    ])
+    axios
+      .get("https://127.0.0.1:8000/api/articles")
+      .then(response => {
+        setArtciles(response.data['hydra:member'])
+      })
+      .catch(error => {
+        console.error('Error fetching data: ', error)
+      })
   }, [])
 
   return (
@@ -65,9 +32,18 @@ function Boutique() {
 
           <div className="grid shop">
             {
-              articles.map((article, index) => (
-                <Article key={index} article={article} setCart={setCart} cart={cart} />
-              ))
+              articles.map((article, index) => {
+                if (article.stocks.length != 0) {
+                  return (
+                    <Article
+                      key={index}
+                      article={article}
+                      setCart={setCart}
+                      cart={cart} />
+
+                  )
+                }
+              })
             }
           </div>
         </div>

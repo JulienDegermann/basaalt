@@ -32,7 +32,6 @@ function Home({ networks }) {
     axios
       .get("https://127.0.0.1:8000/api/songs")
       .then(res => { 
-        console.log(res.data)
         // setAlbums(res.data['hydra:member'][0]) 
       })
       .catch(e => console.log(e));
@@ -47,7 +46,6 @@ function Home({ networks }) {
 
   }, [])
 
-  console.log(albums);
   return (
     <>
       <section id="heroBanner">

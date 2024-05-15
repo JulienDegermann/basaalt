@@ -9,6 +9,7 @@ import Contact from './pages/Contact.jsx';
 import Account from './pages/Account.jsx';
 import Cart from './pages/Cart.jsx';
 import Countries from './pages/Countries.jsx';
+import ArticleDetail from './pages/ArticleDetail.jsx';
 import Videos from './pages/Videos.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { CartProvider, CartContext } from './hooks/CartContext.jsx';
@@ -27,7 +28,6 @@ function App() {
     axios
       .get("https://127.0.0.1:8000/api/plateforms")
       .then((res) => {
-        console.log(res.data['hydra:member'])
         setNetworks(res.data['hydra:member'])
       })
       .catch(e => console.log(e))
@@ -42,6 +42,7 @@ function App() {
               <Route path="/" element={<Home networks={networks} />} />
               <Route path="/nos-concerts" element={<Concerts />} />
               <Route path="/la-boutique" element={<Boutique />} />
+              <Route path="/la-boutique/:id" element={<ArticleDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/mon-compte" element={<Account />} />
               <Route path="/mon-panier" element={<Cart />} />
