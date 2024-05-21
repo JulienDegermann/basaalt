@@ -13,9 +13,6 @@ import ArticleDetail from './pages/ArticleDetail.jsx';
 import Videos from './pages/Videos.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { CartProvider, CartContext } from './hooks/CartContext.jsx';
-import Facebook from './components/svgs/Facebook.jsx';
-import Spotify from './components/svgs/Spotify.jsx';
-import Youtube from './components/svgs/Youtube.jsx';
 import axios from 'axios';
 
 

@@ -11,56 +11,63 @@ export default function Article() {
   const { cart, setCart } = useContext(CartContext);
 
   const [size, setSize] = useState('');
+  const [color, setColor] = useState('');
   const [article, setArticle] = useState({});
   const [stockQuantity, setStockQuantity] = useState(1);
   const [quantity, setQuantity] = useState(1);
+  const quantities = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, "10 et +"
+  ]
   const id = useParams('id').id;
-
   const [order, setOrder] = useState({ article: article, size: size, quantity: quantity });
 
-  function addToCart() {
-    console.log(cart)
-    const exist = cart.find( item => item.article === order.article && item.size === order.size);
-    if (exist) {
-      bv
-    }
-    setCart(cart => [...cart, { article: article, size: size, quantity: quantity }])
-  }
-
-
+  // function addToCart() {
+  //   console.log(cart)
+  //   const exist = cart.find( item => item.article === order.article && item.size === order.size);
+  //   if (exist) {
+  //     bv
+  //   }
+  //   setCart(cart => [...cart, { article: article, size: size, quantity: quantity }])
+  // }
 
   useEffect(() => {
-    axios.get('https://127.0.0.1:8000/api/articles/' + id)
-      .then((res) => {
+    // get article datas
+    const getDatas = async () => {
+      try {
+        const res = await axios.get('https://127.0.0.1:8000/api/articles/' + id)
+        // return res.data.stocks = res.data.stocks.filter(stock => stock.quantity > 0)
         setArticle(res.data)
         setStockQuantity(res.data.stocks[0].quantity)
+        setColor(res.data.stocks[0].color)
         setSize(res.data.stocks[0].size)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+      } catch (e) {
+        // save error in logs
+        console.log(e)
+      }
+    }
+    getDatas()
+  }, [id, size, color, stockQuantity])
 
-  }, [id])
 
-  const quantities = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, '10 et +'
-  ]
 
 
   useEffect(() => {
     if (article.stocks) {
-      const test = Array.from(article.stocks).find(stock => stock.size === size)
+      const test = Array.from(article.stocks).find(stock => stock.size === size || stock.color === color)
       if (test) {
         setStockQuantity(test.quantity)
+        setColor(test.color)
+        setSize(test.size)
       }
     }
-  }, [article, size])
+  }, [article, size, color, stockQuantity])
 
-  useEffect( () => {
-    setOrder({ article: article, size: size, quantity: quantity })
-  } , [article, size, quantity])
+  useEffect(() => {
+    setOrder({ article: article, size: size, quantity: quantity, color: color })
+  }, [article, size, quantity, color])
 
-  console.log(order)
+  // console.log('article + quantité +  taille + couleur')
+  // console.log(order)
 
   return (
     <section>
@@ -114,11 +121,29 @@ export default function Article() {
               })}
             </FormInput>}
 
+            {article.stocks && article.stocks.map((stock, index) =>
+
+              <FormInput
+                name="color"
+                type="radio"
+                label={stock.color}
+                // id={stock.color}
+                value={color}
+                onChange={e => setColor(e.target.value)}
+                key={index}
+              />
+
+            )}
+
+
+
+
+
             {/* ADD TO CART */}
-            <Button
+            < Button
               text="Ajouter au panier"
               className="CTA"
-              onClick={addToCart}
+            // onClick={addToCart}
             />
             <p>
               P.U. : {article.price} €
@@ -128,6 +153,6 @@ export default function Article() {
 
         </div>
       </div>
-    </section>
+    </section >
   )
 }

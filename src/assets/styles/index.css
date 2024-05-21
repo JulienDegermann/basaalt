@@ -38,6 +38,7 @@ body {
 
 main {
   flex: 1;
+  position: relative;
 }
 
 p {
@@ -257,8 +258,8 @@ h6 {
     display: flex;
     justify-content: space-around;
 
-    li .active{
-      color: var(--primary)!important;
+    li .active {
+      color: var(--primary) !important;
     }
 
     li,
@@ -651,7 +652,7 @@ footer .mobile {
 }
 
 .error {
-  color: #FF0000; 
+  color: #FF0000;
   font-size: .9em;
   font-style: italic;
 
@@ -659,4 +660,79 @@ footer .mobile {
     content: '⛔️ ';
     font-style: normal;
   }
+}
+
+input:hover,
+label:hover,
+select:hover,
+textarea:hover,
+button:hover,
+a:hover {
+  cursor: pointer;
+}
+
+.modal {
+  position: absolute;
+  top: 200px;
+  left: 0;
+  width: auto;
+  height: auto;
+  /* background: white; */
+  z-index: 10000;
+
+  &>div {
+    position: relative;
+    padding: .5rem 2rem;
+    margin-bottom: .5rem;
+    border: 2px solid var(--dark);
+    border-radius: 0 0rem 1rem 0 / 0 50% 50% 0;
+
+    * {
+      color: var(--dark);
+    }
+
+    &.info, &.info button {
+      background: var(--primary);
+      border-color: darkgoldenrod;
+
+      button {
+        color: darkgoldenrod;
+      }
+    }
+
+    &.success, &.success button{
+      background: lightgreen;
+      border-color: darkgreen;
+
+      * {
+        color: darkgreen;
+      }
+    }
+
+    &.danger, &.danger button{
+      background: lightcoral;
+      border-color: darkred;
+
+      * {
+        color: darkred;
+      }
+    }
+
+    button {
+      position: absolute;
+      right: -.5rem;
+      top: -.5rem;
+      background: inherit;
+      color: white;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      z-index: 100;
+      border: 2px solid;
+    }
+  }
+
+
+
+
 }

@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Modal from '../components/Modal';
 
 import '../assets/styles/home.css';
 
@@ -13,13 +14,11 @@ function Home({ networks }) {
   const [bandMembers, setBandMembers] = useState([]);
   const [band, setBand] = useState([]);
 
-  const [albums,  setAlbums] = useState([]);
-
-
+  const [albums, setAlbums] = useState([]);
 
   const [videos, setVideos] = useState([]);
-  
-  
+
+
   useEffect(() => {
     const url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=UUIglxpOHFAdn3BvORlLZiZw&key=AIzaSyBN_XjaRjYYR5DqxN9JirdiYSVWuMnrqoI';
     axios
@@ -31,15 +30,15 @@ function Home({ networks }) {
 
     axios
       .get("https://127.0.0.1:8000/api/songs")
-      .then(res => { 
+      .then(res => {
         // setAlbums(res.data['hydra:member'][0]) 
       })
       .catch(e => console.log(e));
 
     axios
       .get("https://127.0.0.1:8000/api/bands")
-      .then(res => { 
-        setBand(res.data['hydra:member'][0]) 
+      .then(res => {
+        setBand(res.data['hydra:member'][0])
         setBandMembers(res.data['hydra:member'][0].bandMember)
       })
       .catch(e => console.log(e));
