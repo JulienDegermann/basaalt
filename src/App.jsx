@@ -22,12 +22,15 @@ function App() {
 
 
   useEffect(() => {
-    axios
-      .get("https://127.0.0.1:8000/api/plateforms")
-      .then((res) => {
-        setNetworks(res.data['hydra:member'])
-      })
-      .catch(e => console.log(e))
+    const getData = async () => {
+      try {
+        const datas = await axios.get("https://127.0.0.1:8000/api/plateforms")
+        setNetworks(datas.data['hydra:member'])
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
   }, [])
   return (
     <>

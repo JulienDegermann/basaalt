@@ -9,7 +9,8 @@ import { CartContext } from '../hooks/CartContext';
 export default function Article() {
 
   const { cart, setCart } = useContext(CartContext);
-
+  const [allStocks, setAllStocks] = useState([]);
+  const defaultStock = allStocks[0];
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
   const [article, setArticle] = useState({});
@@ -36,10 +37,25 @@ export default function Article() {
       try {
         const res = await axios.get('https://127.0.0.1:8000/api/articles/' + id)
         // return res.data.stocks = res.data.stocks.filter(stock => stock.quantity > 0)
+
         setArticle(res.data)
-        setStockQuantity(res.data.stocks[0].quantity)
-        setColor(res.data.stocks[0].color)
-        setSize(res.data.stocks[0].size)
+        const allStocks = res.data.stocks.filter(stock => {
+          if (size && color) {
+            return (stock.quantity > 0 && stock.size === size || stock.color === color)
+          } else {
+            return (stock.quantity > 0)
+          }
+        })
+        setAllStocks(allStocks)
+
+        console.log(`color : ${color} size : ${size}`)
+        console.log(allStocks)
+        const defaultStock = allStocks.find(stock => stock.quantity > 0)
+
+        setStockQuantity(defaultStock.quantity)
+        setColor(defaultStock.color)
+        setSize(defaultStock.size)
+
       } catch (e) {
         // save error in logs
         console.log(e)
@@ -48,37 +64,27 @@ export default function Article() {
     getDatas()
   }, [id, size, color, stockQuantity])
 
-
-
-
-  useEffect(() => {
-    if (article.stocks) {
-      const test = Array.from(article.stocks).find(stock => stock.size === size || stock.color === color)
-      if (test) {
-        setStockQuantity(test.quantity)
-        setColor(test.color)
-        setSize(test.size)
-      }
-    }
-  }, [article, size, color, stockQuantity])
-
   useEffect(() => {
     setOrder({ article: article, size: size, quantity: quantity, color: color })
   }, [article, size, quantity, color])
 
-  // console.log('article + quantité +  taille + couleur')
-  // console.log(order)
+
+  function changeColor(e) {
+    setColor(e.target.value)
+    setAllStocks(article.stocks.filter(stock => stock.color === e.target.value))
+  }
+
+
+  function changeSize(e) {
+    setSize(e.target.value)
+  }
 
   return (
     <section>
-
       <div className="container">
-
         <div className="flex">
-
           {/* <img src={article.image} alt={article.name} /> */}
           <img style={{ maxWidth: "50%", margin: "2rem" }} src="/images/basaalt.png" alt={article.name} />
-
           <div className="text">
             <h2>{article.name}</h2>
             <p>
@@ -110,7 +116,7 @@ export default function Article() {
               label="Taille"
               defaultValue={size}
               value={size}
-              onChange={(e) => setSize(e.target.value)}
+              onChange={changeSize}
             >
               {article.stocks.map((stock, index) => {
                 if (stock.quantity > 0) {
@@ -121,23 +127,19 @@ export default function Article() {
               })}
             </FormInput>}
 
+            {/* COLOR */}
             {article.stocks && article.stocks.map((stock, index) =>
-
               <FormInput
                 name="color"
                 type="radio"
                 label={stock.color}
                 // id={stock.color}
                 value={color}
-                onChange={e => setColor(e.target.value)}
+                onChange={changeColor}
                 key={index}
               />
 
             )}
-
-
-
-
 
             {/* ADD TO CART */}
             < Button

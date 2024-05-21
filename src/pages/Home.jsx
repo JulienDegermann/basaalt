@@ -13,37 +13,32 @@ function Home({ networks }) {
 
   const [bandMembers, setBandMembers] = useState([]);
   const [band, setBand] = useState([]);
-
   const [albums, setAlbums] = useState([]);
-
   const [videos, setVideos] = useState([]);
 
+  const getVideos = async () => {
+    const youtubeApi = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=UUIglxpOHFAdn3BvORlLZiZw&key=AIzaSyBN_XjaRjYYR5DqxN9JirdiYSVWuMnrqoI';
+    try {
+      const datas = await axios.get(youtubeApi)
+      setVideos(datas.data.items)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const getMembers = async () => {
+    try {
+      const datas = await axios.get("https://127.0.0.1:8000/api/bands")
+      setBandMembers(datas.data['hydra:member'][0].bandMember)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   useEffect(() => {
-    const url = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=UUIglxpOHFAdn3BvORlLZiZw&key=AIzaSyBN_XjaRjYYR5DqxN9JirdiYSVWuMnrqoI';
-    axios
-      .get(url)
-      .then(res => setVideos(res.data.items))
-      .catch(
-        err => console.log(err)
-      );
-
-    axios
-      .get("https://127.0.0.1:8000/api/songs")
-      .then(res => {
-        // setAlbums(res.data['hydra:member'][0]) 
-      })
-      .catch(e => console.log(e));
-
-    axios
-      .get("https://127.0.0.1:8000/api/bands")
-      .then(res => {
-        setBand(res.data['hydra:member'][0])
-        setBandMembers(res.data['hydra:member'][0].bandMember)
-      })
-      .catch(e => console.log(e));
-
-  }, [])
+    getVideos()
+    getMembers()
+    }, [])
 
   return (
     <>
@@ -67,9 +62,7 @@ function Home({ networks }) {
 
       <section>
         <div className="container">
-
           <Title text="Le groupe" />
-
           <p>
             {band.description}
           </p>

@@ -8,6 +8,13 @@ import axios from 'axios';
 function Contact() {
 
   const [messages, setMessages] = useState([]);
+  const [text, setText] = useState('');
+  const [author, setAuthor] = useState({
+    firstName: '',
+    lastName: '',
+    email: ''
+  });
+
   const [messageDatas, setMessageDatas] = useState();
   const [errors, setErrors] = useState({
     text: '',
@@ -21,49 +28,25 @@ function Contact() {
   // send message
   function sendMessage(e) {
     e.preventDefault();
-    // get form values
-    const firstName = document.getElementById('firstName').value;
-    const lastName = document.getElementById('lastName').value;
-    const email = document.getElementById('email').value;
-    const text = document.getElementById('message').value;
-
-    // check if user is already in database
-    const getUser = async () => {
-      try {
-        const res = axios.get("https://127.0.0.1:8000/api/users?email=" + email)
-        return res;
-      } catch (e) {
-        console.error(e)
-      }
-    }
-
-    const newMessage = async () => {
-      const datas = await getUser();
-      const author = datas.data['hydra:member'].length === 1 ? datas.data['hydra:member'][0] : null;
-
-      // build new message
-      const newMessage = {
-        text: text,
-        author: author ? author : {
-          firstName: firstName,
-          lastName: lastName,
-          email: email
-        }
-      }
-      return newMessage;
-    }
 
     const sendMessage = async () => {
       try {
-        const message = await newMessage();
+        const user = await axios.get("https://127.0.0.1:8000/api/users?email=" + author.email);
+
+        if (user.data['hydra:member'].length === 1) { setAuthor(user.data['hydra:member'][0]) }
+
+        const newMessage = {
+          text: text,
+          author: author
+        }
+
         const res = await axios.post(
           "https://127.0.0.1:8000/api/messages",
-          message,
+          newMessage,
           {
             headers:
               { "Content-Type": "application/ld+json" }
           })
-        console.log(res)
         if (res.status === 201) {
           setErrors({
             text: '',
@@ -73,10 +56,9 @@ function Contact() {
               email: ''
             }
           })
-          setMessageDatas(message);
+          setMessageDatas(newMessage);
         }
       } catch (error) {
-        // console.error(error)
         if (error.response.status == 422) {
           const newErrors = { ...errors };
 
@@ -125,6 +107,8 @@ function Contact() {
               name="firstName"
               label="Prénom"
               placeholder='Entrez votre prénom'
+              onChange={(e) => setAuthor({ ...author, firstName: e.target.value })
+              }
             />
             {errors.author.firstName && <p className="error">{errors.author.firstName}</p>}
             <FormInput
@@ -132,6 +116,8 @@ function Contact() {
               name="lastName"
               label="Nom"
               placeholder='Entrez votre nom'
+              onChange={(e) => setAuthor({ ...author, lastName: e.target.value })
+              }
             />
             {errors.author.lastName && <p className="error">{errors.author.lastName}</p>}
             <FormInput
@@ -139,6 +125,8 @@ function Contact() {
               name="email"
               label="E-mail"
               placeholder='Entrez votre e-mail'
+              onChange={(e) => setAuthor({ ...author, email: e.target.value })}
+
             />
             {errors.author.email && <p className="error">{errors.author.email}</p>}
             <FormInput
@@ -146,6 +134,8 @@ function Contact() {
               name="message"
               label="Message"
               placeholder='Écrivez votre message ici'
+              onChange={(e) => { setText(e.target.value) }}
+
             />
             {errors.text && <p className="error">{errors.text}</p>}
             <Button

@@ -20,6 +20,7 @@ export default function FormInput({
           id={name}
           required
           placeholder={placeholder}
+          onChange={onChange}
           className={error ? 'error' : ''}
         />
       </>
@@ -45,6 +46,7 @@ export default function FormInput({
     )
   } else if (type == 'radio') {
     const border = label === value ? '4px solid blue' : '1px solid';
+    console.log(value)
     return (
       
       <>
@@ -100,12 +102,11 @@ FormInput.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  defaultvalue: PropTypes.string,
+  defaultValue: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   placeholder: PropTypes.string,
   error: PropTypes.string,
   children: PropTypes.node,
-  defaultValue: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }

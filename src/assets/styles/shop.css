@@ -97,3 +97,15 @@
     fill: var(--dark) !important;
   }
 }
+
+
+.zero {
+  position: relative;
+  
+  &::before {
+    content: 'indisponible';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+}
