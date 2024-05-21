@@ -46,7 +46,6 @@ export default function FormInput({
     )
   } else if (type == 'radio') {
     const border = label === value ? '4px solid blue' : '1px solid';
-    console.log(value)
     return (
       
       <>

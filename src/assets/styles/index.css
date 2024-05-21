@@ -4,6 +4,10 @@
   --light: #FFF;
   --dark: #000;
   --primary: #DAD178;
+  --success: #8BC34A;
+  --danger: #FF0000;
+  --warning: #FFC107;
+  --gray: #999999;
 }
 
 * {
@@ -731,8 +735,4 @@ a:hover {
       border: 2px solid;
     }
   }
-
-
-
-
 }

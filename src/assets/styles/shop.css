@@ -109,3 +109,13 @@
     position: absolute;
   }
 }
+
+.sold-out {
+  color: var(--gray);
+  &::before {
+    content: 'ℹ️';
+    width: 100%;
+    height: 100%;
+    margin-right: .5rem;
+  }
+}
