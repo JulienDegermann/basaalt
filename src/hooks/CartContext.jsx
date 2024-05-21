@@ -15,7 +15,6 @@ export function CartProvider({ children }) {
   }
 
   let totalCost = 0
-  console.log(cart)
   cart.map((article) => {
     totalCost += article.price * article.quantity;
   })

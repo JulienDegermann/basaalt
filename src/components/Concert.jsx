@@ -11,8 +11,6 @@ export default function Concert({ concert }) {
   const cityName = concert.city ? concert.city.name : "";
   const cityCode = concert.city ? concert.city.zipCode : "";
 
-
-  console.log(concert.eventDate)
   return (
     <div className="concert-card justify-between align-center">
       {/* <img src={`./images/${concert.image}`} alt="" /> */}

@@ -21,90 +21,94 @@ function Contact() {
   // send message
   function sendMessage(e) {
     e.preventDefault();
+    // get form values
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
     const email = document.getElementById('email').value;
     const text = document.getElementById('message').value;
 
-
-    if (firstName === '' || lastName === '' || email === '' || text === '') {
-      alert('Message non envoyé');
-      return;
-    } else {
-      // check if user is already in database
-      axios
-        .get("https://127.0.0.1:8000/api/users?email=" + email)
-        .then(response => {
-          const newMessage = {
-            text: text,
-            author: undefined
-          };
-          if (response.data['hydra:member'].length === 1) { // if found, use existing user and inject it in new.map
-            newMessage.author = response.data['hydra:member'][0];
-          } else { //create new user and inject it in newMessage
-            newMessage.author = {
-              firstName: firstName,
-              lastName: lastName,
-              email: email
-            };
-          }
-          
-          if (newMessage.author !== undefined) { // check if user is defined and injected in newMessage
-            // send message build with author(firstName, lastName, email) + text
-
-            // make a try catch to handle errors
-            axios
-              .post(
-                "https://127.0.0.1:8000/api/messages",
-                newMessage,
-                {
-                  headers:
-                    { "Content-Type": "application/ld+json" }
-                })
-              .then((res) => {
-                // reset errors and messageDatas
-                setErrors({})
-                setMessageDatas(newMessage);
-              })
-              .catch(error => {
-                if (error.response.status == 422) {
-                  const newErrors = { ...errors };
-                  error.response.data.violations.forEach((violation) => {
-                    switch (violation.propertyPath) {
-                      case 'author.firstName':
-                        newErrors.author.firstName = violation.message;
-                        break;
-                      case 'author.lastName':
-                        newErrors.author.lastName = violation.message;
-                        break;
-                      case 'author.email':
-                        newErrors.author.email = violation.message;
-                        break;
-                      case 'text':
-                        newErrors.text = violation.message;
-                        break;
-
-                    }
-                    setErrors(newErrors);
-                  })
-                }
-              });
-          }
-        });
+    // check if user is already in database
+    const getUser = async () => {
+      try {
+        const res = axios.get("https://127.0.0.1:8000/api/users?email=" + email)
+        return res;
+      } catch (e) {
+        console.error(e)
+      }
     }
+
+    const newMessage = async () => {
+      const datas = await getUser();
+      const author = datas.data['hydra:member'].length === 1 ? datas.data['hydra:member'][0] : null;
+
+      // build new message
+      const newMessage = {
+        text: text,
+        author: author ? author : {
+          firstName: firstName,
+          lastName: lastName,
+          email: email
+        }
+      }
+      return newMessage;
+    }
+
+    const sendMessage = async () => {
+      try {
+        const message = await newMessage();
+        const res = await axios.post(
+          "https://127.0.0.1:8000/api/messages",
+          message,
+          {
+            headers:
+              { "Content-Type": "application/ld+json" }
+          })
+        console.log(res)
+        if (res.status === 201) {
+          setErrors({
+            text: '',
+            author: {
+              firstName: '',
+              lastName: '',
+              email: ''
+            }
+          })
+          setMessageDatas(message);
+        }
+      } catch (error) {
+        // console.error(error)
+        if (error.response.status == 422) {
+          const newErrors = { ...errors };
+
+          // get violations 
+          const violations = error.response.data.violations;
+
+          // foreach input, check if there is an error message -> if yes, display it
+          newErrors.author.firstName = violations.find((violation) => violation.propertyPath === 'author.firstName') ? violations.find((violation) => violation.propertyPath === 'author.firstName').message : '';
+          newErrors.author.lastName = violations.find((violation) => violation.propertyPath === 'author.lastName') ? violations.find((violation) => violation.propertyPath === 'author.lastName').message : '';
+          newErrors.author.email = violations.find((violation) => violation.propertyPath === 'author.email') ? violations.find((violation) => violation.propertyPath === 'author.email').message : '';
+          newErrors.text = violations.find((violation) => violation.propertyPath === 'text') ? violations.find((violation) => violation.propertyPath === 'text').message : '';
+
+          setErrors(newErrors);
+        }
+      }
+    }
+    sendMessage();
+
   }
-  
+
+
   // display messages
   useEffect(() => {
-    axios
-      .get("https://127.0.0.1:8000/api/messages")
-      .then(response => {
-        setMessages(response.data['hydra:member']);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
+    const datas = async () => {
+      try {
+        const res = await axios.get("https://127.0.0.1:8000/api/messages")
+        setMessages(res.data['hydra:member'])
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    datas()
   }, [messageDatas]);
 
   return (

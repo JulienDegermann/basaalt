@@ -10,12 +10,15 @@ function Concerts() {
 
   useEffect(() => {
 
-    axios
-    .get("https://127.0.0.1:8000/api/lives")
-    .then((res) => {
-      setLives(res.data['hydra:member'])
-    })
-    .catch(e => console.log(e))
+    const datas = async () => {
+      try {
+        const res = await axios.get("https://127.0.0.1:8000/api/lives")
+        setLives(res.data['hydra:member'])
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    datas()
   }, []);
 
   return (

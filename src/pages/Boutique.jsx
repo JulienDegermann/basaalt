@@ -14,14 +14,15 @@ function Boutique() {
   const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
-    axios
-      .get("https://127.0.0.1:8000/api/articles")
-      .then(response => {
-        setArtciles(response.data['hydra:member'])
-      })
-      .catch(error => {
-        console.error('Error fetching data: ', error)
-      })
+    const datas = async () => {
+      try {
+        const request = await axios.get("https://127.0.0.1:8000/api/articles")
+        setArtciles(request.data['hydra:member'])
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    datas()
   }, [])
 
   return (
