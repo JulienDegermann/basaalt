@@ -25,6 +25,8 @@ function Boutique() {
     datas()
   }, [])
 
+
+
   return (
     <>
       <section>
@@ -52,5 +54,6 @@ function Boutique() {
     </>
   )
 }
+
 
 export default Boutique;

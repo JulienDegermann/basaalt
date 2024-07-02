@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Button from "./Button";
 import { CartContext } from "../hooks/CartContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ShopCart from "./svgs/ShopCart";
 import Account from "./svgs/Account";
 import Close from "./svgs/Close";
@@ -15,6 +15,7 @@ export default function Navbar() {
   }
 
   const { cart } = useContext(CartContext);
+  const { totalItems } = useContext(CartContext);
 
   function closeMenu() {
     document.querySelector('.menu').classList.remove('open');
@@ -22,6 +23,9 @@ export default function Navbar() {
 
   }
 
+
+  useEffect(() => { }
+  )
   let totalCount = 0;
   cart.map((article) => {
     totalCount += article.quantity;
@@ -71,11 +75,8 @@ export default function Navbar() {
           onClick={showCart}
         />
         {
-          cart.length > 0 && (<p className="article-count flex justify-center align-center">{totalCount}</p>)
+          cart.length > 0 && (<p className="article-count flex justify-center align-center">{totalItems}</p>)
         }
-
-
-
       </ul>
     </div>
   )

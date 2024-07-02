@@ -1,15 +1,21 @@
 import PropTypes from "prop-types"
 
-export default function Button({ url, className, text, onClick}) {
+export default function Button({ url, className, text, onClick }) {
 
   if (url !== undefined) {
     return (
-      <a href={url} className={className}>
+      <a
+        href={url}
+        className={className}
+      >
         {text}
       </a>)
   } else {
     return (
-      <button onClick={onClick} className={className}>
+      <button
+        onClick={onClick}
+        className={className}
+      >
         {text}
       </button>
     )

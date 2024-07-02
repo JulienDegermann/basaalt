@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Title from '../components/Title.jsx';
 import { NavLink } from 'react-router-dom';
@@ -9,17 +9,21 @@ export const CartContext = createContext([]);
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [totalCost, setTotalCost] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
   
   function close() {
     document.querySelector('.cart-background').classList.add('hide');
   }
 
-  let totalCost = 0
-  cart.map((article) => {
-    totalCost += article.price * article.quantity;
-  })
-  totalCost = (Math.round(totalCost * 100)) / 100;
 
+  useEffect(() => {
+    setTotalCost(cart.reduce((acc, item) => acc + (item.article.price * item.quantity), 0))
+    setTotalItems(cart.reduce((acc, item) => acc + item.quantity, 0))
+  }, [cart])
+
+
+console.log(cart)
   return (
     <CartContext.Provider value={{ cart, setCart }}>
       <div className="cart-background hide">
@@ -30,12 +34,12 @@ export function CartProvider({ children }) {
         <Title level="3" text="Mon panier" />
         <div className="flex col">
           {
-            cart.map((article, index) => (
+            cart.map((item, index) => (
               <div key={index} className="cart-item">
-                <Title level="4" text={article.name} />
+                <Title level="4" text={item.article.name} />
                 <div className="flex justify-between">
-                  <p>{article.quantity} x {article.price}€</p>
-                  <p>{(Math.round(article.quantity * article.price * 100)) / 100} €</p>
+                  <p>{item.quantity} x {item.article.price}€</p>
+                  <p>{(Math.round(item.quantity * item.article.price * 100)) / 100} €</p>
                 </div>
               </div>
             ))
@@ -43,7 +47,7 @@ export function CartProvider({ children }) {
         </div>
 
         <div className='cart-total flex justify-center'>
-          <p>total</p>
+          <p>totalItems</p>
           <p>{`${totalCost} €`}</p>
           <NavLink to="/mon-panier" className={nav => nav.isActive ? "active CTA" : "CTA"} onClick={close}>
             <li>voir mon panier</li>

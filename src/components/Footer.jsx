@@ -46,17 +46,12 @@ export default function Footer({ networks }) {
                   return (
                     // make a switch case for the network.name
                     <a className="social-links" key={index} href={network.url}>
-
-
                       {network.name === "YouTube" && (<YouTube />)}
                       {network.name === "Deezer" && (<YouTube />)}
                       {network.name === "Spotify" && (<Spotify />)}
                       {network.name === "Facebook" && (<Facebook />)}
                       {network.name === "Instagram" && (<Instagram />)}
                       {network.name === "Soundcloud" && (<Soundcloud />)}
-
-
-
                     </a>
                   )
                 })}

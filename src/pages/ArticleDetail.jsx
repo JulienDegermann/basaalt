@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import { useContext } from 'react';
 import { CartContext } from '../hooks/CartContext';
+import image from '/images/basaalt.png'
 
 export default function Article() {
 
@@ -20,16 +21,7 @@ export default function Article() {
     1, 2, 3, 4, 5, 6, 7, 8, 9, "10 et +"
   ]
   const id = useParams('id').id;
-  const [order, setOrder] = useState({ article: article, size: size, quantity: quantity });
-
-  function addToCart() {
-    console.log(cart)
-    const exist = cart.find(item => item.article === order.article && item.size === order.size);
-    if (exist) {
-      console.log("already in cart")
-    }
-    setCart(cart => [...cart, { article: article, size: size, quantity: quantity }])
-  }
+  const [order, setOrder] = useState({ article: article, size: size, quantity: quantity, color: color });
 
   useEffect(() => {
     // FIRST RENDER : LOAD ARTICLE AND ALL STOCKS
@@ -52,7 +44,6 @@ export default function Article() {
     }
     getDatas()
   }, [id])
-
 
   useEffect(() => {
     const stock = allStocks.find(stock => stock.size === size && stock.color === color)
@@ -78,12 +69,21 @@ export default function Article() {
     setDefaultStock(article.stocks.filter(stock => stock.size === e.target.value))
   }
 
+  function addToCart() {
+    const exist = cart.find(item => item.article === article && item.size === size);
+    if (exist) {
+      exist.quantity += parseInt(quantity)
+    } else {
+      setCart([...cart, { article: article, size: size, quantity: quantity }])
+    }
+  }
+
   return (
     <section>
       <div className="container">
         <div className="flex">
           {/* <img src={article.image} alt={article.name} /> */}
-          <img style={{ maxWidth: "50%", margin: "2rem" }} src="/images/basaalt.png" alt={article.name} />
+          <img style={{ maxWidth: "50%", margin: "2rem" }} src={image} alt={article.name} />
           <div className="text">
             <h2>{article.name}</h2>
             <p>
@@ -93,35 +93,35 @@ export default function Article() {
             {/* QUANTITY */}
             {stockQuantity === 0 && <p className="sold-out">Indisponible</p>}
             {stockQuantity > 0 && (
-            <FormInput
-              name="quantity"
-              label='Quantité'
-              id="quantity"
-              type={quantity === "10 et +" ? "number" : "select"}
-              placeholder={quantity === "10 et +" ? "ex : 15" : ""}
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            >
-              {
-                stockQuantity === 0 && <option value="" selected disabled>Indisponible</option>
-              }
-              {stockQuantity > 0 && quantities.map((quantity, index) => {
-                if (stockQuantity === 0) {
-                  return <option key={index} value={quantity} disabled>{quantity}</option>
+              <FormInput
+                name="quantity"
+                label='Quantité'
+                id="quantity"
+                type={quantity === "10 et +" ? "number" : "select"}
+                placeholder={quantity === "10 et +" ? "ex : 15" : ""}
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              >
+                {
+                  stockQuantity === 0 && <option value="" selected disabled>Indisponible</option>
                 }
-                if (quantity <= stockQuantity) {
-                  return <option key={index} value={quantity}>{quantity}</option>
+                {stockQuantity > 0 && quantities.map((quantity, index) => {
+                  if (stockQuantity === 0) {
+                    return <option key={index} value={quantity} disabled>{quantity}</option>
+                  }
+                  if (quantity <= stockQuantity) {
+                    return <option key={index} value={quantity}>{quantity}</option>
+                  }
+                  if (quantity === "10 et +" && stockQuantity > 10) {
+                    return <option key={index} value={quantity}>{quantity}</option>
+                  }
+                })
                 }
-                if (quantity === "10 et +" && stockQuantity > 10) {
-                  return <option key={index} value={quantity}>{quantity}</option>
-                }
-              })
-              }
-            </FormInput>)}
+              </FormInput>)}
 
             {/* SIZE */}
 
-            
+
             {article.stocks && <FormInput
               type="select"
               name="size"

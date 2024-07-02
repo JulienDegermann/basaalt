@@ -3,8 +3,15 @@ import PropsTypes from 'prop-types';
 export default function Concert({ concert }) {
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-    const formattedDate = new Date(dateString).toLocaleDateString('fr-FR',  options);
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
+    };
+
+    const formattedDate = new Date(dateString).toLocaleDateString('fr-FR', options);
     return formattedDate;
   };
 
@@ -19,9 +26,7 @@ export default function Concert({ concert }) {
         <div className=" flex align-start justify-center col">
           <h2>{concert.eventName}</h2>
           <p>{concert.address}</p>
-          <p>{cityCode} {cityName.toUpperCase()}
-          </p>
-
+          <p>{ cityCode } { cityName.toUpperCase() }</p>
         </div>
         <a href="https://google.com" target="_blank" className="CTA">
           plus d&apos;infos
