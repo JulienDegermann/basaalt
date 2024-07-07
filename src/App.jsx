@@ -13,6 +13,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 // views
 import Layout from './Layout';
+import { LivesContextProvider } from './hooks/useLives';
 
 export default function App() {
   return (
@@ -23,7 +24,9 @@ export default function App() {
             <NetworksContextProvider>
               <YoutubeContextProvider>
                 <SongsContextProvider>
+                <LivesContextProvider>
                   <Layout />
+                </LivesContextProvider>
                 </SongsContextProvider>
               </YoutubeContextProvider>
             </NetworksContextProvider>

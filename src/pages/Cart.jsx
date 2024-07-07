@@ -1,5 +1,5 @@
 // dependecies
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 // contexts
 import { CartContext } from '../hooks/useCart';

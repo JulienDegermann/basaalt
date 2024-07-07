@@ -24,15 +24,15 @@ export default function Footer() {
       >
         <div className="flex justify-between">
           <div>
-            <h3>Informations légales</h3>
+            <h3 className="sectionTitle">Informations légales</h3>
           </div>
           <div>
-            <h3>Plan du site</h3>
+            <h3 className="sectionTitle">Plan du site</h3>
             <Navbar />
 
           </div>
           <div className="social-container">
-            <h3>Nous suivre</h3>
+            <h3 className="sectionTitle">Nous suivre</h3>
             <div className="flex justify-around">
               {
                 networks.map((network, index) => {

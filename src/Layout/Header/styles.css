@@ -6,7 +6,8 @@ header {
   width: 100%;
   background: var(--DARK);
   line-height: 1;
-  padding: 1rem 0;
+  /* padding: 1rem 0; */
+  padding-top: 1rem;
   box-shadow: 0 0 15px 15px var(--DARK);
 
   .container>.flex {

@@ -1,27 +1,30 @@
 // dependecies
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext, useMemo, useState } from 'react';
+
+// contexts
+import { LivesContext } from '../hooks/useLives';
 
 // components
-import Concert from '../components/Concert';
 import Section from '../components/Section';
+import LiveCard from '../components/LiveCard';
 
 function Concerts() {
 
-  const [lives, setLives] = useState([])
+  const lives = useContext(LivesContext)
+  const defaultAddress = useMemo(() => lives[0] ? lives[0].address : 'chargement en cours', [lives])
+  console.log(defaultAddress)
 
-  useEffect(() => {
 
-    const datas = async () => {
-      try {
-        const res = await axios.get("https://127.0.0.1:8000/api/lives")
-        setLives(res.data['hydra:member'])
-      } catch (e) {
-        console.error(e)
-      }
-    }
-    datas()
-  }, []);
+  const [address, setAddress] = useState('')
+
+
+
+  // change address to include map iframe => look for google map api
+  const handleChangeAddress = (address) => {
+    const addressParam = new URLSearchParams(address)
+    console.log(addressParam)
+    setAddress(address)
+  }
 
   return (
     <>
@@ -29,10 +32,13 @@ function Concerts() {
         title="Nos concerts"
         id="concerts"
       >
-        {lives.map((live) => (
-          <Concert key={live.id} concert={live} />
+        {lives.map(live => (
+          <LiveCard
+            key={live.id}
+            concert={live}
+          // onClick={handleChangeAddress}
+          />
         ))}
-
       </Section>
     </>
   )

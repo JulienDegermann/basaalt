@@ -46,10 +46,10 @@ export default function Navbar() {
 
   return (
     <div className="navigation">
-      <Button text={<BurgerMenu />} id="burgerMenu" onClick={menuOpening} />
+      <Button text={<BurgerMenu />} id="burgerMenu" className="mobileButtons" onClick={menuOpening} />
 
       <ul className="menu">
-        <Button className="mobile" text={<Close />} onClick={menuClosing} />
+        <Button className="mobileButtons" text={<Close />} onClick={menuClosing} />
         <li>
           <NavLink to="/" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu}>
             Accueil

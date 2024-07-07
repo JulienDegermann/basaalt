@@ -8,9 +8,7 @@ footer {
       padding: 1rem;
       flex: 1;
 
-
-
-      .section-title {
+      .sectionTitle {
         font-size: 2rem;
         margin-bottom: .5rem;
       }
@@ -58,6 +56,6 @@ svg {
   }
 }
 
-footer .mobile {
+#footer .mobileButtons{
   display: none;
 }

@@ -1,7 +1,13 @@
+// styles
+import './styles.css';
+
 // dependecies
 import PropTypes from 'prop-types';
 
-export default function Concert({ concert }) {
+// components
+import Link from '../Link'
+
+export default function LiveCard({ concert, onClick }) {
 
   const formatDate = (dateString) => {
     const options = {
@@ -20,28 +26,30 @@ export default function Concert({ concert }) {
   const cityCode = concert.city ? concert.city.zipCode : "";
 
   return (
-    <div className="concert-card justify-between align-center">
+    <div
+      className="concert-card justify-between align-center"
+    // onClick= {onClick ? () => onClick(concert.address) : null}
+    >
       {/* <img src={`./images/${concert.image}`} alt="" /> */}
-      <img src="./images/basaalt.png" alt="" />
+      {/* <img src="./images/basaalt.png" alt="" /> */}
       <div className="info justify-between align-center">
         <div className=" flex align-start justify-center col">
           <h2>{concert.eventName}</h2>
-          <p>{concert.address}</p>
-          <p>{ cityCode } { cityName.toUpperCase() }</p>
+          <p>{concert.address} {cityCode} {cityName.toUpperCase()}</p>
+          <p>{formatDate(concert.eventDate)}</p>
         </div>
-        <a href="https://google.com" target="_blank" className="CTA">
-          plus d&apos;infos
-        </a>
-      </div>
-
-      <div className="flex align-center justify-center date">
-        <p>{formatDate(concert.eventDate)}</p>
+        <Link
+          text="plus d'infos"
+          url="https://google.com"
+          target={true}
+          className="CTA"
+        />
       </div>
     </div>
   )
 }
 
-Concert.propTypes = {
+LiveCard.propTypes = {
   concert: PropTypes.shape({
     id: PropTypes.number.isRequired,
     eventName: PropTypes.string,
@@ -52,5 +60,6 @@ Concert.propTypes = {
       zipCode: PropTypes.string.isRequired
     }),
     image: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  onClick: PropTypes.func
 }
