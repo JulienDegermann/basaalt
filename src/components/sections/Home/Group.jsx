@@ -9,6 +9,7 @@ import HomeCard from '../../HomeCard'
 export default function Group() {
 
   const { band, bandMembers } = useContext(GroupContext)
+  bandMembers.sort(() => Math.random() - 0.5)
 
   return (
 
@@ -31,7 +32,8 @@ export default function Group() {
                 <HomeCard
                   firstName={bandMember.firstName}
                   role={bandMember.bandRole}
-                  image="basaalt.png"
+                  image={`${bandMember.firstName}.jpg`}
+                  // image="basaalt.p ng"
                   key={index}
                 />
               )

@@ -9,7 +9,7 @@ export default function HomeCard({ firstName, role, image }) {
     <>
 
       <div className="homeCard">
-        <img src={`./images/${image}`} alt={firstName} />
+        <img src={`./images/${image.toLowerCase()}`} alt={firstName} />
         <div className="text">
           <p>{firstName.toUpperCase()}</p>
           <p>{role}</p>

@@ -1,25 +1,20 @@
-/* =====================================================================================================================
-                                                                                ARTICLE LIST
-===================================================================================================================== */
-
-.grid.shop {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  display: grid;
-  grid-auto-rows: max-content;
-
+#shop .grid {
+display: grid;
+height: auto;
+grid-gap: 2rem;
+justify-content: space-between; 
+grid-template-rows: auto;
 
   @media screen and (max-width: 679px) {
-    grid-template-columns: repeat(1, 300px);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   @media screen and (min-width: 680px) and (max-width : 1023px) {
-    grid-template-columns: repeat(2, 300px);
+    grid-template-columns: repeat(2, minmax(300px, 400px));
   }
 
   @media screen and (min-width: 1024px) {
-    grid-template-columns: repeat(3, 300px);
+    grid-template-columns: repeat(3, minmax(300px, 400px));
   }
 
   input {
@@ -28,14 +23,16 @@
   }
 }
 
-/* =====================================================================================================================
-                                                                                SHOP CART COMPONENT
-===================================================================================================================== */
 .shop-card {
-  box-shadow: 0 4px 4px var(--dark);
-  height: 300px;
-  width: 300px;
+  box-shadow: 0 4px 4px var(--DARK);
   position: relative;
+  height: 300px;
+  transition: all .25s ;
+
+  &:hover {
+    box-shadow: 0 0 10px 5px var(--GRAY);
+    scale: 1.01;
+  }
 
   img {
     object-fit: cover;
@@ -50,8 +47,9 @@
     padding: 1rem;
     display: flex;
     justify-content: space-between;
-    background-color: var(--primary);
-    opacity: .95;
+    background-color: var(--DARK);
+    color: var(--LIGHT);
+    opacity: .80;
   }
 }
 
@@ -59,7 +57,7 @@
                                                                                 DETAILS ARTICLE COMPONENT
 ===================================================================================================================== */
 .button {
-  box-shadow: 0 2px 2px var(--dark);
+  box-shadow: 0 2px 2px var(--DARK);
   background: var(--primary);
   text-align: center;
   border-radius: 2px;
@@ -71,7 +69,7 @@
 
 .input-count {
   height: 30px;
-  box-shadow: 0 2px 2px var(--dark);
+  box-shadow: 0 2px 2px var(--DARK);
   width: 50px;
   text-align: center;
   padding: 0;
@@ -94,7 +92,7 @@
   padding: 0;
 
   * {
-    fill: var(--dark) !important;
+    fill: var(--DARK) !important;
   }
 }
 
@@ -111,7 +109,7 @@
 }
 
 .sold-out {
-  color: var(--gray);
+  color: var(--GRAY);
   &::before {
     content: 'ℹ️';
     width: 100%;

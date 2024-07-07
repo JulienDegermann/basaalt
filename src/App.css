@@ -18,6 +18,8 @@
 :root {
   --LIGHT: #FFF;
   --DARK: #000;
+  --DARK: #333333;
+
   --PRIMARY: #DAD178;
   --SUCCESS_LIGHT: lightgreen;
   --SUCCESS_DARK: darkgreen;
@@ -126,14 +128,6 @@ html {
     width: auto;
     flex-direction: column-reverse;
   }
-}
-
-.grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 32px;
-  grid-auto-rows: 150px;
 }
 
 .error {
