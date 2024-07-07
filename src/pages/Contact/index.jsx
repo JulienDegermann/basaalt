@@ -1,9 +1,14 @@
+// styles
+import './styles.css';
+
+// dependecies
 import { useEffect, useState } from 'react';
-import '../assets/styles/contact.css';
-import FormInput from '../components/FormInput';
-import Title from '../components/Title';
-import Button from '../components/Button';
 import axios from 'axios';
+
+// components
+import FormInput from '../../components/FormInput';
+import Button from '../../components/Button';
+import Section from '../../components/Section';
 
 function Contact() {
 
@@ -36,68 +41,69 @@ function Contact() {
         const newUser = user.data['hydra:member'].length === 1 ? user.data['hydra:member'][0] : author
 
         const newMessage = {
-        text: text,
-        author: newUser
-      }
+          text: text,
+          author: newUser
+        }
 
-      const res = await axios.post(
-        "https://127.0.0.1:8000/api/messages",
-        newMessage,
-        {
-          headers:
-            { "Content-Type": "application/ld+json" }
-        })
-      if (res.status === 201) {
-        setErrors({
-          text: '',
-          author: {
-            firstName: '',
-            lastName: '',
-            email: ''
-          }
-        })
-        setMessageDatas(newMessage);
-      }
-    } catch (error) {
-      if (error.response.status == 422) {
-        const newErrors = { ...errors };
+        const res = await axios.post(
+          "https://127.0.0.1:8000/api/messages",
+          newMessage,
+          {
+            headers:
+              { "Content-Type": "application/ld+json" }
+          })
+        if (res.status === 201) {
+          setErrors({
+            text: '',
+            author: {
+              firstName: '',
+              lastName: '',
+              email: ''
+            }
+          })
+          setMessageDatas(newMessage);
+        }
+      } catch (error) {
+        if (error.response.status == 422) {
+          const newErrors = { ...errors };
 
-        // get violations 
-        const violations = error.response.data.violations;
+          // get violations 
+          const violations = error.response.data.violations;
 
-        // foreach input, check if there is an error message -> if yes, display it
-        newErrors.author.firstName = violations.find((violation) => violation.propertyPath === 'author.firstName') ? violations.find((violation) => violation.propertyPath === 'author.firstName').message : '';
-        newErrors.author.lastName = violations.find((violation) => violation.propertyPath === 'author.lastName') ? violations.find((violation) => violation.propertyPath === 'author.lastName').message : '';
-        newErrors.author.email = violations.find((violation) => violation.propertyPath === 'author.email') ? violations.find((violation) => violation.propertyPath === 'author.email').message : '';
-        newErrors.text = violations.find((violation) => violation.propertyPath === 'text') ? violations.find((violation) => violation.propertyPath === 'text').message : '';
+          // foreach input, check if there is an error message -> if yes, display it
+          newErrors.author.firstName = violations.find((violation) => violation.propertyPath === 'author.firstName') ? violations.find((violation) => violation.propertyPath === 'author.firstName').message : '';
+          newErrors.author.lastName = violations.find((violation) => violation.propertyPath === 'author.lastName') ? violations.find((violation) => violation.propertyPath === 'author.lastName').message : '';
+          newErrors.author.email = violations.find((violation) => violation.propertyPath === 'author.email') ? violations.find((violation) => violation.propertyPath === 'author.email').message : '';
+          newErrors.text = violations.find((violation) => violation.propertyPath === 'text') ? violations.find((violation) => violation.propertyPath === 'text').message : '';
 
-        setErrors(newErrors);
+          setErrors(newErrors);
+        }
       }
     }
+    sendMessage();
+
   }
-  sendMessage();
-
-}
 
 
-// display messages
-useEffect(() => {
-  const datas = async () => {
-    try {
-      const res = await axios.get("https://127.0.0.1:8000/api/messages")
-      setMessages(res.data['hydra:member'])
-    } catch (e) {
-      console.error(e)
+  // display messages
+  useEffect(() => {
+    const datas = async () => {
+      try {
+        const res = await axios.get("https://127.0.0.1:8000/api/messages")
+        setMessages(res.data['hydra:member'])
+      } catch (e) {
+        console.error(e)
+      }
     }
-  }
-  datas()
-}, [messageDatas]);
+    datas()
+  }, [messageDatas]);
 
-return (
-  <>
-    <section>
-      <div className="container">
-        <Title text="Formulaire de contact" />
+  return (
+    <>
+      <Section
+        id='contact'
+        title='Contact'
+      >
         <form
           action=""
           method="POST"
@@ -144,11 +150,12 @@ return (
             onClick={sendMessage}
           />
         </form>
-      </div>
-    </section>
-    <section>
-      <div className="container">
-        <Title text="Tous les messages" />
+      </Section>
+
+      <Section
+        id='messages'
+        title='Messages'
+      >
         {
           messages.map((message, index) => {
             return (
@@ -159,10 +166,11 @@ return (
             )
           })
         }
-      </div>
-    </section>
-  </>
-);
+      </Section>
+
+
+    </>
+  );
 }
 
 export default Contact;

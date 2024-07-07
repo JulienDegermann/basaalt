@@ -1,0 +1,152 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+  width: 100%;
+  justify-content: space-between;
+
+  ul {
+    display: flex;
+    justify-content: space-around;
+
+    li .active {
+      color: var(--PRIMARY) !important;
+    }
+
+    li,
+    button {
+      border: none;
+      background: none;
+      box-shadow: none;
+      padding: 1rem;
+      color: var(--LIGHT);
+      font-weight: bold;
+      font-size: 1rem;
+      text-transform: uppercase;
+
+      * {
+        color: var(--LIGHT);
+      }
+
+      @media screen and (max-width: 1023px) {
+        padding: .25rem;
+
+      }
+    }
+  }
+}
+
+header {
+  .navigation .menu {
+
+    svg {
+      display: none;
+      position: absolute;
+      top: 1.25rem;
+      left: 2.1rem;
+    }
+
+    @media screen and (max-width: 1023px) {
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: var(--DARK);
+      padding: 3rem 2rem;
+      width: 50%;
+      border: 1px solid var(--PRIMARY);
+      z-index: 10;
+      height: 100vh;
+      justify-content: flex-start;
+      transform: translateX(-100%);
+      transition: transform .25s ease-in-out;
+
+
+      li {
+        padding: 1rem 1rem;
+      }
+
+      &.open {
+        transform: translateX(0);
+      }
+
+      svg {
+        display: block;
+      }
+    }
+  }
+
+  .navigation .cart-container {
+    position: relative;
+    justify-content: flex-end;
+    align-items: center;
+
+    svg {
+      display: initial;
+    }
+
+    .article-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      aspect-ratio: 1/1;
+      background: var(--PRIMARY);
+      border-radius: 50%;
+      line-height: 1;
+      box-shadow: 0 0 5px var(--DARK) inset;
+
+      &.flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    li,
+    button {
+      cursor: pointer;
+
+    }
+  }
+}
+
+footer {
+  .navigation {
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media screen and (max-width: 1023px) {
+      display: inline-block;
+      width: auto;
+    }
+
+    .cart-container {
+      display: none;
+    }
+
+    ul {
+      flex-direction: column;
+      flex-wrap: nowrap;
+
+      li {
+        padding: .5rem;
+      }
+    }
+  }
+}
+
+
+/* BURGER MENU */
+#burgerMenu {
+  background: transparent !important;
+  border: none;
+  padding: 1rem;
+  display: inline-block;
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
+}

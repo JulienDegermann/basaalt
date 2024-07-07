@@ -1,8 +1,10 @@
-import '../assets/styles/concerts.css';
+// dependecies
 import { useEffect, useState } from 'react';
-import Concert from '../components/Concert';
-import Title from '../components/Title';
 import axios from 'axios';
+
+// components
+import Concert from '../components/Concert';
+import Section from '../components/Section';
 
 function Concerts() {
 
@@ -23,16 +25,15 @@ function Concerts() {
 
   return (
     <>
-      <section>
-        <div className="container">
+      <Section
+        title="Nos concerts"
+        id="concerts"
+      >
+        {lives.map((live) => (
+          <Concert key={live.id} concert={live} />
+        ))}
 
-          <Title level="2" text="Toutes nos dates" />
-
-          {lives.map((live) => (
-            <Concert key={live.id} concert={live} />
-          ))}
-        </div>
-      </section>
+      </Section>
     </>
   )
 }

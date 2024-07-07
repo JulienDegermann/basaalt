@@ -1,4 +1,5 @@
-import PropsTypes from 'prop-types';
+// dependecies
+import PropTypes from 'prop-types';
 
 export default function Concert({ concert }) {
 
@@ -41,15 +42,15 @@ export default function Concert({ concert }) {
 }
 
 Concert.propTypes = {
-  concert: PropsTypes.shape({
-    id: PropsTypes.number.isRequired,
-    eventName: PropsTypes.string,
-    eventDate: PropsTypes.string,
-    address: PropsTypes.string,
-    city: PropsTypes.shape({
-      name: PropsTypes.string.isRequired,
-      zipCode: PropsTypes.string.isRequired
+  concert: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    eventName: PropTypes.string,
+    eventDate: PropTypes.string,
+    address: PropTypes.string,
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      zipCode: PropTypes.string.isRequired
     }),
-    image: PropsTypes.string
+    image: PropTypes.string
   }).isRequired
 }

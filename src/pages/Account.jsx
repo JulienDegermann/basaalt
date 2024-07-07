@@ -1,15 +1,15 @@
-import '../assets/styles/account.css';
-import Title from '../components/Title';
+// components
+import Section from '../components/Section';
 
 function Account() {
   return (
     <>
-      <section>
-        <div className="container">
-          <Title text='Mon compte' />
+      <Section
+        title='Mon compte'
+        id="account"
+      >
+      </Section>
 
-        </div>
-      </section>
     </>
   )
 }

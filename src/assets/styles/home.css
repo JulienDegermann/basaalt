@@ -1,48 +1,4 @@
-#heroBanner {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  background: var(--dark);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 0;
 
-  .section-title {
-    color: var(--light);
-    position: relative;
-    font-weight: normal;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font-size: 1.5rem;
-  }
-
-  .CTA {
-    position: relative;
-    font-size: 1.2rem;
-    padding: 1rem 3rem;
-    border-radius: 50px;
-    letter-spacing: 10px;
-
-    @media screen and (max-width: 768px) {
-      font-size: 1rem;
-      letter-spacing: 5px;
-
-    }
-  }
-
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    object-fit: contain;
-    object-position: center;
-    width: 100%;
-    height: 100%;
-  }
-}
 
 .home-card,
 .social {

@@ -1,7 +1,11 @@
-import '../assets/styles/cart.css';
-import Title from '../components/Title';
+// dependecies
 import { useContext, useState } from 'react';
-import { CartContext } from '../hooks/CartContext';
+
+// contexts
+import { CartContext } from '../hooks/useCart';
+
+// components
+import Section from '../components/Section';
 
 function Cart() {
   const { cart, setCart } = useContext(CartContext);
@@ -13,15 +17,16 @@ function Cart() {
   totalCost = (Math.round(totalCost * 100)) / 100;
   return (
     <>
-      <section>
-        <div className="container cart-content">
-
-          <Title level="3" text="Mon panier" />
+      <Section
+        id='cart'
+        title='Mon panier'
+      >
+        <div className="cart-content">
           <div className="flex col">
             {
               cart.map((article, index) => (
                 <div key={index} className="cart-item">
-                  <Title level="4" text={article.name} />
+                  <h4>{article.name}</h4>
                   <div className="flex justify-between">
                     <p>{article.quantity} x {article.price}€</p>
                     <p>{(Math.round(article.quantity * article.price * 100)) / 100} €</p>
@@ -35,7 +40,13 @@ function Cart() {
             <p>total : {`${totalCost} €`}</p>
           </div>
         </div>
-    </section >
+
+      </Section>
+
+
+
+
+
 
     </>
   )

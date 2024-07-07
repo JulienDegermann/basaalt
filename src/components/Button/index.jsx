@@ -1,6 +1,10 @@
+// styles
+import './styles.css'
+
+// dependecies
 import PropTypes from "prop-types"
 
-export default function Button({ url, className, text, onClick }) {
+export default function Button({ url, className, text, onClick, id }) {
 
   if (url !== undefined) {
     return (
@@ -13,6 +17,7 @@ export default function Button({ url, className, text, onClick }) {
   } else {
     return (
       <button
+      id={id}
         onClick={onClick}
         className={className}
       >
@@ -26,5 +31,6 @@ Button.propTypes = {
   url: PropTypes.string,
   className: PropTypes.string,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  id: PropTypes.string
 }

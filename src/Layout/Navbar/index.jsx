@@ -1,12 +1,19 @@
-import { NavLink } from "react-router-dom";
-import Button from "./Button";
-import { CartContext } from "../hooks/CartContext";
-import { useContext, useEffect } from "react";
-import ShopCart from "./svgs/ShopCart";
-import Account from "./svgs/Account";
-import Close from "./svgs/Close";
-import BurgerMenu from "../components/svgs/BurgerMenu.jsx";
+// styles
+import "./styles.css";
 
+// contexts
+import { useContext, useEffect } from "react";
+import { CartContext } from "../../hooks/useCart";
+
+// components
+import Button from "../../components/Button";
+import { NavLink } from "react-router-dom";
+
+// svgs
+import Close from "../../components/svgs/Close";
+import BurgerMenu from "../../components/svgs/BurgerMenu";
+import ShopCart from "../../components/svgs/ShopCart";
+import Account from "../../components/svgs/Account";
 
 export default function Navbar() {
 
@@ -19,17 +26,16 @@ export default function Navbar() {
 
   function closeMenu() {
     document.querySelector('.menu').classList.remove('open');
-    console.log('closeMenu');
-
   }
 
 
   useEffect(() => { }
   )
-  let totalCount = 0;
-  cart.map((article) => {
-    totalCount += article.quantity;
-  });
+  // let totalCount = 0;
+  // cart.map((article) => {
+  //   totalCount += article.quantity;
+  // });
+
   function showCart() {
     document.querySelector('.cart-background').classList.remove('hide');
   }
@@ -40,7 +46,7 @@ export default function Navbar() {
 
   return (
     <div className="navigation">
-      <Button text={<BurgerMenu />} className="mobile" onClick={menuOpening} />
+      <Button text={<BurgerMenu />} id="burgerMenu" onClick={menuOpening} />
 
       <ul className="menu">
         <Button className="mobile" text={<Close />} onClick={menuClosing} />

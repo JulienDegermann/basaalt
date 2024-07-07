@@ -1,5 +1,8 @@
+// dependecies
 import PropTypes from 'prop-types';
 import { useState } from 'react'
+
+// components
 import { NavLink } from 'react-router-dom';
 
 export default function Article({ article, cart, setCart }) {

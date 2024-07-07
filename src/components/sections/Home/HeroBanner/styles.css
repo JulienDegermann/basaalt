@@ -1,0 +1,52 @@
+#heroBanner .sectionTitle {
+  color: var(--LIGHT);
+  border: none;
+  margin: initial;
+  padding: initial;
+  font-size: 2rem;
+}
+
+
+#heroBanner {
+  width: 100%;
+  height: calc(100vh - 131px);
+  padding: 3rem;
+  background: var(--DARK);
+  position: relative;
+
+  @media screen and (min-width: 1024px) {
+    height: calc(100vh - 160px);
+  }
+}
+
+#heroBanner .container {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 4rem;
+
+}
+
+#heroBanner .CTA {
+  position: relative;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1rem;
+    letter-spacing: 5px;
+
+  }
+}
+
+#heroBanner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+  /* z-index: -10; */
+}
+

@@ -1,13 +1,20 @@
-import PropTypes from 'prop-types';
+// styles
+import './styles.css'
+
+// dependecies
+import PropTypes from "prop-types"
 
 export default function HomeCard({ firstName, role, image }) {
   return (
     <>
 
-      <div className="home-card">
+      <div className="homeCard">
         <img src={`./images/${image}`} alt={firstName} />
-        <p>{firstName}</p>
-        <p>{role}</p>
+        <div className="text">
+          <p>{firstName.toUpperCase()}</p>
+          <p>{role}</p>
+
+        </div>
       </div>
 
     </>

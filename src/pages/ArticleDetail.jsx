@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react'
+// dependecies
+import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+
+// contexts
+import { CartContext } from '../hooks/CartContext';
+
+// components
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
-import { useContext } from 'react';
-import { CartContext } from '../hooks/CartContext';
 import image from '/images/basaalt.png'
 
 export default function Article() {

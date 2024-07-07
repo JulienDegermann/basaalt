@@ -1,0 +1,211 @@
+/* FONTS IMPORTS */
+@font-face {
+  font-family: 'Rock Salt';
+  src: url("./assets/fonts/Rock_Salt/RockSalt-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url("./assets/fonts/Plus_Jakarta_Sans/static/PlusJakartaSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Metal Mania';
+  src: url("./assets/fonts/Metal_Mania/MetalMania-Regular.ttf");
+}
+
+/* COLORS */
+:root {
+  --LIGHT: #FFF;
+  --DARK: #000;
+  --PRIMARY: #DAD178;
+  --SUCCESS_LIGHT: lightgreen;
+  --SUCCESS_DARK: darkgreen;
+  --DANGER_LIGHT: lightcoral;
+  --DANGER_DARK: darkred;
+  --WARNING: #FFC107;
+  --GRAY: #999999;
+  --DARK_TO_PRIMARY: radial-gradient(var(--PRIMARY) 30%, var(--DARK) 100%);
+  --LIGHT_TO_PRIMARY: radial-gradient(var(--LIGHT) 40%, var(--PRIMARY) 100%);
+  --LIGHT_TO_DARK: radial-gradient(var(--LIGHT) 30%, var(--DARK) 100%);
+}
+
+/* RESET DEFAULT SETTINGS */
+* {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+
+/* SET DEFAULT SETTINGS */
+html {
+  scroll-behavior: smooth;
+  height: 100vh;
+  color: var(--DARK);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+}
+
+#root {
+  position: relative;
+}
+
+.container {
+  margin: auto;
+  height: 100%;
+  padding: 0 1rem;
+
+  @media screen and (min-width: 1400px) {
+    width: 1200px;
+  }
+
+  @media screen and (min-width: 1100px) and (max-width: 1399px) {
+    width: 1100px;
+  }
+
+  @media screen and (min-width: 1024px) and (max-width: 1099px) {
+    width: 95%;
+  }
+
+  @media screen and (max-width: 1023px) {
+    padding: 0;
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .flex {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    &.col {
+      flex-direction: column;
+    }
+
+    &.justify-around {
+      justify-content: space-around;
+    }
+
+    &.justify-between {
+      justify-content: space-between;
+    }
+
+    &.justify-center {
+      justify-content: center;
+    }
+
+    &.justify-start {
+      justify-content: flex-start;
+    }
+
+    &.justify-end {
+      justify-content: flex-end;
+    }
+
+    &.align-center {
+      align-items: center;
+    }
+
+    &.align-start {
+      align-items: flex-start;
+    }
+
+    &.align-end {
+      align-items: flex-end;
+    }
+  }
+
+  .inline-flex {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    flex-direction: column-reverse;
+  }
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 32px;
+  grid-auto-rows: 150px;
+}
+
+.error {
+  color: var(--DANGER);
+  font-size: .9em;
+  font-style: italic;
+
+  &::before {
+    content: '⛔️ ';
+    font-style: normal;
+  }
+}
+
+
+.modal {
+  position: absolute;
+  top: 200px;
+  left: 0;
+  width: auto;
+  height: auto;
+  /* background: white; */
+  z-index: 10000;
+
+  &>div {
+    position: relative;
+    padding: .5rem 2rem;
+    margin-bottom: .5rem;
+    border: 2px solid var(--dark);
+    border-radius: 0 0rem 1rem 0 / 0 50% 50% 0;
+
+    * {
+      color: var(--DARK);
+    }
+
+    &.info, &.info button {
+      background: var(--PRIMARY);
+      border-color: darkgoldenrod;
+
+      button {
+        color: darkgoldenrod;
+      }
+    }
+
+    &.success, &.success button{
+      background: var(--SUCCESS_LIGHT);
+      border-color: var(--SUCCESS_DARK);
+
+      * {
+        color: var(--SUCCESS_DARK);
+      }
+    }
+
+    &.danger, &.danger button{
+      background: var(--DANGER_LIGHT);
+      border-color: var(--DANGER_DARK);
+
+      * {
+        color: var(--DANGER_DARK);
+      }
+    }
+
+    button {
+      position: absolute;
+      right: -.5rem;
+      top: -.5rem;
+      background: inherit;
+      color: var(--LIGHT);
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      z-index: 100;
+      border: 2px solid;
+    }
+  }
+}

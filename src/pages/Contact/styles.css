@@ -1,0 +1,8 @@
+input:hover,
+label:hover,
+select:hover,
+textarea:hover,
+button:hover,
+a:hover {
+  cursor: pointer;
+}

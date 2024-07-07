@@ -1,0 +1,57 @@
+#group {
+  >div {
+    text-align: center;
+  }
+}
+
+.homeCard {
+  border: 1px solid var(--PRIMARY);
+  margin: 1rem;
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+
+  @media screen and (min-width: 768px) {
+    max-width: calc(50% - 2rem);
+
+  }
+
+
+  .text {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    background: var(--PRIMARY);
+    color: var(--DARK);
+  }
+
+  img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  @media screen and (min-width: 1024px) {
+    overflow: hidden;
+    height: 300px;
+
+    .text {
+      position: absolute;
+      bottom: 0;
+      transform: translateY(100%);
+      transition: all 0.3s;
+    }
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &:hover {
+      .text {
+        transform: translateY(0);
+      }
+    }
+  }
+
+
+}
