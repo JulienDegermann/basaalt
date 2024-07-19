@@ -1,8 +1,40 @@
-input:hover,
-label:hover,
-select:hover,
-textarea:hover,
-button:hover,
-a:hover {
+form {
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-top: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 1rem;
+  }
+}
+
+input,
+textarea,
+select {
+  margin-top: .5rem;
+  padding: .5rem;
+  border-radius: 5px;
+  border: 1px solid var(--DARK);
+  cursor: pointer;
+
+  &:focus {
+    box-shadow: 0 0px 4px var(--PRIMARY);
+    border-color: var(--PRIMARY);
+    outline: none;
+  }
+}
+
+textarea {
+  resize: vertical;
+  height: 300px;
+}
+
+#contact .CTA {
   cursor: pointer;
 }

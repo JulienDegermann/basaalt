@@ -26,32 +26,12 @@ export default function Shop() {
             articles.map((article, index) => {
               if (article.stocks.length != 0) {
                 return (
-                  <>
-                    <ShopCard
-                      key={index}
-                      article={article}
-                      setCart={setCart}
-                      cart={cart}
-                    />
-                    <ShopCard
-                      key={index}
-                      article={article}
-                      setCart={setCart}
-                      cart={cart}
-                    />
-                    <ShopCard
-                      key={index}
-                      article={article}
-                      setCart={setCart}
-                      cart={cart}
-                    />
-                    <ShopCard
-                      key={index}
-                      article={article}
-                      setCart={setCart}
-                      cart={cart}
-                    />
-                  </>
+                  <ShopCard
+                    key={index}
+                    article={article}
+                    setCart={setCart}
+                    cart={cart}
+                  />
                 )
               }
             })

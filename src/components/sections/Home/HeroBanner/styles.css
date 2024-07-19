@@ -25,11 +25,16 @@
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 4rem;
-
 }
 
 #heroBanner .CTA {
   position: relative;
+  box-shadow: var(--INSET_SHADOW_HEROBANNER);
+
+  &:hover {
+    box-shadow: var(--INSET_SHADOW_DEFAULT_HOVER);
+  }
+
 
   @media screen and (max-width: 768px) {
     font-size: 1rem;

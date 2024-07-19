@@ -17,9 +17,7 @@
 /* COLORS */
 :root {
   --LIGHT: #FFF;
-  --DARK: #000;
   --DARK: #333333;
-
   --PRIMARY: #DAD178;
   --SUCCESS_LIGHT: lightgreen;
   --SUCCESS_DARK: darkgreen;
@@ -27,9 +25,13 @@
   --DANGER_DARK: darkred;
   --WARNING: #FFC107;
   --GRAY: #999999;
-  --DARK_TO_PRIMARY: radial-gradient(var(--PRIMARY) 30%, var(--DARK) 100%);
-  --LIGHT_TO_PRIMARY: radial-gradient(var(--LIGHT) 40%, var(--PRIMARY) 100%);
-  --LIGHT_TO_DARK: radial-gradient(var(--LIGHT) 30%, var(--DARK) 100%);
+
+  /* shadows */
+  --INSET_SHADOW_DEFAULT: 0 0 15px 5px var(--DARK) inset;
+  --INSET_SHADOW_DEFAULT_HOVER: 0 0 5px 5px var(--DARK) inset;
+  --INSET_SHADOW_HEROBANNER: 0 0 15px 10px var(--DARK) inset;
+
+  /* gradients */
 }
 
 /* RESET DEFAULT SETTINGS */
@@ -162,7 +164,8 @@ html {
       color: var(--DARK);
     }
 
-    &.info, &.info button {
+    &.info,
+    &.info button {
       background: var(--PRIMARY);
       border-color: darkgoldenrod;
 
@@ -171,7 +174,8 @@ html {
       }
     }
 
-    &.success, &.success button{
+    &.success,
+    &.success button {
       background: var(--SUCCESS_LIGHT);
       border-color: var(--SUCCESS_DARK);
 
@@ -180,7 +184,8 @@ html {
       }
     }
 
-    &.danger, &.danger button{
+    &.danger,
+    &.danger button {
       background: var(--DANGER_LIGHT);
       border-color: var(--DANGER_DARK);
 

@@ -53,35 +53,15 @@ grid-template-rows: auto;
   }
 }
 
-/* =====================================================================================================================
-                                                                                DETAILS ARTICLE COMPONENT
-===================================================================================================================== */
-.button {
-  box-shadow: 0 2px 2px var(--DARK);
-  background: var(--primary);
-  text-align: center;
-  border-radius: 2px;
-  cursor: pointer;
-  height: auto;
-  width: 30px;
-  height: 30px;
-}
 
+
+/* panier heeader */
 .input-count {
   height: 30px;
   box-shadow: 0 2px 2px var(--DARK);
   width: 50px;
   text-align: center;
   padding: 0;
-}
-
-.CTA {
-  padding: 1.2rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 0;
-  margin-right: 0;
 }
 
 .cart {

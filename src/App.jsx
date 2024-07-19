@@ -7,6 +7,7 @@ import { NetworksContextProvider } from './hooks/useNetworks';
 import { GroupContextProvider } from './hooks/useGroup';
 import { YoutubeContextProvider } from './hooks/useYoutube';
 import { SongsContextProvider } from './hooks/useSongs';
+import { SendMessageContextProvider } from './hooks/useMessages';
 
 // routes
 import { BrowserRouter } from 'react-router-dom';
@@ -27,7 +28,9 @@ export default function App() {
                 <SongsContextProvider>
                   <LivesContextProvider>
                     <ShopContextProvider>
-                      <Layout />
+                      <SendMessageContextProvider>
+                        <Layout />
+                      </SendMessageContextProvider>
                     </ShopContextProvider>
                   </LivesContextProvider>
                 </SongsContextProvider>

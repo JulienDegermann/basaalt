@@ -12,9 +12,6 @@ function Concerts() {
 
   const lives = useContext(LivesContext)
   const defaultAddress = useMemo(() => lives[0] ? lives[0].address : 'chargement en cours', [lives])
-  console.log(defaultAddress)
-
-
   const [address, setAddress] = useState('')
 
 
@@ -22,7 +19,6 @@ function Concerts() {
   // change address to include map iframe => look for google map api
   const handleChangeAddress = (address) => {
     const addressParam = new URLSearchParams(address)
-    console.log(addressParam)
     setAddress(address)
   }
 
