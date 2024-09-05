@@ -3,20 +3,20 @@
   border: none;
   margin: initial;
   padding: initial;
-  font-size: 2rem;
-}
+  font-size: 1.2rem;
+  text-align: center;
 
+  @media screen and (min-width: 660px) {
+    font-size: 2rem;
+  }
+}
 
 #heroBanner {
   width: 100%;
-  height: calc(100vh - 131px);
+  height: 100vh;
   padding: 0rem;
-  background: var(--DARK);
+  box-shadow: 0 0 50px 40px var(--DARK) inset;
   position: relative;
-
-  @media screen and (min-width: 1024px) {
-    height: calc(100vh - 142px);
-  }
 }
 
 #heroBanner .container {
@@ -29,17 +29,12 @@
 
 #heroBanner .CTA {
   position: relative;
-  box-shadow: var(--INSET_SHADOW_HEROBANNER);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 
-  &:hover {
-    box-shadow: var(--INSET_SHADOW_DEFAULT_HOVER);
-  }
-
-
-  @media screen and (max-width: 768px) {
-    font-size: 1rem;
-    letter-spacing: 5px;
-
+  @media screen and (min-width: 768px) {
+    margin-top: 2rem;
+    margin-bottom: 5vh;
   }
 }
 
@@ -51,5 +46,5 @@
   object-position: center;
   width: 100%;
   height: 100%;
+  z-index: -1;
 }
-

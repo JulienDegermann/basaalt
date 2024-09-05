@@ -2,8 +2,8 @@
 import "./styles.css";
 
 // contexts
-import { useContext, useEffect } from "react";
-import { CartContext } from "../../hooks/useCart";
+import {useEffect, useState } from "react";
+// import { CartContext } from "../../hooks/useCart";
 
 // components
 import Button from "../../components/Button";
@@ -12,22 +12,15 @@ import { NavLink } from "react-router-dom";
 // svgs
 import Close from "../../components/svgs/Close";
 import BurgerMenu from "../../components/svgs/BurgerMenu";
-import ShopCart from "../../components/svgs/ShopCart";
-import Account from "../../components/svgs/Account";
+// import ShopCart from "../../components/svgs/ShopCart";
+// import Account from "../../components/svgs/Account";
 
 export default function Navbar() {
 
-  function menuOpening() {
-    document.querySelector('.menu').classList.add('open');
-  }
+  // const { cart } = useContext(CartContext);
+  // const { totalItems } = useContext(CartContext);
 
-  const { cart } = useContext(CartContext);
-  const { totalItems } = useContext(CartContext);
-
-  function closeMenu() {
-    document.querySelector('.menu').classList.remove('open');
-  }
-
+  const [menuOpened, setMenuOpened] = useState(false);
 
   useEffect(() => { }
   )
@@ -36,42 +29,40 @@ export default function Navbar() {
   //   totalCount += article.quantity;
   // });
 
-  function showCart() {
-    document.querySelector('.cart-background').classList.remove('hide');
-  }
-
-  function menuClosing() {
-    document.querySelector('.menu').classList.remove('open');
-  }
+  // function showCart() {
+  //   document.querySelector('.cart-background').classList.remove('hide');
+  // }
+  console.log(menuOpened)
 
   return (
     <div className="navigation">
-      <Button text={<BurgerMenu />} id="burgerMenu" className="mobileButtons" onClick={menuOpening} />
+      <Button
+        text={<BurgerMenu />} id="burgerMenu" className="mobileButtons" onClick={() => { setMenuOpened(!menuOpened) }} />
 
-      <ul className="menu">
-        <Button className="mobileButtons" text={<Close />} onClick={menuClosing} />
+      <ul className={menuOpened ? "menu open" : "menu"}>
+        <Button className="mobileButtons" text={<Close />} onClick={() => { setMenuOpened(false) }} />
         <li>
-          <NavLink to="/" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu}>
+          <NavLink to="/" className={nav => nav.isActive ? "active" : ""} onClick={() => { setMenuOpened(false) }}>
             Accueil
           </NavLink>
         </li>
         <li>
-          <NavLink to="/nos-concerts" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu} >
+          <NavLink to="/nos-concerts" className={nav => nav.isActive ? "active" : ""} onClick={() => { setMenuOpened(false) }}>
             Concerts
           </NavLink>
         </li>
         <li>
-          <NavLink to="/la-boutique" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu} >
+          <NavLink to="/la-boutique" className={nav => nav.isActive ? "active" : ""} onClick={() => { setMenuOpened(false) }}>
             Boutique
           </NavLink>
         </li>
         <li>
-          <NavLink to="/contact" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu} >
+          <NavLink to="/contact" className={nav => nav.isActive ? "active" : ""} onClick={() => { setMenuOpened(false) }}>
             Contact
           </NavLink>
         </li>
       </ul>
-      <ul className="cart-container">
+      {/* <ul className="cart-container">
         <NavLink to="/mon-compte" className={nav => nav.isActive ? "active" : ""} onClick={closeMenu} >
           <li>{<Account />}</li>
         </NavLink>
@@ -83,7 +74,7 @@ export default function Navbar() {
         {
           cart.length > 0 && (<p className="article-count flex justify-center align-center">{totalItems}</p>)
         }
-      </ul>
+      </ul> */}
     </div>
   )
 }

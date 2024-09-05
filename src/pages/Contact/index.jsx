@@ -3,7 +3,6 @@ import './styles.css';
 
 // dependecies
 import { useContext } from 'react';
-
 // components
 import FormInput from '../../components/FormInput';
 import Button from '../../components/Button';
@@ -12,19 +11,7 @@ import { SendMessageContext } from '../../hooks/useMessages';
 
 function Contact() {
 
-  const { message, getMessages, setMessage, errors, handleSendMessage } = useContext(SendMessageContext);
-  // display messages
-  // useEffect(() => {
-  //   const datas = async () => {
-  //     try {
-  //       const res = await axios.get("https://127.0.0.1:8000/api/messages")
-  //       setMessages(res.data['hydra:member'])
-  //     } catch (e) {
-  //       console.error(e)
-  //     }
-  //   }
-  //   datas()
-  // }, [messageDatas]);
+  const { message, setMessage, errors, handleSendMessage } = useContext(SendMessageContext);
 
   return (
     <>
@@ -36,6 +23,7 @@ function Contact() {
           action=""
           method="POST"
         >
+
           <FormInput
             type="text"
             name="firstName"
@@ -60,7 +48,7 @@ function Contact() {
             label="E-mail"
             placeholder='Entrez votre e-mail'
             onChange={(e) => setMessage({ ...message, author: { ...message.author, email: e.target.value } })}
-          />
+            />
           {errors.author.email && <p className="error">{errors.author.email}</p>}
           <FormInput
             type="textarea"

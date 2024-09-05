@@ -1,26 +1,27 @@
 button {
   padding: 1rem 2rem;
   margin: 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border-radius: 50px;
-  letter-spacing: 10px;
   text-transform: uppercase;
-  border-radius: 30px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
 .CTA {
-  padding: 1rem 2rem;
-  border-radius: .5rem;
-  border: none;
+  padding: .75rem 2rem;
+  margin: 0 1rem;
+  border-radius: 30px;
   font-weight: bold;
   transition: all .25s;
+  width: max-content;
+  border: 1px solid transparent;
+  border: 1px solid var(--PRIMARY);
   color: var(--DARK);
   background: var(--PRIMARY);
-  box-shadow: var(--INSET_SHADOW_DEFAULT);
-  transition: all .5s;
   
   &:hover {
-    box-shadow: var(--INSET_SHADOW_DEFAULT_HOVER);
+    background: var(--DARK);
+    color: var(--PRIMARY);
   }
 }

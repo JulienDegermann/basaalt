@@ -14,17 +14,22 @@ form {
   }
 }
 
+form .formInput>* {
+  width: 100%;
+}
+
 input,
 textarea,
 select {
   margin-top: .5rem;
-  padding: .5rem;
+  padding: 1rem;
   border-radius: 5px;
   border: 1px solid var(--DARK);
-  cursor: pointer;
+  margin-bottom: 1rem;
+  font-family: inherit;
 
   &:focus {
-    box-shadow: 0 0px 4px var(--PRIMARY);
+    box-shadow: 0 0px 4px 4px var(--PRIMARY);
     border-color: var(--PRIMARY);
     outline: none;
   }
@@ -32,9 +37,10 @@ select {
 
 textarea {
   resize: vertical;
-  height: 300px;
+  height: 200px;
 }
 
 #contact .CTA {
   cursor: pointer;
+  margin: 2rem 0;
 }

@@ -12,6 +12,7 @@ import { NetworksContext } from "../../hooks/useNetworks";
 import Navbar from "../Navbar";
 import NetworkIcons from "../../core/NetworkIcons";
 import Section from '../../components/Section';
+import { NavLink } from 'react-router-dom';
 
 export default function Footer() {
 
@@ -44,6 +45,14 @@ export default function Footer() {
                   )
                 })}
             </div>
+            <NavLink to="/contact">
+              <button
+                className="CTA"
+                onClick={ () => { window.scrollTo(0, 0) }}
+              >
+                Nous contacter
+              </button>
+            </NavLink>
           </div>
         </div>
 

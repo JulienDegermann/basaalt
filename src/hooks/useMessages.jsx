@@ -1,11 +1,16 @@
 // dependencies
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { ModalContext } from './useModal';
 
 export const SendMessageContext = createContext({});
 
 export function SendMessageContextProvider({ children }) {
+
+  const { modals, setModals } = useContext(ModalContext)
+
+  console.log(modals)
 
   // define object pattern
   const [message, setMessage] = useState({
@@ -16,8 +21,6 @@ export function SendMessageContextProvider({ children }) {
       email: ''
     }
   })
-
-  const [getMessages, setGetMessages] = useState([])
 
   const [errors, setErrors] = useState({
     text: '',
@@ -41,6 +44,8 @@ export function SendMessageContextProvider({ children }) {
 
   const sendMessage = async (message) => {
     try {
+
+      console.log(message)
       const res = await axios.post(
         "https://127.0.0.1:8000/api/messages",
         message,
@@ -48,6 +53,8 @@ export function SendMessageContextProvider({ children }) {
           headers:
             { "Content-Type": "application/ld+json" }
         })
+
+        console.log(res)
       if (res.status === 201) {
         setErrors({
           text: '',
@@ -57,7 +64,7 @@ export function SendMessageContextProvider({ children }) {
             email: ''
           }
         })
-        getMessagesDatas()
+        setModals([...modals, { type: 'success', title: 'Message envoyé', status: true, children: 'Votre message a bien été envoyé' } ])
       }
     } catch (error) {
       const violations = error.response.data.violations;
@@ -94,20 +101,6 @@ export function SendMessageContextProvider({ children }) {
     sendMessageResponse(message)
   }
 
-  // get all messages
-  const getMessagesDatas = async () => {
-    try {
-      const res = await axios.get("https://127.0.0.1:8000/api/messages")
-      setGetMessages(res.data['hydra:member'])
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    getMessagesDatas()
-  }, [])
-
   return (
     <SendMessageContext.Provider
       value={
@@ -116,8 +109,7 @@ export function SendMessageContextProvider({ children }) {
           setMessage,
           errors,
           setErrors,
-          handleSendMessage,
-          getMessages,
+          handleSendMessage
         }
       }>
       {children}

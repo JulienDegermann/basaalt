@@ -5,23 +5,30 @@
 }
 
 .homeCard {
-  border: 1px solid var(--PRIMARY);
   margin: 1rem;
   display: inline-block;
   position: relative;
   max-width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
 
   @media screen and (min-width: 768px) {
     max-width: calc(50% - 2rem);
-
   }
-
 
   .text {
     font-family: 'Roboto', sans-serif;
     width: 100%;
     background: var(--PRIMARY);
+    background: var(--PRIMARY_TO_TRANSPARENT);
     color: var(--DARK);
+    padding: 2rem 1rem .25rem;
+    font-weight: bold;
+
+    p:last-of-type {
+      font-size: .7rem;
+      font-weight: normal;
+    }
   }
 
   img {
@@ -39,6 +46,8 @@
       bottom: 0;
       transform: translateY(100%);
       transition: all 0.3s;
+
+
     }
 
     img {

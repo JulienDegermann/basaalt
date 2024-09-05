@@ -41,6 +41,7 @@ section .cart-total p {
 .cart-background {
   position: fixed;
   display: flex;
+  display: none;
   justify-content: flex-end;
   left: 0;
   top: 0;

@@ -5,7 +5,7 @@ import './styles.css'
 import { NavLink } from "react-router-dom";
 import Button from "../../../Button";
 import Section from "../../../Section";
-import Image from "/public/images/heroBanner.jpg";
+import Image from "../../../../assets/images/heroBanner.jpg";
 
 export default function HeroBanner() {
   return (

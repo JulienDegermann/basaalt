@@ -1,6 +1,4 @@
 footer {
-  background: var(--DARK);
-
   .flex {
     flex-wrap: nowrap;
 
@@ -9,11 +7,16 @@ footer {
       flex: 1;
 
       .sectionTitle {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         margin-bottom: .5rem;
+        padding-left: .5rem;
       }
     }
   }
+}
+
+#footer .navigation a {
+  padding: 0;
 }
 
 .social {

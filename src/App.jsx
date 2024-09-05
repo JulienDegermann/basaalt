@@ -8,6 +8,7 @@ import { GroupContextProvider } from './hooks/useGroup';
 import { YoutubeContextProvider } from './hooks/useYoutube';
 import { SongsContextProvider } from './hooks/useSongs';
 import { SendMessageContextProvider } from './hooks/useMessages';
+import ModalContextProvider from './hooks/useModal';
 
 // routes
 import { BrowserRouter } from 'react-router-dom';
@@ -28,9 +29,11 @@ export default function App() {
                 <SongsContextProvider>
                   <LivesContextProvider>
                     <ShopContextProvider>
-                      <SendMessageContextProvider>
-                        <Layout />
-                      </SendMessageContextProvider>
+                      <ModalContextProvider>
+                        <SendMessageContextProvider>
+                          <Layout />
+                        </SendMessageContextProvider>
+                      </ModalContextProvider>
                     </ShopContextProvider>
                   </LivesContextProvider>
                 </SongsContextProvider>

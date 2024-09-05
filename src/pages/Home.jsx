@@ -35,8 +35,6 @@ function Home() {
     <>
       <HeroBanner />
       <Group /> 
-
-      <Social />
     </>
   )
 }

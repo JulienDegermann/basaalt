@@ -28,8 +28,6 @@ export default function Modal({
     setStatus(show)
   }, [show])
 
-  console.log('status')
-  console.log(status)
   function onClose() {
     setStatus(false)
   }

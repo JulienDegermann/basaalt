@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 export default function Link({ text, url, target, className }) {
   return (
-    <a href={url} className={className} target={target ? '_blank' : '_self'} className="CTA">
+    <a href={url} className={`${className} CTA`} target={target ? '_blank' : '_self'}>
       {text}
     </a>
   )
