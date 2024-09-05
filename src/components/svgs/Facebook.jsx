@@ -4,6 +4,7 @@ export default function Facebook() {
       width="50" 
       height="50" 
       viewBox="0 0 50 50" 
+      className="reverse"
       fill="none" 
       xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_138_363)">

@@ -9,9 +9,6 @@ export const SendMessageContext = createContext({});
 export function SendMessageContextProvider({ children }) {
 
   const { modals, setModals } = useContext(ModalContext)
-
-  console.log(modals)
-
   // define object pattern
   const [message, setMessage] = useState({
     text: '',
@@ -44,8 +41,6 @@ export function SendMessageContextProvider({ children }) {
 
   const sendMessage = async (message) => {
     try {
-
-      console.log(message)
       const res = await axios.post(
         "https://127.0.0.1:8000/api/messages",
         message,

@@ -32,7 +32,6 @@ export default function Navbar() {
   // function showCart() {
   //   document.querySelector('.cart-background').classList.remove('hide');
   // }
-  console.log(menuOpened)
 
   return (
     <div className="navigation">

@@ -1,10 +1,12 @@
 // contexts
 import { useContext } from 'react'
-import { GroupContext } from '../../../hooks/useGroup'
+import { GroupContext } from '../../../../hooks/useGroup'
+
+import './styles.css'
 
 // components
-import Section from '../../Section'
-import HomeCard from '../../HomeCard'
+import Section from '../../../Section'
+import HomeCard from '../../../HomeCard'
 
 export default function Group() {
 
@@ -25,7 +27,7 @@ export default function Group() {
 
 
         {/* <div className="flex justify-between align-center"> */}
-        <div>
+        <div id="homeCardWrapper">
           {
             bandMembers.map((bandMember, index) => {
               return (

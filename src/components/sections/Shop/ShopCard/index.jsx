@@ -1,6 +1,8 @@
 // dependecies
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react'
+import './styles.css';
+
 
 // components
 import { NavLink } from 'react-router-dom';

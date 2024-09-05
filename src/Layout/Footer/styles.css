@@ -4,12 +4,13 @@ footer {
 
     div {
       padding: 1rem;
-      flex: 1;
+      flex: 2;
 
       .sectionTitle {
         font-size: 1.1rem;
         margin-bottom: .5rem;
         padding-left: .5rem;
+        letter-spacing: .1em;
       }
     }
   }
@@ -30,35 +31,68 @@ footer {
   }
 }
 
+.social-container .flex {
+  flex-wrap: wrap;
+  /* width: 300px; */
+  /* width: auto; */
+  flex: 1;
+}
+
 .social-links {
   display: inline-block;
   width: auto;
   height: auto;
+  margin-right: 16px;
+  margin-bottom: 16px;
 }
 
 svg {
-  background: var(--DARK);
-  width: auto;
-  background: var(--LIGHT);
-  border-radius: 50%;
   background: var(--PRIMARY);
+  width: auto;
+  border-radius: 50%;
   transition: all .25s linear;
-
+  padding: 4px;
+  
+  rect {
+    fill: transparent;
+  }
+  
+  path {
+    fill: var(--DARK);
+    background: var(--PRIMARY);
+    margin: 1rem;
+    transition: all .25s linear;
+  }
+  
   &:hover {
-    background: var(--DARK);
-
+    background: transparent;
+    
     path {
       fill: var(--PRIMARY);
     }
   }
+  
+  &.reverse {
+    background: var(--PRIMARY);
+    background: transparent;
+    padding: 0;
+    
+    path {
+      fill: var(--DARK);
+      fill: var(--PRIMARY);
+    }
 
-  path {
-    fill: var(--DARK);
-    margin: 1rem;
-    transition: all .25s linear;
+    &:hover {
+      background: var(--PRIMARY);
+
+      path {
+        fill: transparent;
+        fill: var(--DARK);
+      }
+    }
   }
 }
 
-#footer .mobileButtons{
+#footer .mobileButtons {
   display: none;
 }

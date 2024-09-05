@@ -11,7 +11,6 @@ import { NetworksContext } from "../../hooks/useNetworks";
 // components
 import Navbar from "../Navbar";
 import NetworkIcons from "../../core/NetworkIcons";
-import Section from '../../components/Section';
 import { NavLink } from 'react-router-dom';
 
 export default function Footer() {
@@ -19,9 +18,8 @@ export default function Footer() {
   const networks = useContext(NetworksContext);
 
   return (
-    <footer>
-      <Section
-        id='footer'
+    <footer id='footer'>
+      <div className='container'
       >
         <div className="flex justify-between">
           <div>
@@ -34,21 +32,25 @@ export default function Footer() {
           </div>
           <div className="social-container">
             <h3 className="sectionTitle">Nous suivre</h3>
-            <div className="flex justify-around">
+            <div className="flex">
               {
                 networks.map((network, index) => {
-                  return (
-                    // make a switch case for the network.name
-                    <a className="social-links" key={index} href={network.url}>
-                      <NetworkIcons network={network} />
-                    </a>
-                  )
+                  // if network's url is set in backoffice : display the icon
+                  if (network.url !== null && network.url !== "" && network.url !== undefined) {
+                    console.log(network.name)
+                    return (
+                      // make a switch case for the network.name
+                      <a className="social-links" key={index} href={network.url}>
+                        <NetworkIcons network={network} />
+                      </a>
+                    )
+                  }
                 })}
             </div>
             <NavLink to="/contact">
               <button
                 className="CTA"
-                onClick={ () => { window.scrollTo(0, 0) }}
+                onClick={() => { window.scrollTo(0, 0) }}
               >
                 Nous contacter
               </button>
@@ -56,7 +58,7 @@ export default function Footer() {
           </div>
         </div>
 
-      </Section>
+      </div>
 
 
     </footer>
