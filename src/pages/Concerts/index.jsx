@@ -2,11 +2,11 @@
 import { useContext, useMemo, useState } from 'react';
 
 // contexts
-import { LivesContext } from '../hooks/useLives';
+import { LivesContext } from '/src/hooks/useLives';
 
 // components
-import Section from '../components/Section';
-import LiveCard from '../components/LiveCard';
+import Section from '/src/components/Section';
+import LiveCard from './LiveCard';
 
 function Concerts() {
 

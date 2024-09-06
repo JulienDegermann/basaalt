@@ -2,12 +2,12 @@
 import { useContext, useState } from 'react';
 
 // contexts
-import { YoutubeContext } from '../hooks/useYoutube.jsx';
+import { YoutubeContext } from '/src/hooks/useYoutube.jsx';
 
 // components
-import YoutubeCard from '../components/YoutubeCard.jsx';
-import FormInput from '../components/FormInput.jsx';
-import Section from '../components/Section/index.jsx';
+import YoutubeCard from './YoutubeCard.jsx';
+import FormInput from '/src/components/FormInput.jsx';
+import Section from '/src/components/Section/index.jsx';
 
 function Videos() {
 

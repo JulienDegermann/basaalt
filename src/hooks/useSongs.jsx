@@ -1,7 +1,7 @@
 // dependencies
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
+import axiosInstance from '../core/AxiosInstance';
 
 export const SongsContext = createContext();
 
@@ -10,7 +10,7 @@ export function SongsContextProvider({ children }) {
 
   const SongsDatas = async () => {
     try {
-      const res = await axios.get("https://127.0.0.1:8000/api/songs")
+      const res = await axiosInstance.get("/api/songs")
       setSongs(res.data.items)
     } catch (e) {
       console.error(e)

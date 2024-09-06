@@ -6,6 +6,16 @@ button {
   text-transform: uppercase;
   border-radius: 8px;
   cursor: pointer;
+
+  &.link {
+    color: var(--PRIMARY);
+    text-decoration: none;
+    background: none;
+    border: none;
+    text-transform: lowercase;
+    border-bottom: 1px solid var(--PRIMARY);
+    padding: 0 1rem;
+  }
 }
 
 .CTA {
@@ -19,7 +29,7 @@ button {
   border: 1px solid var(--PRIMARY);
   color: var(--DARK);
   background: var(--PRIMARY);
-  
+
   &:hover {
     background: var(--DARK);
     color: var(--PRIMARY);

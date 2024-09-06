@@ -1,4 +1,7 @@
 footer {
+
+  padding-bottom: 2rem;
+
   .flex {
     flex-wrap: nowrap;
 
@@ -48,42 +51,49 @@ footer {
 
 svg {
   background: var(--PRIMARY);
+  background: var(--LIGHT);
   width: auto;
   border-radius: 50%;
   transition: all .25s linear;
   padding: 4px;
-  
+
   rect {
     fill: transparent;
   }
-  
+
   path {
     fill: var(--DARK);
     background: var(--PRIMARY);
+    background: var(--LIGHT);
     margin: 1rem;
     transition: all .25s linear;
   }
-  
+
   &:hover {
     background: transparent;
-    
+    transform: scale(1.5);
+
     path {
       fill: var(--PRIMARY);
+      fill: var(--LIGHT);
     }
   }
-  
+
   &.reverse {
     background: var(--PRIMARY);
+    background: var(--LIGHT);
     background: transparent;
     padding: 0;
-    
+
     path {
-      fill: var(--DARK);
       fill: var(--PRIMARY);
+      fill: var(--DARK);
+      fill: var(--LIGHT);
     }
 
     &:hover {
-      background: var(--PRIMARY);
+      background: transparent;
+      background: var(--LIGHT_TO_TRANSPARENT_CIRCLE);
 
       path {
         fill: transparent;

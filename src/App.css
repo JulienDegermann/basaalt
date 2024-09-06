@@ -37,6 +37,7 @@
   --DARK_TO_TRANSPARENT: linear-gradient(180deg, var(--DARK), transparent);
   --DARK_TO_TRANSPARENT_HEADER: linear-gradient(180deg, var(--DARK) 10%, transparent 100%);
   --LIGHT_TO_TRANSPARENT: linear-gradient(180deg, var(--LIGHT), transparent);
+  --LIGHT_TO_TRANSPARENT_CIRCLE: radial-gradient(var(--LIGHT) 69%, transparent 70%);
   --PRIMARY_TO_TRANSPARENT: linear-gradient(0deg, var(--PRIMARY) 30%, transparent 100%);
 
 
@@ -72,10 +73,6 @@ html {
 body {
   background: var(--DARK);
   color: var(--LIGHT);
-}
-
-#root {
-  position: relative;
 }
 
 .container {

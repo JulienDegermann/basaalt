@@ -37,7 +37,6 @@ export default function Footer() {
                 networks.map((network, index) => {
                   // if network's url is set in backoffice : display the icon
                   if (network.url !== null && network.url !== "" && network.url !== undefined) {
-                    console.log(network.name)
                     return (
                       // make a switch case for the network.name
                       <a className="social-links" key={index} href={network.url}>

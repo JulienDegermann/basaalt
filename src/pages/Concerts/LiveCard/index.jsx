@@ -5,7 +5,7 @@ import './styles.css';
 import PropTypes from 'prop-types';
 
 // components
-import Link from '../Link'
+import Link from '/src/components/Link'
 
 export default function LiveCard({ concert, onClick }) {
 
@@ -35,15 +35,15 @@ export default function LiveCard({ concert, onClick }) {
       <div className="info justify-between align-center">
         <div className=" flex align-start justify-center col">
           <h2>{concert.eventName}</h2>
-          <p>{concert.address} {cityCode} {cityName.toUpperCase()}</p>
-          <p>{formatDate(concert.eventDate)}</p>
+          <p>le {formatDate(concert.eventDate)}</p>
+          <p>{concert.address}<br />{cityCode} {cityName.toUpperCase()}</p>
         </div>
-        <Link
+        {concert.url && <Link
           text="plus d'infos"
-          url="https://google.com"
+          url={concert.url}
           target={true}
           className="CTA"
-        />
+        />}
       </div>
     </div>
   )
@@ -52,9 +52,10 @@ export default function LiveCard({ concert, onClick }) {
 LiveCard.propTypes = {
   concert: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    eventName: PropTypes.string,
-    eventDate: PropTypes.string,
+    eventName: PropTypes.string.isRequired,
+    eventDate: PropTypes.string.isRequired,
     address: PropTypes.string,
+    url: PropTypes.string,
     city: PropTypes.shape({
       name: PropTypes.string.isRequired,
       zipCode: PropTypes.string.isRequired

@@ -1,8 +1,8 @@
 // dependencies
 import { createContext, useState, useContext } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { ModalContext } from './useModal';
+import axiosInstance from '../core/AxiosInstance';
 
 export const SendMessageContext = createContext({});
 
@@ -30,7 +30,7 @@ export function SendMessageContextProvider({ children }) {
 
   const findUserByEmail = async (author) => {
     try {
-      const user = await axios.get("https://127.0.0.1:8000/api/users?email=" + author.email)
+      const user = await axiosInstance.get("/api/users?email=" + author.email)
 
       // if user doesn't exist, create it
       return user.data['hydra:member'].length === 1 ? user.data['hydra:member'][0] : author
@@ -41,15 +41,13 @@ export function SendMessageContextProvider({ children }) {
 
   const sendMessage = async (message) => {
     try {
-      const res = await axios.post(
-        "https://127.0.0.1:8000/api/messages",
+      const res = await axiosInstance.post(
+        "/api/messages",
         message,
         {
           headers:
             { "Content-Type": "application/ld+json" }
         })
-
-        console.log(res)
       if (res.status === 201) {
         setErrors({
           text: '',

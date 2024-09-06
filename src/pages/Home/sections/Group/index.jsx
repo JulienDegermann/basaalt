@@ -1,12 +1,12 @@
 // contexts
 import { useContext } from 'react'
-import { GroupContext } from '../../../../hooks/useGroup'
+import { GroupContext } from '/src/hooks/useGroup'
 
 import './styles.css'
 
 // components
-import Section from '../../../Section'
-import HomeCard from '../../../HomeCard'
+import Section from '/src/components/Section'
+import HomeCard from '../../HomeCard'
 
 export default function Group() {
 
@@ -23,8 +23,6 @@ export default function Group() {
         <p>
           {band.description}
         </p>
-
-
 
         {/* <div className="flex justify-between align-center"> */}
         <div id="homeCardWrapper">

@@ -1,6 +1,6 @@
 // dependencies
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import axiosInstance from '../core/AxiosInstance';
 import { createContext, useEffect, useState } from 'react';
 
 export const GroupContext = createContext();
@@ -11,7 +11,7 @@ export function GroupContextProvider({ children }) {
 
   const BandDatas = async () => {
     try {
-      const res = await axios.get("https://127.0.0.1:8000/api/bands")
+      const res = await axiosInstance.get("/api/bands")
       setBandMembers(res.data['hydra:member'][0].bandMember)
       setBand(res.data['hydra:member'][0])
     } catch (e) {

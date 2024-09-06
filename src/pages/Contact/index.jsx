@@ -3,6 +3,8 @@ import './styles.css';
 
 // dependecies
 import { useContext } from 'react';
+import Regex from '/src/core/Regex';
+
 // components
 import FormInput from '../../components/FormInput';
 import Button from '../../components/Button';
@@ -12,7 +14,6 @@ import { SendMessageContext } from '../../hooks/useMessages';
 function Contact() {
 
   const { message, setMessage, errors, handleSendMessage } = useContext(SendMessageContext);
-
   return (
     <>
       <Section
@@ -23,14 +24,13 @@ function Contact() {
           action=""
           method="POST"
         >
-
           <FormInput
             type="text"
             name="firstName"
             label="Prénom"
             placeholder='Entrez votre prénom'
-            onChange={(e) => setMessage({ ...message, author: { ...message.author, firstName: e.target.value } })
-            }
+            regexType='name'
+            onChange={e => { setMessage({ ...message, author: { ...message.author, firstName: e.target.value } }) }}
           />
           {errors.author.firstName && <p className="error">{errors.author.firstName}</p>}
           <FormInput
@@ -38,6 +38,7 @@ function Contact() {
             name="lastName"
             label="Nom"
             placeholder='Entrez votre nom'
+            regexType='name'
             onChange={(e) => setMessage({ ...message, author: { ...message.author, lastName: e.target.value } })
             }
           />
@@ -47,13 +48,15 @@ function Contact() {
             name="email"
             label="E-mail"
             placeholder='Entrez votre e-mail'
+            regexType='email'
             onChange={(e) => setMessage({ ...message, author: { ...message.author, email: e.target.value } })}
-            />
+          />
           {errors.author.email && <p className="error">{errors.author.email}</p>}
           <FormInput
             type="textarea"
             name="message"
             label="Message"
+            regexType='text'
             placeholder='Écrivez votre message ici'
             onChange={(e) => setMessage({ ...message, text: e.target.value })}
 

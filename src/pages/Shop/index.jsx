@@ -5,12 +5,12 @@ import './styles.css'
 import { useContext } from 'react'
 
 // contexts
-import { CartContext } from '../../hooks/useCart';
+import { CartContext } from '/src/hooks/useCart';
 
 // components
-import Section from '../../components/Section';
-import ShopCard from '../../components/sections/Shop/ShopCard';
-import { ShopContext } from '../../hooks/useShop';
+import Section from '/src/components/Section';
+import ShopCard from './ShopCard';
+import { ShopContext } from '/src/hooks/useShop';
 
 export default function Shop() {
   const articles = useContext(ShopContext);

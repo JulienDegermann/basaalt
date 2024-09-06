@@ -1,5 +1,7 @@
 // dependencies
 import PropTypes from 'prop-types';
+import Regex from '/src/core/Regex';
+import { useState } from 'react';
 
 /**
  * FormInput component
@@ -11,6 +13,7 @@ import PropTypes from 'prop-types';
  * @param {string} placeholder - input placeholder
  * @param {string} error - input error message
  * @param {string} value - input value
+ * @param {string} regexType - input regex type
  * @param {node} children - input children (eg : options for select)
  * @returns {JSX.Element}
  */
@@ -23,34 +26,43 @@ export default function FormInput({
   placeholder,
   error,
   value,
+  regexType,
   children }) {
+  const [test, setTest] = useState(null);
+
+
+  const handleChange = e => {
+    onChange(e);
+    console.log(e)
+    const test = Regex({ value: e.target.value, type: regexType });
+
+    setTest(test ? '✅' : '❌');
+  }
 
   if (type == 'textarea') {
     return (
       <div className='formInput'>
-        <label htmlFor={name}>{label}</label>
+        <label htmlFor={name}>{test} {label} </label>
         <textarea
           name={name}
           id={name}
           required
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={e => handleChange(e)}
           className={error ? 'error' : ''}
         />
       </div>
-
-
     )
   } else if (type == 'select') {
     return (
       <div className='formInput'>
-        <label htmlFor={name}>{label}</label>
+        <label htmlFor={name}>{test} {label}</label>
         <select
           name={name}
           id={name}
           required
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={handleChange}
           defaultValue={defaultValue}
           className={error ? 'error' : ''}
         >
@@ -61,7 +73,7 @@ export default function FormInput({
   } else if (type == 'radio') {
     const border = label === value ? '4px solid blue' : '1px solid';
     return (
-      
+
       <div className='formInput'>
         <input
           name={name}
@@ -69,7 +81,7 @@ export default function FormInput({
           value={label}
           type='radio'
           required
-          onChange={onChange}
+          onChange={handleChange}
           defaultValue={defaultValue}
           className={error ? 'error' : ''}
           style={{ background: label, width: '30px', heigth: '30px', display: 'none' }}
@@ -82,7 +94,7 @@ export default function FormInput({
               width: '30px',
               height: '30px',
               borderRadius: '50%',
-              outline: border,              
+              outline: border,
             }}>
           </div>
         </label>
@@ -93,14 +105,14 @@ export default function FormInput({
         <label
           htmlFor={name}
         >
-          {label}
+          {test} {label}
         </label>
         <input
           type={type}
           name={name}
           id={name}
           defaultValue={defaultValue}
-          onChange={onChange}
+          onChange={handleChange}
           required
           placeholder={placeholder}
           className={error ? 'error' : ''}
@@ -121,5 +133,6 @@ FormInput.propTypes = {
   placeholder: PropTypes.string,
   error: PropTypes.string,
   children: PropTypes.node,
+  regexType: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }

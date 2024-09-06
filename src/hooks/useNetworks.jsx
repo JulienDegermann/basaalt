@@ -1,7 +1,8 @@
 // dependencies
 import PropTypes from 'prop-types';
-import axios from 'axios';
+
 import { createContext, useEffect, useState } from 'react';
+import axiosInstance from '../core/AxiosInstance';
 
 export const NetworksContext = createContext();
 
@@ -10,7 +11,7 @@ export function NetworksContextProvider({ children }) {
 
   const networksDatas = async () => {
     try {
-      const res = await axios.get("https://127.0.0.1:8000/api/plateforms")
+      const res = await axiosInstance.get("/api/plateforms")
       setNetworks(res.data['hydra:member'])
     } catch (e) {
       console.log(e)

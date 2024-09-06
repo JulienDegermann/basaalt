@@ -1,7 +1,7 @@
 // dependecies
 import { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../core/AxiosInstance';
 
 // contexts
 import { CartContext } from '../hooks/CartContext';
@@ -33,7 +33,7 @@ export default function Article() {
     // get article datas
     const getDatas = async () => {
       try {
-        const res = await axios.get('https://127.0.0.1:8000/api/articles/' + id)
+        const res = await axiosInstance.get('/api/articles/' + id)
         // return res.data.stocks = res.data.stocks.filter(stock => stock.quantity > 0)
         setArticle(res.data)
         const datas = res.data.stocks.filter(stock => stock.quantity > 0)
