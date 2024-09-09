@@ -1,8 +1,10 @@
 // dependecies
 import PropTypes from 'prop-types';
-import { useContext, useState } from 'react'
+import { useMemo } from 'react'
 import './styles.css';
-import Image from '/src/assets/images/heroBanner.jpg';
+import { baseURL } from '/src/core/AxiosInstance';
+
+
 
 // components
 import { NavLink } from 'react-router-dom';
@@ -10,49 +12,26 @@ import { NavLink } from 'react-router-dom';
 // contexts
 import { ShopContext } from '/src/hooks/useShop';
 
-export default function ShopCard({ article, cart, setCart }) {
-  const [articleCount, setArticleCount] = useState(1);
+export default function ShopCard({ article}) {
 
-  function removeArticle() {
-    articleCount > 1 ? setArticleCount(parseInt(articleCount) - 1) : setArticleCount(articleCount);
-  }
-  function addArticle() {
-    setArticleCount(parseInt(articleCount) + 1);
-  }
+  const stock = useMemo(() => article?.stocks[0], [article]);
+  console.log(article)
 
-  function addToCart() {
+  const image = useMemo(() => stock?.stockImages[0].fileName ? stock?.stockImages[0]?.fileName : 'bonjour', [stock]);
 
-    let newCart = [...cart];
 
-    for (let i = 0; i < articleCount; i++) {
-      if (newCart.some(e => e.id === article.id)) {
-        newCart.find(e => e.id === article.id).quantity++;
-      } else {
-        newCart.push(article);
-      }
-    }
-
-    setArticleCount(1);
-    setCart(newCart);
-  }
 
   return (
     <NavLink to={`/la-boutique/${article.id}`} className="shop-card">
-      {/* <div className="shop-card"> */}
-      {/* change image */}
-      {/* <img src="./images/basaalt.png" alt="image de l'article" /> */}
-      <img src={Image} alt="image de l'article" />
+      <img src={`${baseURL}/uploads/${image}`} alt="text atlernatif" />
       <div className="text">
         <p>{article.name}</p>
         <p>{article.price} €</p>
       </div>
-      {/* </div> */}
     </NavLink>
   )
 }
 
 ShopCard.propTypes = {
   article: PropTypes.object.isRequired,
-  setCart: PropTypes.func.isRequired,
-  cart: PropTypes.array.isRequired,
 }

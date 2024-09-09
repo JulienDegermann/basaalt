@@ -14,6 +14,10 @@ form {
   }
 }
 
+form .formInput {
+  margin-bottom: 1rem;
+}
+
 form .formInput>* {
   width: 100%;
 }
@@ -43,4 +47,16 @@ textarea {
 #contact .CTA {
   cursor: pointer;
   margin: 2rem 0;
+}
+
+p.error {
+  font-size: .75em;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--DANGER_LIGHT);
+
+  &::before {
+    content: '⛔️ ';
+    font-style: normal;
+  }
 }

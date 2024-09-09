@@ -2,7 +2,8 @@
 import { createContext, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ModalContext } from './useModal';
-import axiosInstance from '../core/AxiosInstance';
+import axiosInstance from '/src/core/AxiosInstance';
+import Regex from '/src/core/Regex';
 
 export const SendMessageContext = createContext({});
 
@@ -57,7 +58,7 @@ export function SendMessageContextProvider({ children }) {
             email: ''
           }
         })
-        setModals([...modals, { type: 'success', title: 'Message envoyé', status: true, children: 'Votre message a bien été envoyé' } ])
+        setModals([...modals, { type: 'success', title: 'Message envoyé', status: true, children: 'Votre message a bien été envoyé' }])
       }
     } catch (error) {
       const violations = error.response.data.violations;
@@ -74,6 +75,22 @@ export function SendMessageContextProvider({ children }) {
     }
   }
 
+  const verifyDatas = message => {
+    const errReg = { ...errors };
+
+    // foreach input, check if there is an error message -> if yes, display it
+    errReg.author.firstName = Regex({value: message.author.firstName, type: 'name', fieldName: 'Prénom'})
+    errReg.author.lastName = Regex({value: message.author.lastName, type: 'name', fieldName: 'Nom'})
+    errReg.author.email = Regex({value: message.author.email, type: 'email', fieldName: 'E-mail'})
+    errReg.text = Regex({value: message.text, type: 'text', fieldName: 'Message'})
+
+    setErrors(errReg);
+
+    if (errReg.author.firstName || errReg.author.lastName || errReg.author.email || errReg.text) {
+      return true
+    }
+  }
+
   const sendMessageResponse = async () => {
 
     // find user by email if exists
@@ -84,6 +101,15 @@ export function SendMessageContextProvider({ children }) {
       text: message.text,
       author: author
     }
+
+    // verify datas with front regex
+    // const regex = verifyDatas(sendingMessage);
+    // if (regex) {
+    //   console.log('frontend regex')
+    //   return
+    // }
+
+    console.log('backend regex')
 
     // send message
     sendMessage(sendingMessage);

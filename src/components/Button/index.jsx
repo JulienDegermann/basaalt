@@ -11,6 +11,7 @@ export default function Button({ url, className, text, onClick, id }) {
       <a
         href={url}
         className={className}
+        aria-label={text}
       >
         {text}
       </a>)
@@ -20,6 +21,7 @@ export default function Button({ url, className, text, onClick, id }) {
         id={id}
         onClick={onClick}
         className={className}
+        aria-label={text}
       >
         {text}
       </button>

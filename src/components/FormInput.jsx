@@ -26,29 +26,21 @@ export default function FormInput({
   placeholder,
   error,
   value,
-  regexType,
   children }) {
-  const [test, setTest] = useState(null);
-
-
-  const handleChange = e => {
-    onChange(e);
-    console.log(e)
-    const test = Regex({ value: e.target.value, type: regexType });
-
-    setTest(test ? '✅' : '❌');
-  }
 
   if (type == 'textarea') {
     return (
       <div className='formInput'>
-        <label htmlFor={name}>{test} {label} </label>
+        <label htmlFor={name}>{label}
+        </label>
+        {error && <p className='error'>{error}</p>}
+
         <textarea
           name={name}
           id={name}
           required
           placeholder={placeholder}
-          onChange={e => handleChange(e)}
+          onChange={e => onChange(e)}
           className={error ? 'error' : ''}
         />
       </div>
@@ -56,13 +48,14 @@ export default function FormInput({
   } else if (type == 'select') {
     return (
       <div className='formInput'>
-        <label htmlFor={name}>{test} {label}</label>
+        <label htmlFor={name}>{label}</label>
+        {error && <p className='error'>{error}</p>}
         <select
           name={name}
           id={name}
           required
           placeholder={placeholder}
-          onChange={handleChange}
+          onChange={onChange}
           defaultValue={defaultValue}
           className={error ? 'error' : ''}
         >
@@ -81,7 +74,7 @@ export default function FormInput({
           value={label}
           type='radio'
           required
-          onChange={handleChange}
+          onChange={onChange}
           defaultValue={defaultValue}
           className={error ? 'error' : ''}
           style={{ background: label, width: '30px', heigth: '30px', display: 'none' }}
@@ -98,6 +91,8 @@ export default function FormInput({
             }}>
           </div>
         </label>
+        {error && <p className='error'>{error}</p>}
+
       </div>)
   } else {
     return (
@@ -105,19 +100,21 @@ export default function FormInput({
         <label
           htmlFor={name}
         >
-          {test} {label}
+          {label}
         </label>
+        {error && <p className='error'>{error}</p>}
+
+
         <input
           type={type}
           name={name}
           id={name}
           defaultValue={defaultValue}
-          onChange={handleChange}
+          onChange={onChange}
           required
           placeholder={placeholder}
           className={error ? 'error' : ''}
         />
-        {error && <p>{error}</p>}
       </div>
     );
   }
@@ -127,12 +124,11 @@ FormInput.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  error: PropTypes.string,
   defaultValue: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   placeholder: PropTypes.string,
-  error: PropTypes.string,
   children: PropTypes.node,
-  regexType: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }

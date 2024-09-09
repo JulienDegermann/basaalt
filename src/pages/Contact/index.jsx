@@ -3,7 +3,6 @@ import './styles.css';
 
 // dependecies
 import { useContext } from 'react';
-import Regex from '/src/core/Regex';
 
 // components
 import FormInput from '../../components/FormInput';
@@ -29,39 +28,35 @@ function Contact() {
             name="firstName"
             label="Prénom"
             placeholder='Entrez votre prénom'
-            regexType='name'
+            error={errors.author.firstName ? errors.author.firstName : ''}
             onChange={e => { setMessage({ ...message, author: { ...message.author, firstName: e.target.value } }) }}
           />
-          {errors.author.firstName && <p className="error">{errors.author.firstName}</p>}
           <FormInput
             type="text"
             name="lastName"
             label="Nom"
             placeholder='Entrez votre nom'
-            regexType='name'
+            error={errors.author.lastName ? errors.author.lastName : ''}
             onChange={(e) => setMessage({ ...message, author: { ...message.author, lastName: e.target.value } })
             }
           />
-          {errors.author.lastName && <p className="error">{errors.author.lastName}</p>}
           <FormInput
             type="email"
             name="email"
-            label="E-mail"
+            label="E-mail" 
+            error={errors.author.email ? errors.author.email : ''}
             placeholder='Entrez votre e-mail'
-            regexType='email'
             onChange={(e) => setMessage({ ...message, author: { ...message.author, email: e.target.value } })}
           />
-          {errors.author.email && <p className="error">{errors.author.email}</p>}
           <FormInput
             type="textarea"
             name="message"
             label="Message"
-            regexType='text'
             placeholder='Écrivez votre message ici'
+            error={errors.text ? errors.text : ''}
             onChange={(e) => setMessage({ ...message, text: e.target.value })}
 
           />
-          {errors.text && <p className="error">{errors.text}</p>}
           <Button
             text="Envoyer"
             className="CTA button"

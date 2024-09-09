@@ -19,7 +19,6 @@ export function ShopContextProvider({ children }) {
   useEffect(() => {
     BandDatas()
   }, [])
-
   return (
     <ShopContext.Provider
       value={articles}

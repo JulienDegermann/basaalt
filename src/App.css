@@ -14,6 +14,15 @@
   src: url("assets/fonts/Metal_Mania/MetalMania-Regular.ttf");
 }
 
+@font-face {
+  font-family: 'Englebert';
+  src: url("assets/fonts/Englebert/Englebert-Regular.ttf");
+}
+@font-face {
+  font-family: 'Marhey';
+  src: url("assets/fonts/Marhey/Marhey-VariableFont_wght.ttf");
+}
+
 /* COLORS */
 :root {
   --LIGHT: #FFF;
@@ -75,6 +84,10 @@ body {
   color: var(--LIGHT);
 }
 
+#root {
+  overflow-x: hidden;
+  position: relative;
+}
 .container {
   margin: auto;
   height: 100%;
@@ -150,17 +163,6 @@ body {
   }
 }
 
-.error {
-  color: var(--DANGER);
-  font-size: .9em;
-  font-style: italic;
-
-  &::before {
-    content: '⛔️ ';
-    font-style: normal;
-  }
-}
-
 /* modal */
 .modal {
   position: fixed;
@@ -227,3 +229,4 @@ body {
     }
   }
 }
+

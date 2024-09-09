@@ -80,6 +80,7 @@ header {
       justify-content: flex-start;
       transform: translateX(100%);
       transition: transform .25s ease-in-out;
+      z-index: 1000;
 
       li {
         padding: .5rem 1rem;

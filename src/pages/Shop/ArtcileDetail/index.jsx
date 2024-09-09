@@ -1,22 +1,23 @@
 // dependecies
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import './styles.css';
 import Section from '/src/components/Section';
 import Button from '/src/components/Button';
 import { useParams } from 'react-router-dom';
-import FormInput from '/src/components/FormInput';
-import Image from '/src/assets/images/heroBanner.jpg';
-import axiosInstance from '../../../core/AxiosInstance';
+import axiosInstance, { baseURL } from '/src/core/AxiosInstance';
 
 
 
 
 export default function ArticleDetail() {
   const id = useParams().id;
+
   const [article, setArticle] = useState(null);
 
-  const [stock, setStock] = useState(null);
+  const [currentStock, setCurrentStock] = useState();
+
+  const image = useMemo(() => currentStock?.stockImages[0].fileName, [currentStock]);
 
   useEffect(() => {
     const datas = async () => {
@@ -24,6 +25,7 @@ export default function ArticleDetail() {
         const response = await axiosInstance.get(`/api/articles/${id}`);
         const data = response.data;
         setArticle(data);
+        setCurrentStock(data.stocks[0]);
       }
       catch (error) {
         console.log(error);
@@ -32,9 +34,6 @@ export default function ArticleDetail() {
     datas();
   }, [id])
 
-  useEffect(() => {
-  })
-  
   return (
 
     <Section
@@ -51,7 +50,9 @@ export default function ArticleDetail() {
       <div className="flex">
 
         <div className="images">
-          <img src={Image} alt="" />
+
+          <img src={`${baseURL}/uploads/${image}`} alt="text atlernatif" />
+          {/* <img src={Image} alt="" /> */}
         </div>
         <div className="text">
 
@@ -60,16 +61,20 @@ export default function ArticleDetail() {
           {article &&
             <>
               <p>
-                Tailles : {article.stocks.map(stock => { return stock.size }).join(' ,'
+                Tailles : {article?.stocks?.map(stock => { return stock.size }).join(' ,'
                 )}
               </p>
               <div className='colorWrapper'>
                 Couleurs :
-                {article.stocks.map((stock, index) => {
+                {article?.stocks?.map((stock, index) => {
                   return <div
                     key={index}
                     value={stock.color}
-                    style={{ backgroundColor: stock.color }}
+                    className = {stock === currentStock ? 'selected' : ''}
+                    style={{
+                      backgroundColor: stock.color,
+                    }}
+                    onClick={() => { setCurrentStock(stock) }}
                   >
                   </div>
                 })}
