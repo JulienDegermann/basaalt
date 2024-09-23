@@ -61,6 +61,7 @@ function Contact() {
             text="Envoyer"
             className="CTA button"
             onClick={(e) => handleSendMessage(e, message)}
+            ariaLanbel="Envoyer le message"
           />
         </form>
       </Section>

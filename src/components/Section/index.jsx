@@ -9,9 +9,9 @@ export default function Section({ id, heroBanner, title, children }) {
     <section
       id={id}
       className={heroBanner ? 'heroBanner' : ''}
-    >
+      >
+      {title && <h2 className="sectionTitle">{title}</h2>}
       <div className="container">
-        {title && <h2 className="sectionTitle">{title}</h2>}
         {children}
       </div>
     </section>

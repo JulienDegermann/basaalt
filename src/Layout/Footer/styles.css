@@ -1,5 +1,4 @@
 footer {
-
   padding-bottom: 2rem;
 
   .flex {
@@ -36,17 +35,38 @@ footer {
 
 .social-container .flex {
   flex-wrap: wrap;
-  /* width: 300px; */
-  /* width: auto; */
   flex: 1;
 }
 
 .social-links {
-  display: inline-block;
+  display: inline-flex;
   width: auto;
   height: auto;
   margin-right: 16px;
   margin-bottom: 16px;
+  align-items: center;
+}
+
+.social-links:hover svg {
+  @media screen and (min-width: 1024px) {
+    background: transparent;
+    transform: scale(1.5);
+  }
+
+  path {
+    fill: var(--PRIMARY);
+    fill: var(--LIGHT);
+  }
+
+  &.reverse {
+    background: transparent;
+    background: var(--LIGHT_TO_TRANSPARENT_CIRCLE);
+
+    path {
+      fill: transparent;
+      fill: var(--DARK);
+    }
+  }
 }
 
 svg {
@@ -56,6 +76,7 @@ svg {
   border-radius: 50%;
   transition: all .25s linear;
   padding: 4px;
+  margin-right: 1rem;
 
   rect {
     fill: transparent;
@@ -69,16 +90,6 @@ svg {
     transition: all .25s linear;
   }
 
-  &:hover {
-    background: transparent;
-    transform: scale(1.5);
-
-    path {
-      fill: var(--PRIMARY);
-      fill: var(--LIGHT);
-    }
-  }
-
   &.reverse {
     background: var(--PRIMARY);
     background: var(--LIGHT);
@@ -89,16 +100,6 @@ svg {
       fill: var(--PRIMARY);
       fill: var(--DARK);
       fill: var(--LIGHT);
-    }
-
-    &:hover {
-      background: transparent;
-      background: var(--LIGHT_TO_TRANSPARENT_CIRCLE);
-
-      path {
-        fill: transparent;
-        fill: var(--DARK);
-      }
     }
   }
 }

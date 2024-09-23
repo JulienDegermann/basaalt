@@ -4,14 +4,21 @@ import './styles.css'
 // dependecies
 import PropTypes from "prop-types"
 
-export default function Button({ url, className, text, onClick, id }) {
+export default function Button({
+  url,
+  className,
+  text,
+  onClick,
+  id,
+  ariaLabel
+}) {
 
   if (url !== undefined) {
     return (
       <a
         href={url}
         className={className}
-        aria-label={text}
+        aria-label={ariaLabel ? ariaLabel : text}
       >
         {text}
       </a>)
@@ -21,7 +28,7 @@ export default function Button({ url, className, text, onClick, id }) {
         id={id}
         onClick={onClick}
         className={className}
-        aria-label={text}
+        aria-label={ariaLabel ? ariaLabel : text}
       >
         {text}
       </button>
@@ -34,5 +41,6 @@ Button.propTypes = {
   className: PropTypes.string,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onClick: PropTypes.func,
-  id: PropTypes.string
+  id: PropTypes.string,
+  ariaLabel: PropTypes.string
 }

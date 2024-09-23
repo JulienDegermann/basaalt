@@ -1,69 +1,75 @@
-// dependenies
+// dependencies
 import PropTypes from 'prop-types';
-import { createContext, useEffect, useState } from 'react';
-
-// contexts
-export const CartContext = createContext([]);
-
-// components 
-import { NavLink } from 'react-router-dom';
-import Button from '../components/Button';
-
+import {createContext, useState} from 'react';
+import AxiosInstance from '../core/AxiosInstance.js';
+import {findUserByEmail} from '../core/GlobalMethods.js';
+// components
 // svgs
-import Close from '../components/svgs/Close';
+// contexts
+export const CartContext = createContext({});
 
+export function CartContextProvider({children}) {
+    const [cart, setCart] = useState({
+        status: 'saved',
+        articleCommands: [],
+        buyer: {
+            firstName: 'Julien',
+            lastName: 'Degermann',
+            email: 'test@test.com',
+            address: '7 rue des proutes',
+            city: 'Vannes'
+        }
+    });
+    const addToCart = e => {
+        console.log('add to cart');
+        const articleIndex = cart.articleCommands.findIndex(item => item.stock.id === e.stock.id);
+        const newCart = {...cart};
+        if (articleIndex !== -1) {
+            const prevQuantity = parseInt(newCart.articleCommands[articleIndex].quantity);
+            newCart.articleCommands[articleIndex].quantity = prevQuantity + e.quantity;
+        } else {
+            newCart.articleCommands = [...newCart.articleCommands, e];
+        }
+        return setCart(newCart);
+    };
+    const removeFromCart = e => {
+        console.log('remove from cart');
+    };
+    const sendOrder = async () => {
+        console.log('order sent');
+        console.log(cart);
+        // define buyer
+        const user = await findUserByEmail(cart.buyer);
+        console.log(user);
+        const buyer = user ? user : cart.buyer;
+        cart.buyer = buyer;
 
-export function CartContextProvider({ children }) {
-  const [cart, setCart] = useState([]);
-  const [totalCost, setTotalCost] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
+        cart.articleCommands.map(articleCommand => {
+            console.log('coucou');
+        });
 
-  function close() {
-    document.querySelector('.cart-background').classList.add('hide');
-  }
-
-
-  useEffect(() => {
-    setTotalCost(cart.reduce((acc, item) => acc + (item.article.price * item.quantity), 0))
-    setTotalItems(cart.reduce((acc, item) => acc + item.quantity, 0))
-  }, [cart])
-
-  return (
-    <CartContext.Provider value={{ cart, setCart }}>
-      <div className="cart-background hide">
-        <div className="flex col cart-content justify-between hide">
-
-          <Button text={<Close />} className="close" onClick={close} />
-          <h3>Mon panier</h3>
-          <div className="flex col">
-            {
-              cart.map((item, index) => (
-                <div key={index} className="cart-item">
-                  <h4>{item.article.name}</h4>
-                  <div className="flex justify-between">
-                    <p>{item.quantity} x {item.article.price}€</p>
-                    <p>{(Math.round(item.quantity * item.article.price * 100)) / 100} €</p>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
-
-          <div className='cart-total flex justify-center'>
-            <p>totalItems</p>
-            <p>{`${totalCost} €`}</p>
-            <NavLink to="/mon-panier" className={nav => nav.isActive ? "active CTA" : "CTA"} onClick={close}>
-              <li>voir mon panier</li>
-            </NavLink>
-          </div>
-        </div>
-
-      </div>
-      {children}
-    </CartContext.Provider>
-  )
+        try {
+            console.log(cart);
+            const response = await new AxiosInstance.post(
+                '/api/orders',
+                cart,
+                {
+                    headers:
+                        {'Content-Type': 'application/ld+json'}
+                });
+            console.log(response);
+            //     if status 201 : ok -> reset cart
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    return (
+        <CartContext.Provider value={{cart, setCart, addToCart, sendOrder}}>
+            {children}
+        </CartContext.Provider>
+    );
 }
 
 CartContextProvider.propTypes = {
-  children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired
 };

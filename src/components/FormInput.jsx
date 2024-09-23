@@ -42,6 +42,7 @@ export default function FormInput({
           placeholder={placeholder}
           onChange={e => onChange(e)}
           className={error ? 'error' : ''}
+          tabIndex={0}
         />
       </div>
     )
@@ -57,6 +58,7 @@ export default function FormInput({
           placeholder={placeholder}
           onChange={onChange}
           defaultValue={defaultValue}
+          tabIndex={0}
           className={error ? 'error' : ''}
         >
           {children}
@@ -77,6 +79,7 @@ export default function FormInput({
           onChange={onChange}
           defaultValue={defaultValue}
           className={error ? 'error' : ''}
+          tabIndex={0}
           style={{ background: label, width: '30px', heigth: '30px', display: 'none' }}
         />
 
@@ -114,6 +117,7 @@ export default function FormInput({
           required
           placeholder={placeholder}
           className={error ? 'error' : ''}
+          tabIndex={0}
         />
       </div>
     );

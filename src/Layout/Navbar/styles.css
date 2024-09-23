@@ -72,7 +72,7 @@ header {
       top: 0;
       right: 0;
       background-color: var(--DARK);
-      padding: 2rem .5rem;
+      padding: 5rem .5rem;
       width: auto;
       /* border: 1px solid var(--PRIMARY); */
       z-index: 10;
@@ -171,6 +171,7 @@ footer {
   border: none;
   padding: 1rem;
   display: inline-block;
+  z-index: 999999;
 
   @media screen and (min-width: 1024px) {
     display: none;

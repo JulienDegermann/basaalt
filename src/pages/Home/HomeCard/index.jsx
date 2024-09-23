@@ -17,7 +17,7 @@ export default function HomeCard({ firstName, role, image }) {
 
       <div className="homeCard">
 
-        <img src={imageImport} alt={firstName} />
+        <img src={imageImport} alt={`photo de ${firstName}`} />
         <div className="text">
           <p>{firstName.toUpperCase()}</p>
           <p>{role}</p>

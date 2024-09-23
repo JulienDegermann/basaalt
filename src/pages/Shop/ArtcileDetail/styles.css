@@ -3,12 +3,29 @@
     margin: 0 1rem;
     flex: 1;
   }
+  .flex > .text {
+    @media screen and (max-width: 1024px) {
+      margin-top: 3.5rem;
+    }
+  }
 
-  .images>img {
-    border-radius: 4px;
-    max-width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .images {
+    background-color: transparent;
+    height: 100vh;
+    max-height: 50vh;
+
+    @media screen and (max-width: 1024px) {
+      max-height: 60vh;
+    }
+
+    &>img {
+      border-radius: 4px;
+      max-height: 100%;
+      max-width: 100%;
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
   }
 
   h3 {
@@ -16,39 +33,45 @@
     margin-bottom: 1rem;
   }
 
-  .colorWrapper {
-    display: flex;
-    align-items: center;
+  .text {
 
-    >div {
-      border: 2px solid var(--LIGHT);
-      cursor: pointer;
-      margin: 0 8px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
 
-      &.selected {
-        box-shadow: 0 0 5px 5px var(--LIGHT);
+    .colorWrapper {
+      display: flex;
+      align-items: center;
+
+      >div {
+        border: 2px solid var(--LIGHT);
+        cursor: pointer;
+        margin: 0 8px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+
+        &.selected {
+          box-shadow: 0 0 5px 5px var(--LIGHT);
+        }
+      }
+    }
+
+    #price {
+      font-size: 3rem;
+      font-family: 'Metal Mania';
+      position: relative;
+
+      &::after {
+        content: '(* prix unitaire TTC)';
+        font-size: .25em;
+        font-family: initial;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: block;
+        width: max-content;
+        height: max-content;
       }
     }
   }
 
-  #price {
-    font-size: 3rem;
-    font-family: 'Metal Mania';
-    position: relative;
 
-    &::after {
-      content: '(* prix unitaire TTC)';
-      font-size: .25em;
-      font-family: initial;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      display: block;
-      width: max-content;
-      height: max-content;
-    }
-  }
 }

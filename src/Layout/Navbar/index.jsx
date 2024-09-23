@@ -2,8 +2,8 @@
 import "./styles.css";
 
 // contexts
-import {useEffect, useState } from "react";
-// import { CartContext } from "../../hooks/useCart";
+import { useEffect, useState } from "react";
+import PropTypes from 'prop-types'
 
 // components
 import Button from "../../components/Button";
@@ -12,51 +12,88 @@ import { NavLink } from "react-router-dom";
 // svgs
 import Close from "../../components/svgs/Close";
 import BurgerMenu from "../../components/svgs/BurgerMenu";
-// import ShopCart from "../../components/svgs/ShopCart";
-// import Account from "../../components/svgs/Account";
 
-export default function Navbar() {
-
-  // const { cart } = useContext(CartContext);
-  // const { totalItems } = useContext(CartContext);
+export default function Navbar({ isFooter = false }) {
 
   const [menuOpened, setMenuOpened] = useState(false);
 
-  useEffect(() => { }
-  )
-  // let totalCount = 0;
-  // cart.map((article) => {
-  //   totalCount += article.quantity;
-  // });
+  const closeMenuEscape = e => {
+    if (e.key === "Escape") {
+      setMenuOpened(false)
+    }
+  }
 
-  // function showCart() {
-  //   document.querySelector('.cart-background').classList.remove('hide');
-  // }
+  useEffect(() => {
+    document.addEventListener('keydown', closeMenuEscape)
+    return () => {
+      document.removeEventListener('keydown', closeMenuEscape)
+    }
+  }, [])
 
   return (
-    <div className="navigation">
+    <div className="navigation" role="navigation">
       <Button
-        text={<BurgerMenu />} id="burgerMenu" className="mobileButtons" onClick={() => { setMenuOpened(!menuOpened) }} />
+        text={!menuOpened ? <BurgerMenu /> : <Close />}
+        id={!menuOpened ? "burgerMenu" : "closeMenu"}
+        className="mobileButtons"
+        onClick={() => { setMenuOpened(!menuOpened) }}
+        ariaLabel={menuOpened ? "Fermer le menu" : "Ouvrir le menu"}
+        aria-expanded={menuOpened}
+        tabIndex={0}
+      />
 
+      {/* <Button
+        className="mobileButtons"
+        text={<Close />}
+        onClick={() => { setMenuOpened(false) }}
+        ariaLabel="Fermer le menu"
+      /> */}
       <ul className={menuOpened ? "menu open" : "menu"}>
-        <Button className="mobileButtons" text={<Close />} onClick={() => { setMenuOpened(false) }} />
         <li>
-          <NavLink to="/" className={nav => nav.isActive ? "active" : ""} onClick={() => { setMenuOpened(false) }}>
+          <NavLink
+            to="/"
+            aria-label="Accéder à la page d'accueil"
+            className={nav => nav.isActive ? "active" : ""}
+            aria-current={nav => nav.isActive ? "page" : undefined}
+            onClick={() => { setMenuOpened(false) }}
+            tabIndex={!isFooter ? 0 : -1}
+          >
             Accueil
           </NavLink>
         </li>
         <li>
-          <NavLink to="/nos-concerts" className={nav => nav.isActive ? "active" : ""} onClick={() => { setMenuOpened(false) }}>
+          <NavLink
+            to="/nos-concerts"
+            aria-label="Accéder à la page des concerts"
+            className={nav => nav.isActive ? "active" : ""}
+            aria-current={nav => nav.isActive ? "page" : undefined}
+            onClick={() => { setMenuOpened(false) }}
+            tabIndex={!isFooter ? 0 : -1}
+          >
             Concerts
           </NavLink>
         </li>
         <li>
-          <NavLink to="/la-boutique" className={nav => nav.isActive ? "active" : ""} onClick={() => { setMenuOpened(false) }}>
+          <NavLink
+            to="/la-boutique"
+            aria-label="Accéder à la page de la boutique"
+            className={nav => nav.isActive ? "active" : ""}
+            aria-current={nav => nav.isActive ? "page" : undefined}
+            onClick={() => { setMenuOpened(false) }}
+            tabIndex={!isFooter ? 0 : -1}
+          >
             Boutique
           </NavLink>
         </li>
         <li>
-          <NavLink to="/contact" className={nav => nav.isActive ? "active" : ""} onClick={() => { setMenuOpened(false) }}>
+          <NavLink
+            to="/contact"
+            aria-label="Accéder à la page de contact"
+            className={nav => nav.isActive ? "active" : ""}
+            aria-current={nav => nav.isActive ? "page" : undefined}
+            onClick={() => { setMenuOpened(false) }}
+            tabIndex={!isFooter ? 0 : -1}
+          >
             Contact
           </NavLink>
         </li>
@@ -76,4 +113,8 @@ export default function Navbar() {
       </ul> */}
     </div>
   )
+}
+
+Navbar.propTypes = {
+  isFooter: PropTypes.bool.isRequired
 }
