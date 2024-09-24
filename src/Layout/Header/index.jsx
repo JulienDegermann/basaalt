@@ -9,7 +9,7 @@ import Button from '/src/components/Button';
 import ShoppingCart from '../../components/svgs/ShoppingCart.jsx';
 
 export default function Header() {
-    const {sendOrder} = useContext(CartContext);
+    const {sendOrde, cartCount} = useContext(CartContext);
     return (
         <header>
             <div className="container">
@@ -40,6 +40,8 @@ export default function Header() {
                                 // onClick={sendOrder}
                             >
                                 <ShoppingCart/>
+                                {cartCount !== 0 ?
+                                    <div id="cartCount">{cartCount}</div> : null}
                             </Button>
                         </NavLink>
                     </div>

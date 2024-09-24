@@ -103,3 +103,37 @@
         }
     }
 }
+
+.addToCart {
+    margin-top: 2rem;
+
+    #saveToCart {
+        margin-top: -2rem;
+    }
+
+    .quantity {
+        width: max-content;
+        display: flex;
+        align-items: center;
+
+        p {
+            background: var(--LIGHT);
+            flex: 1;
+            display: inline-block;
+            width: 60px;
+            color: var(--DARK);
+            text-align: center;
+        }
+
+        .CTA {
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+}

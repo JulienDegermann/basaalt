@@ -17,22 +17,20 @@ export default function ArticleDetail() {
     const id = useParams().id;
     const [allStocks, setAllStocks] = useState(null);
     const [article, setArticle] = useState(null);
-    const [quantity, setQuantity] = useState(1);    // console.log(currentStockImage, currentStockQuantity, currentStockColor, currentStockSize);
+    const [quantity, setQuantity] = useState(1);
 
     const {addToCart} = useContext(CartContext);
 
     // set seclectedStock and its Values
     const [currentStock, setCurrentStock] = useState(null);
+
     const currentStockSize = useMemo(() => currentStock?.size, [currentStock]);
     const currentStockQuantity = useMemo(() => currentStock?.quantity, [currentStock]);
     const currentStockColor = useMemo(() => currentStock?.color, [currentStock]);
     const currentStockImage = useMemo(() => currentStock?.stockImages[0]?.fileName ? `${baseURL}/uploads/${currentStock?.stockImages[0]?.fileName}` : DefaultImage, [currentStock]);
 
     const handleClick = async () => {
-        const thisStock = '/api/stocks/' + currentStock.id;
-
         addToCart({stock: currentStock, quantity: quantity});
-        // addToCart({stock: thisStock, quantity: 2});
     };
 
     useEffect(() => {
@@ -40,15 +38,21 @@ export default function ArticleDetail() {
             try {
                 const response = await axiosInstance.get(`/api/stocks?article=${id}`);
                 const datas = response.data['hydra:member'];
-                setAllStocks(datas);
+                setAllStocks(datas.filter(stock => stock.quantity > 0));
                 setArticle(datas[0].article);
-                setCurrentStock(datas[0]);
+                setCurrentStock(datas.find(stock => stock.quantity > 0));
             } catch (error) {
                 console.log(error);
             }
         };
         datas();
     }, [id]);
+
+    useEffect(() => {
+        if (currentStock?.quantity < quantity) {
+            setQuantity(currentStock.quantity);
+        }
+    }, [currentStock]);
 
     return (
         <Section
@@ -92,7 +96,7 @@ export default function ArticleDetail() {
                                     return <div
                                         key={index}
                                         value={stock.color}
-                                        className={stock.color === currentStockColor ? 'selected' : ''}
+                                        className={stock === currentStock ? 'selected' : ''}
                                         style={{
                                             backgroundColor: stock.color,
                                         }}
@@ -105,35 +109,33 @@ export default function ArticleDetail() {
                             </div>
                         </div>
                     }
-                    <div
-                        className="quantity flex align-center"
-                    >
+                    <div className="addToCart">
+                        <div className="quantity">
+                            <Button
+                                id="decrementQuantity"
+                                onClick={() => {
+                                    setQuantity(prev => prev > 1 ? prev - 1 : 1);
+                                }}
+                                className="CTA"
+                                text="-"
+                            />
+                            <p>{quantity}</p>
+                            <Button
+                                id="incrementQuantity"
+                                onClick={() => {
+                                    setQuantity(prev => prev + 1 > currentStockQuantity ? prev : prev + 1);
+                                }}
+                                className="CTA"
+                                text="+"
+                            />
+                        </div>
                         <Button
-                            id="decrementQuantity"
-                            onClick={() => {
-                                setQuantity(prev => prev > 1 ? prev - 1 : 1);
-                            }}
+                            id="saveToCart"
+                            onClick={handleClick}
+                            text="Ajouter au panier"
                             className="CTA"
-                            text="-"
-                        />
-                        <div>{quantity}</div>
-                        <Button
-                            id="incrementQuantity"
-                            onClick={() => {
-                                setQuantity(prev => prev + 1 > currentStockQuantity ? prev : prev + 1);
-                            }}
-                            className="CTA"
-                            text="+"
                         />
                     </div>
-
-
-                    <Button
-                        id="saveToCart"
-                        onClick={handleClick}
-                        text="Ajouter au panier"
-                        className="CTA"
-                    />
                 </div>
             </div>
         </Section>

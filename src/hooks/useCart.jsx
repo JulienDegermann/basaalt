@@ -1,6 +1,6 @@
 // dependencies
 import PropTypes from 'prop-types';
-import {createContext, useState} from 'react';
+import {createContext, useMemo, useState} from 'react';
 import AxiosInstance from '../core/AxiosInstance.js';
 import {findUserByEmail} from '../core/GlobalMethods.js';
 
@@ -22,8 +22,15 @@ export function CartContextProvider({children}) {
         }
     });
 
+    const cartCount = useMemo(() => {
+
+        if (cart?.articleCommands.length === 0) {
+            return 0;
+        }
+        return cart?.articleCommands?.reduce((count, articleCommand) => count + articleCommand.quantity, 0);
+    }, [cart]);
+
     const addToCart = e => {
-        console.log('add to cart');
         const articleIndex = cart.articleCommands.findIndex(item => item.stock.id === e.stock.id);
         const newCart = {...cart};
         if (articleIndex !== -1) {
@@ -43,9 +50,7 @@ export function CartContextProvider({children}) {
         // define buyer
         const user = await findUserByEmail(cart.buyer);
         const buyer = user ? user : cart.buyer;
-        console.log(cart);
         cart.buyer = buyer;
-        console.log(cart);
         try {
             const response = await new AxiosInstance.post(
                 '/api/orders',
@@ -54,7 +59,6 @@ export function CartContextProvider({children}) {
                     headers:
                         {'Content-Type': 'application/ld+json'}
                 });
-            console.log(response);
             //     if status 201 : ok -> reset cart
         } catch (e) {
             console.log(e);
@@ -62,7 +66,7 @@ export function CartContextProvider({children}) {
     };
 
     return (
-        <CartContext.Provider value={{cart, setCart, addToCart, sendOrder}}>
+        <CartContext.Provider value={{cart, setCart, addToCart, sendOrder, cartCount}}>
             {children}
         </CartContext.Provider>
     );

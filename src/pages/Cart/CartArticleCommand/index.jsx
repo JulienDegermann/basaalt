@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import './styles.css';
 import DefaultImage from '/src/assets/images/defaultStockImage.jpg';
+import {useMemo} from 'react';
+import {baseURL} from '../../../core/AxiosInstance.js';
 
 export default function CartArticleCommand({articleCommand}) {
     console.log(articleCommand);
 
-    const Image = articleCommand.stock.stockImages[0] ? articleCommand.stock.stockImages[0] : DefaultImage;
+    const Image = useMemo(() => articleCommand?.stock?.stockImages[0]?.fileName ? `${baseURL}/uploads/${articleCommand?.stock?.stockImages[0]?.fileName}` : DefaultImage, [articleCommand]);
+
+    // const Image = articleCommand.stock.stockImages[0] ? articleCommand.stock.stockImages[0] : DefaultImage;
     // console.log(Image);
     return (
         <div className="cart-item">

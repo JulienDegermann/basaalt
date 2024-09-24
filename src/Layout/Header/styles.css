@@ -66,6 +66,18 @@ header {
     background: none;
     background: var(--PRIMARY);
 
+
+    #cartCount {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        color: var(--PRIMARY);
+        transform: translate(0, -30%);
+        /*background: var(--PRIMARY);*/
+        padding: .2em;
+        border-radius: 50%;
+    }
+
     svg.cart {
         width: 100%;
         height: 100%;
