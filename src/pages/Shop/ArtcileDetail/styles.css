@@ -1,77 +1,105 @@
 #articleDetail {
-  .flex>div {
-    margin: 0 1rem;
-    flex: 1;
-  }
-  .flex > .text {
-    @media screen and (max-width: 1024px) {
-      margin-top: 3.5rem;
-    }
-  }
-
-  .images {
-    background-color: transparent;
-    height: 100vh;
-    max-height: 50vh;
-
-    @media screen and (max-width: 1024px) {
-      max-height: 60vh;
+    .flex > div {
+        margin: 0 1rem;
+        flex: 1;
     }
 
-    &>img {
-      border-radius: 4px;
-      max-height: 100%;
-      max-width: 100%;
-      height: 100%;
-      width: auto;
-      object-fit: contain;
-    }
-  }
-
-  h3 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .text {
-
-
-    .colorWrapper {
-      display: flex;
-      align-items: center;
-
-      >div {
-        border: 2px solid var(--LIGHT);
-        cursor: pointer;
-        margin: 0 8px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-
-        &.selected {
-          box-shadow: 0 0 5px 5px var(--LIGHT);
+    .flex > .text {
+        @media screen and (max-width: 1024px) {
+            margin-top: 3.5rem;
         }
-      }
     }
 
-    #price {
-      font-size: 3rem;
-      font-family: 'Metal Mania';
-      position: relative;
+    .images {
+        background-color: transparent;
+        height: 100vh;
+        max-height: 50vh;
 
-      &::after {
-        content: '(* prix unitaire TTC)';
-        font-size: .25em;
-        font-family: initial;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        display: block;
-        width: max-content;
-        height: max-content;
-      }
+        @media screen and (max-width: 1024px) {
+            max-height: 60vh;
+        }
+
+        & > img {
+            border-radius: 4px;
+            max-height: 100%;
+            max-width: 100%;
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
     }
-  }
 
+    h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
 
+    .text {
+        .colorWrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            > div {
+                border: 2px solid var(--LIGHT);
+                cursor: pointer;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+
+                &.selected {
+                    box-shadow: 0 0 5px 5px var(--LIGHT);
+                }
+            }
+        }
+
+        #price {
+            font-size: 3rem;
+            font-family: 'Metal Mania';
+
+            & + p {
+                font-size: .75em;
+                position: relative;
+                top: -2em;
+
+            }
+        }
+    }
+
+    #saveToCart {
+        margin-top: 2rem;
+        text-transform: none;
+        display: inline-flex;
+        align-items: center;
+
+        @media screen and (min-width: 1024px) {
+            &:hover {
+                background: var(--PRIMARY);
+                color: var(--DARK);
+
+                &::after {
+                    width: 16px;
+                    padding: 4px;
+                }
+            }
+
+            &::after {
+                content: '';
+                display: inline-block;
+                overflow: hidden;
+                width: 0;
+                height: auto;
+                max-height: 14px;
+                aspect-ratio: 1;
+                padding: 0;
+                transition: all .15s linear;
+                border-radius: 50%;
+                margin-left: 8px;
+                background: url('/src/assets/icons/shopCart.svg') center no-repeat, var(--PRIMARY);
+                background-size: contain;
+            }
+
+        }
+    }
 }

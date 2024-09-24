@@ -5,7 +5,6 @@ export const findUserByEmail = async (author) => {
     try {
         const response = await axiosInstance.get('/api/users?email=' + author.email);
         const user = response.data['hydra:member'].length === 1 ? response.data['hydra:member'][0] : null;
-        console.log(response);
         return user;
     } catch (error) {
         console.error(error);
@@ -14,7 +13,6 @@ export const findUserByEmail = async (author) => {
 export const findStockById = async (id) => {
     try {
         const response = await axiosInstance.get('/api/stocks/' + id);
-        console.log(response);
         // const stock = response.data['hydra:member'].length === 1 ? response.data['hydra:member'][0] : null;
         const stock = response.data;
         return stock;
@@ -49,4 +47,19 @@ export const addNewOrder = async (order) => {
     } catch (e) {
         console.log(e);
     }
+};
+
+export const findStocksById = async (articleCommands) => {
+    const stockIds = [];
+    articleCommands.map(articleCommand => (stockIds.push(articleCommand.stock.id)));
+    const searchParams = new URLSearchParams({id: stockIds});
+
+    try {
+        const response = await new AxiosInstance.get('/api/stocks', searchParams.toString());
+        const stocks = response.data['hydra:member'];
+        return stocks;
+    } catch (e) {
+        console.log(e);
+    }
+
 };

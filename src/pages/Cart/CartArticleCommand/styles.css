@@ -1,0 +1,26 @@
+.cart-item {
+    height: 100px;
+    display: flex;
+    box-shadow: 2px 2px 5px 2px white;
+    /*align-items: center;*/
+    overflow: hidden;
+}
+
+.cart-item img {
+    height: auto;
+    width: 75px;
+
+    object-fit: contain;
+    object-position: left;
+}
+
+.cart-item .text {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.cart-item .text .bold {
+    font-weight: bold;
+    font-size: 1.5em;
+}

@@ -1,53 +1,105 @@
 header {
-  position: fixed;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 20;
-  width: 100%;
-  background: var(--DARK_TO_TRANSPARENT_HEADER);
-  line-height: 1;
-  padding-top: 1rem;
+    position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    width: 100%;
+    background: var(--DARK_TO_TRANSPARENT_HEADER);
+    line-height: 1;
+    padding-top: 1rem;
 
-  .container>.flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .navigation button {
-    padding: 0;
-  }
-
-  .navigation {
-    padding: 0;
-    overflow: visible;
-  }
-
-  .flex>svg {
-
-    @media screen and (min-width: 1024px) {
-      display: none;
+    .container > .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-  }
 
-  svg {
-    background-color: transparent;
-    width: 50px;
-    height: 50px;
-
-    path {
-      fill: var(--PRIMARY);
+    .navigation button {
+        padding: 0;
     }
-  }
+
+    .navigation {
+        padding: 0;
+        overflow: visible;
+    }
+
+    .flex > svg {
+
+        @media screen and (min-width: 1024px) {
+            display: none;
+        }
+    }
+
+    svg {
+        background-color: transparent;
+        width: 50px;
+        height: 50px;
+
+        path {
+            fill: var(--PRIMARY);
+        }
+    }
 }
 
 #mainTitle {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  color: var(--LIGHT);
-  font-size: .75rem;
-  width: 100%;
-  text-align: center;
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: var(--LIGHT);
+    font-size: .75rem;
+    width: 100%;
+    text-align: center;
 }
+
+.CTA#goToCart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+    transition: all .3s;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    position: relative;
+    background: none;
+    background: var(--PRIMARY);
+
+    svg.cart {
+        width: 100%;
+        height: 100%;
+
+        path {
+            fill: var(--PRIMARY);
+            fill: var(--DARK);
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .CTA#goToCart:hover {
+        background: var(--PRIMARY);
+        background: var(--DARK);
+        background: none;
+
+        svg.cart path {
+            fill: var(--DARK);
+            fill: var(--PRIMARY);
+        }
+
+        &::after {
+            content: "Mon panier";
+            display: block;
+            width: max-content;
+            text-transform: none;
+            font-weight: normal;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--LIGHT);
+        }
+    }
+}
+

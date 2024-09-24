@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {createContext, useState} from 'react';
 import AxiosInstance from '../core/AxiosInstance.js';
 import {findUserByEmail} from '../core/GlobalMethods.js';
+
 // components
 // svgs
 // contexts
@@ -20,6 +21,7 @@ export function CartContextProvider({children}) {
             city: 'Vannes'
         }
     });
+
     const addToCart = e => {
         console.log('add to cart');
         const articleIndex = cart.articleCommands.findIndex(item => item.stock.id === e.stock.id);
@@ -32,24 +34,19 @@ export function CartContextProvider({children}) {
         }
         return setCart(newCart);
     };
+
     const removeFromCart = e => {
         console.log('remove from cart');
     };
+
     const sendOrder = async () => {
-        console.log('order sent');
-        console.log(cart);
         // define buyer
         const user = await findUserByEmail(cart.buyer);
-        console.log(user);
         const buyer = user ? user : cart.buyer;
+        console.log(cart);
         cart.buyer = buyer;
-
-        cart.articleCommands.map(articleCommand => {
-            console.log('coucou');
-        });
-
+        console.log(cart);
         try {
-            console.log(cart);
             const response = await new AxiosInstance.post(
                 '/api/orders',
                 cart,
@@ -63,6 +60,7 @@ export function CartContextProvider({children}) {
             console.log(e);
         }
     };
+
     return (
         <CartContext.Provider value={{cart, setCart, addToCart, sendOrder}}>
             {children}

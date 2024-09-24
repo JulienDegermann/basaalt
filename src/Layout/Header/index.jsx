@@ -6,6 +6,7 @@ import {useContext} from 'react';
 import {CartContext} from '../../hooks/useCart.jsx';
 import {NavLink} from 'react-router-dom';
 import Button from '/src/components/Button';
+import ShoppingCart from '../../components/svgs/ShoppingCart.jsx';
 
 export default function Header() {
     const {sendOrder} = useContext(CartContext);
@@ -27,14 +28,23 @@ export default function Header() {
                         <Navbar
                             isFooter={false}
                         />
+                        <NavLink
+                            to="/mon-panier"
+                        >
+
+                            <Button
+                                id="goToCart"
+                                // text="Aller au panier"
+                                ariaLabel="Aller au panier"
+                                className="CTA"
+                                // onClick={sendOrder}
+                            >
+                                <ShoppingCart/>
+                            </Button>
+                        </NavLink>
                     </div>
 
-                    <Button
-                        id="sendOrder"
-                        text="Valider ma commande"
-                        className="CTA"
-                        onClick={sendOrder}
-                    />
+
                 </div>
             </div>
         </header>
