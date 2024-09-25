@@ -62,7 +62,6 @@
                 font-size: .75em;
                 position: relative;
                 top: -2em;
-
             }
         }
     }
@@ -96,7 +95,7 @@
                 transition: all .15s linear;
                 border-radius: 50%;
                 margin-left: 8px;
-                background: url('/src/assets/icons/shopCart.svg') center no-repeat, var(--PRIMARY);
+                background: url('/src/assets/icons/shopCart.svg') center no-repeat;
                 background-size: contain;
             }
 
@@ -105,11 +104,7 @@
 }
 
 .addToCart {
-    margin-top: 2rem;
-
-    #saveToCart {
-        margin-top: -2rem;
-    }
+    margin-top: 0rem;
 
     .quantity {
         width: max-content;

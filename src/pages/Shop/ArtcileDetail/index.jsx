@@ -44,14 +44,12 @@ export default function ArticleDetail() {
 
     const availableStockSizes = useMemo(() => {
         const sizes = [];
-        // console.log(sizes);
         const stocks = allStocks?.filter(stock => stock.color === selectedStockColor);
         stocks?.map(stock => {
             if (stock.size) {
                 sizes.push(stock.size);
             }
         });
-        console.log(sizes);
         return sizes;
     }, [selectedStockColor]);
 

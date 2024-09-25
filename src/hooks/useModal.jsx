@@ -11,8 +11,6 @@ export default function ModalContextProvider(
     const [status, setStatus] = useState(true);
     const [modals, setModals] = useState([]);
 
-    console.log(modals);
-
     return (
         <ModalContext.Provider
             value={{

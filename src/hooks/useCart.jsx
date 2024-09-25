@@ -39,8 +39,8 @@ export function CartContextProvider({children}) {
         const newCart = {...cart};
         if (articleIndex !== -1) {
             const prevQuantity = parseInt(newCart.articleCommands[articleIndex].quantity);
-            const stockQuantity = newCart.articleCommands[articleIndex].quantity;
-            if ((prevQuantity + e.quantity) < stockQuantity) {
+            const stockQuantity = newCart.articleCommands[articleIndex].stock.quantity;
+            if ((prevQuantity + e.quantity) <= stockQuantity) {
                 newCart.articleCommands[articleIndex].quantity = prevQuantity + e.quantity;
             }
         } else {

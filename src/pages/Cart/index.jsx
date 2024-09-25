@@ -13,7 +13,6 @@ export default function Cart() {
     const {sendOrder} = useContext(CartContext);
     const {cart, setCart} = useContext(CartContext);
     const articleCommands = cart.articleCommands.length > 0 ? cart.articleCommands : null;
-    console.log(cart);
 
     return (
         <>
@@ -34,9 +33,7 @@ export default function Cart() {
                             })
                         }
 
-                        {
-                            !articleCommands && <p>Le panier est vide</p>
-                        }
+                        {!articleCommands && <p>Le panier est vide</p>}
                     </div>
                 </div>
                 <Button
