@@ -40,7 +40,21 @@ export default function ArticleDetail() {
         return values;
     }, [allStocks]);
 
-    const availableStockSizes = useMemo(() => allStocks?.filter(stock => stock.color === selectedStockColor), [selectedStockColor, allStocks]);
+    // const availableStockSizes = useMemo(() => allStocks?.filter(stock => stock.color === selectedStockColor), [selectedStockColor, allStocks]);
+
+    const availableStockSizes = useMemo(() => {
+        const sizes = [];
+        // console.log(sizes);
+        const stocks = allStocks?.filter(stock => stock.color === selectedStockColor);
+        stocks?.map(stock => {
+            if (stock.size) {
+                sizes.push(stock.size);
+            }
+        });
+        console.log(sizes);
+        return sizes;
+    }, [selectedStockColor]);
+
     const {addToCart} = useContext(CartContext);
 
     const handleClick = async () => {
@@ -111,17 +125,18 @@ export default function ArticleDetail() {
                             </div>
                         </div>
                     }
-                    <FormInput
+                    {availableStockSizes.length > 0 && <FormInput
                         type="select"
                         id="sizeSelect"
                         name="sizeSelect"
                         label="Taille "
                         onChange={e => setSelectedStock(allStocks.find(stock => stock.color === selectedStockColor && stock.size === e.target.value))}
                     >
-                        {availableStockSizes?.map((stock, index) =>
-                            <option key={index} value={stock.size}>{stock.size}</option>
+                        {availableStockSizes?.map((size, index) =>
+                            <option key={index} value={size}>{size}</option>
                         )}
-                    </FormInput>
+                    </FormInput>}
+
 
                     <div className="addToCart">
                         <div className="quantity">
