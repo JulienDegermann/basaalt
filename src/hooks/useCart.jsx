@@ -1,8 +1,10 @@
 // dependencies
 import PropTypes from 'prop-types';
-import {createContext, useMemo, useState} from 'react';
+import {createContext, useContext, useMemo, useState} from 'react';
+
 import AxiosInstance from '../core/AxiosInstance.js';
 import {findUserByEmail} from '../core/GlobalMethods.js';
+import {ModalContext} from './useModal.jsx';
 
 // components
 // svgs
@@ -10,6 +12,8 @@ import {findUserByEmail} from '../core/GlobalMethods.js';
 export const CartContext = createContext({});
 
 export function CartContextProvider({children}) {
+
+    const {modals, setModals} = useContext(ModalContext);
     const [cart, setCart] = useState({
         status: 'saved',
         articleCommands: [],
@@ -35,14 +39,17 @@ export function CartContextProvider({children}) {
         const newCart = {...cart};
         if (articleIndex !== -1) {
             const prevQuantity = parseInt(newCart.articleCommands[articleIndex].quantity);
-            newCart.articleCommands[articleIndex].quantity = prevQuantity + e.quantity;
+            const stockQuantity = newCart.articleCommands[articleIndex].quantity;
+            if ((prevQuantity + e.quantity) < stockQuantity) {
+                newCart.articleCommands[articleIndex].quantity = prevQuantity + e.quantity;
+            }
         } else {
             newCart.articleCommands = [...newCart.articleCommands, e];
         }
         return setCart(newCart);
     };
 
-    const removeFromCart = e => {
+    const removeFromCart = () => {
         console.log('remove from cart');
     };
 
@@ -59,7 +66,15 @@ export function CartContextProvider({children}) {
                     headers:
                         {'Content-Type': 'application/ld+json'}
                 });
-            //     if status 201 : ok -> reset cart
+
+            console.log(response.status);
+            if (response.status === 201) {
+                setModals([...modals, {
+                    type: 'success',
+                    text: 'Votre commande a bien été envoyée'
+                }]);
+            }
+            // if (response.status 201 ): ok -> reset cart
         } catch (e) {
             console.log(e);
         }

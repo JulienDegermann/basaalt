@@ -19,25 +19,25 @@ export default function App() {
     return (
         <>
             <BrowserRouter>
-                <CartContextProvider>
-                    <GroupContextProvider>
-                        <NetworksContextProvider>
-                            <YoutubeContextProvider>
-                                <SongsContextProvider>
-                                    <LivesContextProvider>
-                                        <ShopContextProvider>
-                                            <ModalContextProvider>
+                <ModalContextProvider>
+                    <CartContextProvider>
+                        <GroupContextProvider>
+                            <NetworksContextProvider>
+                                <YoutubeContextProvider>
+                                    <SongsContextProvider>
+                                        <LivesContextProvider>
+                                            <ShopContextProvider>
                                                 <SendMessageContextProvider>
                                                     <Layout/>
                                                 </SendMessageContextProvider>
-                                            </ModalContextProvider>
-                                        </ShopContextProvider>
-                                    </LivesContextProvider>
-                                </SongsContextProvider>
-                            </YoutubeContextProvider>
-                        </NetworksContextProvider>
-                    </GroupContextProvider>
-                </CartContextProvider>
+                                            </ShopContextProvider>
+                                        </LivesContextProvider>
+                                    </SongsContextProvider>
+                                </YoutubeContextProvider>
+                            </NetworksContextProvider>
+                        </GroupContextProvider>
+                    </CartContextProvider>
+                </ModalContextProvider>
             </BrowserRouter>
         </>
     );

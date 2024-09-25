@@ -1,48 +1,44 @@
 // dependencies
-import { createContext, useState } from "react";
+import {createContext, useState} from 'react';
 import PropTypes from 'prop-types';
+import Modal from '../components/Modal/index.jsx';
 
-export const ModalContext = createContext('')
+export const ModalContext = createContext('');
 
 export default function ModalContextProvider(
-  { children }
+    {children}
 ) {
+    const [status, setStatus] = useState(true);
+    const [modals, setModals] = useState([]);
 
-  const [status, setStatus] = useState(true)
-  const [modals, setModals] = useState([])
+    console.log(modals);
 
-  return (
-    <ModalContext.Provider
-      value={{
-        status,
-        setStatus,
-        modals,
-        setModals
-      }}>
-      <div className="modal">
-        {modals.map((e, i) => {
-          if (e.status) {
-            return (
-              <div key={i} className={e.type}>
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h3>{e.title}</h3>
-                    <button onClick={() => { setModals([...modals, modals[i].status = false]) }} >X</button>
-                  </div>
-                  <div className="modal-body">
-                    {e.children}
-                  </div>
-                </div>
-              </div>
-            )
-          }
-        })}
-      </div>
-      {children}
-    </ModalContext.Provider>
-  )
+    return (
+        <ModalContext.Provider
+            value={{
+                status,
+                setStatus,
+                modals,
+                setModals
+            }}>
+            <div className="modalContainer">
+
+                {modals.map((modal, i) => {
+                    console.log(modal);
+
+                    return (<Modal
+                            key={i}
+                            type={modal.type}
+                            text={modal.text}
+                        />
+                    );
+                })}
+            </div>
+            {children}
+        </ModalContext.Provider>
+    );
 }
 
 ModalContextProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+    children: PropTypes.node.isRequired,
+};

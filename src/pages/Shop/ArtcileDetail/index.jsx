@@ -11,48 +11,61 @@ import {CartContext} from '../../../hooks/useCart.jsx';
 // components
 import Section from '/src/components/Section';
 import Button from '/src/components/Button';
+import FormInput from '../../../components/FormInput.jsx';
 
 export default function ArticleDetail() {
+
     // get datas : stocks, article from stocks ,cart
     const id = useParams().id;
     const [allStocks, setAllStocks] = useState(null);
-    const [article, setArticle] = useState(null);
-    const [quantity, setQuantity] = useState(1);
-
-    const {addToCart} = useContext(CartContext);
+    const article = useMemo(() => allStocks ? allStocks[0].article : null, [allStocks]);
 
     // set seclectedStock and its Values
-    const [currentStock, setCurrentStock] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+    const [selectedStock, setSelectedStock] = useState(null);
 
-    const currentStockSize = useMemo(() => currentStock?.size, [currentStock]);
-    const currentStockQuantity = useMemo(() => currentStock?.quantity, [currentStock]);
-    const currentStockColor = useMemo(() => currentStock?.color, [currentStock]);
-    const currentStockImage = useMemo(() => currentStock?.stockImages[0]?.fileName ? `${baseURL}/uploads/${currentStock?.stockImages[0]?.fileName}` : DefaultImage, [currentStock]);
+    const selectedStockSize = useMemo(() => selectedStock?.size, [selectedStock]);
+    const selectedStockQuantity = useMemo(() => selectedStock?.quantity, [selectedStock]);
+    const selectedStockColor = useMemo(() => selectedStock?.color, [selectedStock]);
+    const selectedStockImage = useMemo(() => selectedStock?.stockImages[0]?.fileName ? `${baseURL}/uploads/${selectedStock?.stockImages[0]?.fileName}` : DefaultImage, [selectedStock]);
+
+    // available colors and sizes
+    const availableStockColors = useMemo(() => {
+        const values = [];
+        allStocks?.map(stock => {
+            if (!values.includes(stock.color)) {
+                values.push(stock.color);
+            }
+        });
+        return values;
+    }, [allStocks]);
+
+    const availableStockSizes = useMemo(() => allStocks?.filter(stock => stock.color === selectedStockColor), [selectedStockColor, allStocks]);
+    const {addToCart} = useContext(CartContext);
 
     const handleClick = async () => {
-        addToCart({stock: currentStock, quantity: quantity});
+        addToCart({stock: selectedStock, quantity: quantity});
     };
 
     useEffect(() => {
-        const datas = async () => {
+        const getArticle = async () => {
             try {
                 const response = await axiosInstance.get(`/api/stocks?article=${id}`);
                 const datas = response.data['hydra:member'];
                 setAllStocks(datas.filter(stock => stock.quantity > 0));
-                setArticle(datas[0].article);
-                setCurrentStock(datas.find(stock => stock.quantity > 0));
+                setSelectedStock(datas.find(stock => stock.quantity > 0));
             } catch (error) {
                 console.log(error);
             }
         };
-        datas();
+        getArticle();
     }, [id]);
 
     useEffect(() => {
-        if (currentStock?.quantity < quantity) {
-            setQuantity(currentStock.quantity);
+        if (selectedStock?.quantity < quantity) {
+            setQuantity(selectedStock.quantity);
         }
-    }, [currentStock]);
+    }, [selectedStock]);
 
     return (
         <Section
@@ -69,7 +82,7 @@ export default function ArticleDetail() {
 
             <div className="flex">
                 <div className="images">
-                    <img src={currentStockImage} alt="photo de l'article (ou image par défaut)"/>
+                    <img src={selectedStockImage} alt="photo de l'article (ou image par défaut)"/>
                 </div>
                 <div className="text">
                     <h3>Description</h3>
@@ -77,31 +90,20 @@ export default function ArticleDetail() {
                     <p id="price">{article?.price} € *</p>
                     <p>* Prix unitraire TTC</p>
                     {allStocks?.length > 1 &&
-                        <div className="sizes">
-                            <h4>Taille</h4>
-                            <p>
-                                {allStocks?.map(stock => {
-                                    return stock.size;
-                                }).join(' ,'
-                                )}
-                            </p>
-                        </div>
-                    }
-                    {allStocks?.length > 1 &&
                         <div className="colors">
                             <h4>Couleur</h4>
                             <div className="colorWrapper">
 
-                                {allStocks?.map((stock, index) => {
+                                {availableStockColors?.map((color, index) => {
                                     return <div
                                         key={index}
-                                        value={stock.color}
-                                        className={stock === currentStock ? 'selected' : ''}
+                                        value={color}
+                                        className={color === selectedStock.color ? 'selected' : ''}
                                         style={{
-                                            backgroundColor: stock.color,
+                                            backgroundColor: color,
                                         }}
                                         onClick={() => {
-                                            setCurrentStock(stock);
+                                            setSelectedStock(allStocks.find(stock => stock.color === color));
                                         }}
                                     >
                                     </div>;
@@ -109,6 +111,18 @@ export default function ArticleDetail() {
                             </div>
                         </div>
                     }
+                    <FormInput
+                        type="select"
+                        id="sizeSelect"
+                        name="sizeSelect"
+                        label="Taille "
+                        onChange={e => setSelectedStock(allStocks.find(stock => stock.color === selectedStockColor && stock.size === e.target.value))}
+                    >
+                        {availableStockSizes?.map((stock, index) =>
+                            <option key={index} value={stock.size}>{stock.size}</option>
+                        )}
+                    </FormInput>
+
                     <div className="addToCart">
                         <div className="quantity">
                             <Button
@@ -123,7 +137,7 @@ export default function ArticleDetail() {
                             <Button
                                 id="incrementQuantity"
                                 onClick={() => {
-                                    setQuantity(prev => prev + 1 > currentStockQuantity ? prev : prev + 1);
+                                    setQuantity(prev => prev + 1 > selectedStockQuantity ? prev : prev + 1);
                                 }}
                                 className="CTA"
                                 text="+"

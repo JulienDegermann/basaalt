@@ -47,9 +47,7 @@ export function SendMessageContextProvider({children}) {
                 });
                 setModals([...modals, {
                     type: 'success',
-                    title: 'Message envoyé',
-                    status: true,
-                    children: 'Votre message a bien été envoyé'
+                    text: 'Votre message a bien été envoyé'
                 }]);
             }
         } catch (error) {
