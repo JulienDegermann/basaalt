@@ -10,23 +10,17 @@ export const SendMessageContext = createContext({});
 
 export function SendMessageContextProvider({children}) {
     const {modals, setModals} = useContext(ModalContext);
-    // define object pattern
-    const [message, setMessage] = useState({
+    const [message, setMessage] = useState({});
+    const [messageErrors, setMessageErrors] = useState({
         text: '',
-        author: {
+        user: {
             firstName: '',
             lastName: '',
             email: ''
         }
     });
-    const [errors, setErrors] = useState({
-        text: '',
-        author: {
-            firstName: '',
-            lastName: '',
-            email: ''
-        }
-    });
+
+    console.log(message);
     const sendMessage = async (message) => {
         try {
             const res = await axiosInstance.post(
@@ -37,14 +31,7 @@ export function SendMessageContextProvider({children}) {
                         {'Content-Type': 'application/ld+json'}
                 });
             if (res.status === 201) {
-                setErrors({
-                    text: '',
-                    author: {
-                        firstName: '',
-                        lastName: '',
-                        email: ''
-                    }
-                });
+                setMessage({});
                 setModals([...modals, {
                     type: 'success',
                     text: 'Votre message a bien été envoyé'
@@ -52,36 +39,46 @@ export function SendMessageContextProvider({children}) {
             }
         } catch (error) {
             const violations = error.response.data.violations;
-            const newErrors = {...errors};
+            const newErrors = {...messageErrors};
             // foreach input, check if there is an error message -> if yes, display it
-            newErrors.author.firstName = violations.find((violation) => violation.propertyPath === 'author.firstName') ? violations.find((violation) => violation.propertyPath === 'author.firstName').message : '';
-            newErrors.author.lastName = violations.find((violation) => violation.propertyPath === 'author.lastName') ? violations.find((violation) => violation.propertyPath === 'author.lastName').message : '';
-            newErrors.author.email = violations.find((violation) => violation.propertyPath === 'author.email') ? violations.find((violation) => violation.propertyPath === 'author.email').message : '';
+            newErrors.user.firstName = violations.find((violation) => violation.propertyPath === 'author.firstName') ? violations.find((violation) => violation.propertyPath === 'author.firstName').message : '';
+            newErrors.user.lastName = violations.find((violation) => violation.propertyPath === 'author.lastName') ? violations.find((violation) => violation.propertyPath === 'author.lastName').message : '';
+            newErrors.user.email = violations.find((violation) => violation.propertyPath === 'author.email') ? violations.find((violation) => violation.propertyPath === 'author.email').message : '';
             newErrors.text = violations.find((violation) => violation.propertyPath === 'text') ? violations.find((violation) => violation.propertyPath === 'text').message : '';
-            setErrors(newErrors);
+            setMessage(newErrors);
         }
     };
+
     const verifyDatas = message => {
-        const errReg = {...errors};
+        const errReg = {...messageErrors};
         // foreach input, check if there is an error message -> if yes, display it
-        errReg.author.firstName = Regex({value: message.author.firstName, type: 'name', fieldName: 'Prénom'});
-        errReg.author.lastName = Regex({value: message.author.lastName, type: 'name', fieldName: 'Nom'});
-        errReg.author.email = Regex({value: message.author.email, type: 'email', fieldName: 'E-mail'});
-        errReg.text = Regex({value: message.text, type: 'text', fieldName: 'Message'});
-        setErrors(errReg);
-        if (errReg.author.firstName || errReg.author.lastName || errReg.author.email || errReg.text) {
+
+        const testFirstName = message?.author?.firstName ? message.author.firstName : null;
+        const testLastName = message?.author?.lastName ? message.author.lastName : null;
+        const testEmail = message?.author?.firstName ? message.author.email : null;
+        const testText = message?.text ? message.text : null;
+
+        errReg.user.firstName = Regex({value: testFirstName, type: 'name', fieldName: 'Prénom'});
+        errReg.user.lastName = Regex({value: testLastName, type: 'name', fieldName: 'Nom'});
+        errReg.user.email = Regex({value: testEmail, type: 'email', fieldName: 'E-mail'});
+        errReg.text = Regex({value: testText, type: 'text', fieldName: 'Message'});
+        setMessageErrors(errReg);
+        if (errReg.user.firstName || errReg.user.lastName || errReg.user.email || errReg.text) {
             return true;
         }
     };
-    const sendMessageResponse = async () => {
+
+    const sendMessageResponse = async (message) => {
         // find user by email if exists
-        const user = await findUserByEmail(message.author);
+        const foundUser = await findUserByEmail(message.user);
         // create messsage object
-        const author = user ? user : message.author;
+        const user = foundUser ? foundUser : message?.user ? message.user : null;
         const sendingMessage = {
-            text: message.text,
-            author: author
+            text: message.text ? message.text : null,
+            author: user
         };
+
+        console.log(sendingMessage);
         // verify datas with front regex
         const regex = verifyDatas(sendingMessage);
         if (regex) {
@@ -90,6 +87,7 @@ export function SendMessageContextProvider({children}) {
         // send message
         sendMessage(sendingMessage);
     };
+
     const handleSendMessage = (e) => {
         e.preventDefault();
         sendMessageResponse(message);
@@ -100,8 +98,8 @@ export function SendMessageContextProvider({children}) {
                 {
                     message,
                     setMessage,
-                    errors,
-                    setErrors,
+                    messageErrors,
+                    setMessageErrors,
                     handleSendMessage
                 }
             }>

@@ -1,11 +1,14 @@
 import axiosInstance from '/src/core/AxiosInstance';
 import AxiosInstance from './AxiosInstance.js';
 
-export const findUserByEmail = async (author) => {
+export const findUserByEmail = async (user) => {
+    if (!user) {
+        return null;
+    }
     try {
-        const response = await axiosInstance.get('/api/users?email=' + author.email);
-        const user = response.data['hydra:member'].length === 1 ? response.data['hydra:member'][0] : null;
-        return user;
+        const response = await axiosInstance.get('/api/users?email=' + user.email);
+        const data = response.data['hydra:member'].length === 1 ? response.data['hydra:member'][0] : null;
+        return data;
     } catch (error) {
         console.error(error);
     }
