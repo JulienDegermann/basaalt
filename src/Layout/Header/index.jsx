@@ -7,12 +7,14 @@ import {CartContext} from '../../hooks/useCart.jsx';
 import {NavLink} from 'react-router-dom';
 import Button from '/src/components/Button';
 import ShoppingCart from '../../components/svgs/ShoppingCart.jsx';
+import Logo from '/src/assets/images/basaalt.webp';
 
 export default function Header() {
     const {sendOrde, cartCount} = useContext(CartContext);
     return (
         <header>
             <div className="container">
+                <img id={'logoHeader'} src={Logo} alt={'logo Basaalt'}/>
                 <div className="flex col align-center justify-center">
 
                     <NavLink

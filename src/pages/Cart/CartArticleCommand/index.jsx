@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import './styles.css';
-import DefaultImage from '/src/assets/images/defaultStockImage.jpg';
+import DefaultImage from '/src/assets/images/defaultStockImage.webp';
 import {useContext, useMemo} from 'react';
 import {baseURL} from '../../../core/AxiosInstance.js';
 import {CartContext} from '../../../hooks/useCart.jsx';

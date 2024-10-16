@@ -1,50 +1,65 @@
 #heroBanner .sectionTitle {
-  color: var(--LIGHT);
-  border: none;
-  margin: initial;
-  padding: initial;
-  font-size: 1.2rem;
-  text-align: center;
+    color: var(--LIGHT);
+    border: none;
+    margin: initial;
+    padding: initial;
+    font-size: 1.2rem;
+    text-align: center;
 
-  @media screen and (min-width: 660px) {
-    font-size: 2rem;
-  }
+    @media screen and (min-width: 660px) {
+        font-size: 2rem;
+    }
 }
 
 #heroBanner {
-  width: 100%;
-  height: 100vh;
-  padding: 0rem;
-  box-shadow: 0 0 50px 40px var(--DARK) inset;
-  position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 0rem;
+    box-shadow: 0 0 50px 40px var(--DARK) inset;
+    position: relative;
 }
 
 #heroBanner .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 4rem;
 }
 
 #heroBanner .CTA {
-  position: relative;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 
-  @media screen and (min-width: 768px) {
-    margin-top: 2rem;
-    margin-bottom: 5vh;
-  }
+    @media screen and (min-width: 768px) {
+        margin-top: 2rem;
+        margin-bottom: 5vh;
+    }
 }
 
 #heroBanner img {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  object-fit: cover;
-  object-position: center;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
+
+#heroBanner .logo {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    height: min-content;
+    object-fit: contain;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1023px) and (orientation: portrait) {
+        margin-bottom: 50%;
+        max-width: 400px;
+    }
+}
+

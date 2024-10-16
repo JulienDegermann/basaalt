@@ -20,6 +20,7 @@ export default function Button({
                 href={url}
                 className={className}
                 aria-label={ariaLabel ? ariaLabel : text}
+                target={'_blank'}
             >
                 {text}
             </a>);

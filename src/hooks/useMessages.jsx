@@ -20,7 +20,6 @@ export function SendMessageContextProvider({children}) {
         }
     });
 
-    console.log(message);
     const sendMessage = async (message) => {
         try {
             const res = await axiosInstance.post(
@@ -78,7 +77,6 @@ export function SendMessageContextProvider({children}) {
             author: user
         };
 
-        console.log(sendingMessage);
         // verify datas with front regex
         const regex = verifyDatas(sendingMessage);
         if (regex) {

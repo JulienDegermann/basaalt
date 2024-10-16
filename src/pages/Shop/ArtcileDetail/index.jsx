@@ -1,13 +1,16 @@
 import './styles.css';
-import DefaultImage from '/src/assets/images/defaultStockImage.jpg';
+import DefaultImage from '/src/assets/images/defaultStockImage.webp';
 import {baseURL} from '../../../core/AxiosInstance.js';
+
 // dependecies
 import PropTypes from 'prop-types';
 import {useContext, useEffect, useMemo, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import axiosInstance from '/src/core/AxiosInstance';
+
 // contexts
 import {CartContext} from '../../../hooks/useCart.jsx';
+
 // components
 import Section from '/src/components/Section';
 import Button from '/src/components/Button';

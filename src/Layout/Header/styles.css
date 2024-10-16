@@ -22,6 +22,10 @@ header {
     .navigation {
         padding: 0;
         overflow: visible;
+
+        @media screen and (min-width: 1024px) {
+            padding-top: 1rem;
+        }
     }
 
     .flex > svg {
@@ -50,6 +54,17 @@ header {
     font-size: .75rem;
     width: 100%;
     text-align: center;
+    opacity: 0;
+}
+
+#logoHeader {
+    height: 40px;
+    width: auto;
+    -o-object-fit: contain;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%)
 }
 
 .CTA#goToCart {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {useMemo} from 'react';
 import './styles.css';
 import {baseURL} from '/src/core/AxiosInstance';
-import DefaultImage from '/src/assets/images/defaultStockImage.jpg';
+import DefaultImage from '/src/assets/images/defaultStockImage.webp';
 // components
 import {NavLink} from 'react-router-dom';
 // contexts
