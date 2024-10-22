@@ -96,6 +96,24 @@ export default function FormInput({
                 {error && <p className="error">{error}</p>}
 
             </div>);
+    } else if (type === 'phone') {
+        return (<div className="formInput">
+            <label htmlFor={name}>{label}
+            </label>
+            {error && <p className="error">{error}</p>}
+
+            <input
+                type="tel"
+                name={name}
+                id={name}
+                required
+                placeholder={placeholder}
+                onChange={e => onChange(e)}
+                className={error ? 'error' : ''}
+                tabIndex={0}
+            />
+        </div>);
+
     } else {
         return (
             <div className="formInput">

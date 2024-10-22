@@ -1,8 +1,7 @@
 .cart-item {
     height: 100px;
     display: flex;
-    box-shadow: 2px 2px 5px 2px white;
-    /*align-items: center;*/
+    align-items: center;
     overflow: hidden;
 }
 
@@ -16,11 +15,39 @@
 
 .cart-item .text {
     width: 100%;
-    display: flex;
     align-items: center;
+    font-size: 1rem;
 }
 
-.cart-item .text .bold {
-    font-weight: bold;
-    font-size: 1.5em;
+.cart-item .text p {
+    line-height: 1.2;
+
+    &.info {
+        color: var(--GRAY);
+        font-size: .7em;
+        font-style: italic;
+    }
+
+    &.bold {
+        font-weight: bold;
+        font-size: 1.2em;
+        padding-top: .25rem;
+    }
 }
+
+.trash {
+    background: url("../../../assets/icons/trash.svg") no-repeat center center, var(--PRIMARY);
+    width: 30px;
+    height: 30px;
+    padding: 1rem;
+    border: none;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &:active {
+        transform: scale(1);
+    }
+}
+

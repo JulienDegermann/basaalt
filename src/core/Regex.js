@@ -7,15 +7,17 @@ regex.propTypes = {
 };
 /**
  * @name regex
- * @description
+ * @description : controls whether datas are correct
  * @param {string} value : the value to test (name, text, email, phone)
- * @param {string} type : the type of value to test
+ * @param {string} type : the type of field/property to test
  * @param {string} fieldName : the name of the field to display in the error message
  * @returns {boolean} : true if the value is correct
  */
 export default function regex({value, type, fieldName}) {
+
     if (!value) {
-        return `${fieldName} requis`;
+        console.log(fieldName);
+        return type === 'address' ? `${fieldName} requise` : `${fieldName} requis`;
     }
     switch (type) {
         case 'name':
@@ -26,6 +28,8 @@ export default function regex({value, type, fieldName}) {
             return emailValidator(value, fieldName);
         case 'phone':
             return phoneValidator(value, fieldName);
+        case 'address':
+            return addressValidator(value, fieldName);
         default:
             return false;
     }
@@ -41,7 +45,7 @@ export function nameValidator(value = null, fieldName = '') {
     if (value.length < 2 || value.length > 255) {
         return `${fieldName} invalide : doit contenir entre 2 et 255 caractères`;
     }
-    const name = new RegExp(/^[a-zA-Z\s\-\p{L}]{2,255}$/);
+    const name = new RegExp(/^[a-zA-Z\s\-\p{L}]{2,255}$/, 'u');
     if (!name.test(value)) {
         return `${fieldName} invalide : contient des caractères non autorisés`;
     }
@@ -58,7 +62,18 @@ export function textValidator(value = null, fieldName = '') {
     if (value.length < 2) {
         return `${fieldName} invalide : doit contenir plus de 2 caractères`;
     }
-    const text = new RegExp(/^[a-zA-Z0-9\s()\-\'?:.,!@\/\"\p{L}]{2,}$/);
+    const text = new RegExp('^[a-zA-Z0-9\\s()\'?:.,!@/\"\\p{L}\\-]{2,}$', 'u');
+    if (!text.test(value)) {
+        return `${fieldName} invalide : contient des caractères non autorisés`;
+    }
+    return false;
+}
+
+export function addressValidator(value = null, fieldName = '') {
+    if (value.length < 2) {
+        return `${fieldName} invalide : doit contenir plus de 2 caractères`;
+    }
+    const text = new RegExp('^[a-zA-Z0-9\\s()\'?:.,!@/\"\\p{L}\\-]{2,}$', 'u');
     if (!text.test(value)) {
         return `${fieldName} invalide : contient des caractères non autorisés`;
     }
@@ -89,8 +104,13 @@ export function phoneValidator(value = null, fieldName = '') {
     if (!value) {
         return `${fieldName} requis`;
     }
+
+    if (value.length < 10 || value.length > 14) {
+        return 'Numéro de téléphone invalide';
+    }
+
     const phone = new RegExp(/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2,})$/);
-    if (phone.test(value)) {
+    if (!phone.test(value)) {
         return 'Numéro de téléphone invalide';
     }
     return false;
