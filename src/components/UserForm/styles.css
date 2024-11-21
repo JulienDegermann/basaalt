@@ -1,62 +1,76 @@
 form {
-    max-width: 600px;
-    width: 100%;
-    margin: auto;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 
-    label {
-        margin-top: 1.5rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-right: 1rem;
-    }
+  label {
+    margin-top: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 1rem;
+  }
 }
 
 form .formInput {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 form .formInput > * {
-    width: 100%;
+  width: 100%;
 }
 
 input,
 textarea,
 select {
-    margin-top: .5rem;
-    padding: 1rem;
-    border-radius: 5px;
-    border: 1px solid var(--DARK);
-    margin-bottom: 1rem;
-    font-family: inherit;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid var(--DARK);
+  margin-bottom: 1rem;
+  font-family: inherit;
 
-    &:focus {
-        box-shadow: 0 0px 4px 4px var(--PRIMARY);
-        border-color: var(--PRIMARY);
-        outline: none;
-    }
+  &:focus {
+    box-shadow: 0 0px 4px 4px var(--PRIMARY);
+    border-color: var(--PRIMARY);
+    outline: none;
+  }
 }
 
 textarea {
-    resize: vertical;
-    height: 200px;
+  resize: vertical;
+  height: 200px;
 }
 
 #contact .CTA {
-    cursor: pointer;
-    margin: 2rem 0;
+  cursor: pointer;
+  margin: 2rem 0;
 }
 
 p.error {
-    font-size: .75em;
-    font-style: italic;
-    line-height: 1.2;
-    color: var(--DANGER_LIGHT);
+  font-size: 0.75em;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--DANGER_LIGHT);
 
-    &::before {
-        content: '⛔️ ';
-        font-style: normal;
-    }
+  &::before {
+    content: "⛔️ ";
+    font-style: normal;
+  }
+
+}
+
+form :where(.cityOption, #cityValue){
+    text-transform: uppercase;
+}
+
+form .cityOption{
+    background: var(--LIGHT);
+    color: var(--DARK);;
+    padding: .5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 4px;
 }
