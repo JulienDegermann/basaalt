@@ -3,7 +3,7 @@ import "./styles.css";
 
 // dependencies
 import PropTypes from "prop-types";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useState, useEffect } from "react";
 
 // contexts
 import { SendMessageContext } from "../../hooks/useMessages.jsx";
@@ -17,7 +17,19 @@ export default function UserForm({ isMessage = true }) {
   const { message, setMessage, messageErrors } = useContext(SendMessageContext);
   const { cart, setCart, cartErrors } = useContext(CartContext);
 
+  // cart.user.city = useMemo(() => { return searchCity }, [setSearchCity]);
+
   const { cities, searchCity, setSearchCity } = useContext(CitiesContext);
+
+
+  useEffect(() => {
+    const data = cities.find((city) => {
+      return `${city.name.toUpperCase()} (${city.zipCode})` == searchCity;
+    });
+
+    console.log(data);
+    setCart({ ...cart, user: { ...cart.user, city: data } });
+  }, [searchCity]);
 
   const errors = useMemo(
     () => (isMessage ? messageErrors : cartErrors),
@@ -117,48 +129,29 @@ export default function UserForm({ isMessage = true }) {
           <input
             list="cities"
             placeholder="Votre ville"
-            onChange={(e) => setSearchCity(e.target.value)}
+            onChange={(e) => {
+              setSearchCity(e.target.value);
+              // setCart({
+              //   ...cart,
+              //   user: { ...cart.user, city: e.target.value },
+              // });
+            }}
             id={"cityValue"}
             value={searchCity.name}
           />
           <datalist id="cities">
             {cities.map((city, index) => {
-              console.log(city);
               return (
                 <option
                   key={index}
                   value={`${city.name.toUpperCase()} (${city.zipCode})`}
-                  onClick={(e) =>
-                    setSearchCity(`${city.name} (${city.zipCode})`)
-                  }
+                  // value={`${city.name.toUpperCase()} (${city.zipCode.toUpperCase()})`}
                 >
-                  {city.name.toUpperCase()} ({city.zipCode})
+                  {/* {city.name.toUpperCase()} ({city.zipCode}) */}
                 </option>
               );
             })}
           </datalist>
-
-          {/* <FormInput
-            type="select"
-            name="city"
-            label="Ville"
-            error={errors?.user?.city ? errors.user.city : ""}
-            placeholder="Ex : Paris"
-            onChange={(e) =>
-              setCart({ ...cart, user: { ...cart.user, city: e.target.value } })
-            }
-          >
-            
-            <option>Sélectionner une ville</option>
-            {cities.map((city, index) => {
-              console.log(city);
-              return (
-                <option key={index} value={city["@id"]}>
-                  {city.name.toUpperCase()} ({city.zipCode})
-                </option>
-              );
-            })}
-          </FormInput> */}
         </>
       )}
 

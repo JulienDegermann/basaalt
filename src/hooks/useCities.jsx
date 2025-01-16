@@ -7,23 +7,15 @@ export const CitiesContext = createContext();
 
 export function CitiesContextProvider({ children }) {
   const [cities, setCities] = useState([]);
-  const [searchCity, setSearchCity] = useState('');
+  const [searchCity, setSearchCity] = useState("");
 
   const citiesDatas = async () => {
-    // const params = {
-    //   name: "",
-    //   zipCode: "",
-    // };
-
-    // const values = searchCity?.split(" ");
-    // values.map((value) => {
-    //   isNaN(value) ? (params.name = value) : (params.zipCode = value);
-    // });
-    
     const params = new URLSearchParams();
 
     searchCity.split(" ").map((value) => {
-      isNaN(value) ? params.append("name", value) : params.append("zipCode", value);
+      isNaN(value)
+        ? params.append("name", value)
+        : params.append("zipCode", value);
     });
 
     try {

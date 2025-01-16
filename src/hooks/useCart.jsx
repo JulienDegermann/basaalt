@@ -5,7 +5,7 @@ import {createContext, useContext, useMemo, useState} from 'react';
 import Regex from '/src/core/Regex';
 
 import AxiosInstance from '../core/AxiosInstance.js';
-import {findUserByEmail} from '../core/GlobalMethods.js';
+import {findUserByEmail, findCity} from '../core/GlobalMethods.js';
 import {ModalContext} from './useModal.jsx';
 
 // components
@@ -16,17 +16,6 @@ export const CartContext = createContext({});
 export function CartContextProvider({children}) {
 
     const {modals, setModals} = useContext(ModalContext);
-    // const [cart, setCart] = useState({
-    //     status: 'saved',
-    //     articleCommands: [],
-    //     user: {
-    //         firstName: 'Julien',
-    //         lastName: 'Degermann',
-    //         email: 'test@test.com',
-    //         address: '7 rue des proutes',
-    //         city: 'Vannes'
-    //     }
-    // });
     const [cart, setCart] = useState({});
 
     const [cartErrors, setCartErrors] = useState({
@@ -37,7 +26,7 @@ export function CartContextProvider({children}) {
         },
         order: ''
     });
-    ``;
+
     const cartCount = useMemo(() => {
 
         if (cart?.articleCommands?.length === 0) {
@@ -68,19 +57,23 @@ export function CartContextProvider({children}) {
 
     const sendOrder = async () => {
         // define buyer
-        const user = await findUserByEmail(cart.buyer);
+        const user = await findUserByEmail(cart.user);
+        // const city = await findCity(cart.buyer.city);
+        console.log(cart.user);
+        console.log(cart.user.city);
         const buyer = user ? user : cart.user;
+        buyer.city = user?.city ? user?.city["@id"] : cart.user.city["@id"];
         cart.buyer = buyer;
         cart.status = 'paymentValid';
 
         const verifyDatas = cart => {
             const errReg = {...cartErrors};
             // foreach input, check if there is an error message -> if yes, display it
-            errReg.user.firstName = Regex({value: cart.buyer?.firstName, type: 'name', fieldName: 'Prénom'});
-            errReg.user.lastName = Regex({value: cart.buyer?.lastName, type: 'name', fieldName: 'Nom'});
-            errReg.user.email = Regex({value: cart.buyer?.email, type: 'email', fieldName: 'E-mail'});
-            errReg.user.address = Regex({value: cart.buyer?.address, type: 'address', fieldName: 'Adresse'});
-            errReg.user.phone = Regex({value: cart.buyer?.phone, type: 'phone', fieldName: 'Numéro de téléphone'});
+            errReg.user.firstName = Regex({value: cart.user?.firstName, type: 'name', fieldName: 'Prénom'});
+            errReg.user.lastName = Regex({value: cart.user?.lastName, type: 'name', fieldName: 'Nom'});
+            errReg.user.email = Regex({value: cart.user?.email, type: 'email', fieldName: 'E-mail'});
+            errReg.user.address = Regex({value: cart.user?.address, type: 'address', fieldName: 'Adresse'});
+            errReg.user.phone = Regex({value: cart.user?.phone, type: 'phone', fieldName: 'Numéro de téléphone'});
             // errReg.text = Regex({value: .text, type: 'text', fieldName: 'Message'});
             setCartErrors(errReg);
             if (errReg.user.firstName || errReg.user.lastName || errReg.user.email) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseURL = 'https://127.0.0.1:8001';
+export const baseURL = 'https://127.0.0.1:8000';
 // for production
 // export const baseURL = '';
 // new Axios instance for use interceptors and set baseURL

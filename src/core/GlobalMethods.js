@@ -13,6 +13,20 @@ export const findUserByEmail = async (user) => {
         console.error(error);
     }
 };
+
+export const findCity = async (city) => {
+    if (!city) {
+        return null;
+    }
+    try {
+        const response = await axiosInstance.get('/api/cities?id=' + city.id);
+        const data = response.data['hydra:member'].length === 1 ? response.data['hydra:member'][0] : null;
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export const findStockById = async (id) => {
     try {
         const response = await axiosInstance.get('/api/stocks/' + id);
