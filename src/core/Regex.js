@@ -16,7 +16,6 @@ regex.propTypes = {
 export default function regex({value, type, fieldName}) {
 
     if (!value) {
-        console.log(fieldName);
         return type === 'address' ? `${fieldName} requise` : `${fieldName} requis`;
     }
     switch (type) {

@@ -27,7 +27,6 @@ export default function UserForm({ isMessage = true }) {
       return `${city.name.toUpperCase()} (${city.zipCode})` == searchCity;
     });
 
-    console.log(data);
     setCart({ ...cart, user: { ...cart.user, city: data } });
   }, [searchCity]);
 

@@ -69,8 +69,8 @@ export default function ArticleDetail() {
                 const datas = response.data['hydra:member'];
                 setAllStocks(datas.filter(stock => stock.quantity > 0));
                 setSelectedStock(datas.find(stock => stock.quantity > 0));
-            } catch (error) {
-                console.log(error);
+            } catch (e) {
+                console.log(e);
             }
         };
         getArticle();

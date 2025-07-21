@@ -22,7 +22,6 @@ export default function ModalContextProvider(
             <div className="modalContainer">
 
                 {modals.map((modal, i) => {
-                    console.log(modal);
 
                     return (<Modal
                             key={i}
