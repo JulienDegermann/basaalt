@@ -32,7 +32,7 @@ export default function Group() {
                 <HomeCard
                   firstName={bandMember.firstName}
                   role={bandMember.bandRole}
-                  image={`${bandMember.firstName}.jpg`}
+                  image={`${bandMember.image}`}
                   // image="basaalt.p ng"
                   key={index}
                 />

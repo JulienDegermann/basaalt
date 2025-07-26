@@ -30,7 +30,7 @@ export default function ArticleDetail() {
     const selectedStockSize = useMemo(() => selectedStock?.size, [selectedStock]);
     const selectedStockQuantity = useMemo(() => selectedStock?.quantity, [selectedStock]);
     const selectedStockColor = useMemo(() => selectedStock?.color, [selectedStock]);
-    const selectedStockImage = useMemo(() => selectedStock?.stockImages[0]?.fileName ? `${baseURL}/uploads/${selectedStock?.stockImages[0]?.fileName}` : DefaultImage, [selectedStock]);
+    const selectedStockImage = useMemo(() => selectedStock?.stockImages[0]?.fileName ? `${baseURL}uploads/${selectedStock?.stockImages[0]?.fileName}` : DefaultImage, [selectedStock]);
 
     // available colors and sizes
     const availableStockColors = useMemo(() => {
